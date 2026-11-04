@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import listings from '../data/listings.json';
+import { content, listings, CALENDLY } from '../data/content.js';
 
 const forSale = listings.for_sale;
 const candidates = listings.new_candidates;
 
 const fmt = (n) => n.toLocaleString('en-US');
 
-const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
+const { hero, approach, land, candidates: cand, why, involved, footerNote } = content;
 ---
 
 <Base>
@@ -50,17 +50,12 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
       </svg>
     </div>
     <div class="wrap hero-inner">
-      <p class="eyebrow hero-eyebrow">Part of Liminal Commons · Anthrōpico</p>
-      <h1>Protecting the world’s<br />wild places, for good.</h1>
-      <p class="hero-lede">
-        The Liminal Forests Alliance secures large, ecologically important wild
-        landscapes around the world — old-growth rainforest, wetlands, wilderness
-        and wildlife corridors — and places each one in an independent trust, so it
-        stays protected for generations to come.
-      </p>
+      <p class="eyebrow hero-eyebrow">{hero.eyebrow}</p>
+      <h1>{hero.h1Lines[0]}<br />{hero.h1Lines[1]}</h1>
+      <p class="hero-lede">{hero.lede}</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#land">See land for sale</a>
-        <a class="btn btn-ghost" href="#approach">How the trust works</a>
+        <a class="btn btn-primary" href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
+        <a class="btn btn-ghost" href={hero.ghostCta.href}>{hero.ghostCta.label}</a>
       </div>
     </div>
   </section>
@@ -68,34 +63,18 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
   <!-- ======================= APPROACH ======================= -->
   <section id="approach" class="approach">
     <div class="wrap">
-      <p class="eyebrow">The approach</p>
-      <h2 class="section-title">A simple idea: buy wild land, then protect it forever.</h2>
-      <p class="lede">
-        Much of the planet’s most important wild land is privately owned — and quietly
-        for sale. Our model is straightforward, and it works in plain steps.
-      </p>
+      <p class="eyebrow">{approach.eyebrow}</p>
+      <h2 class="section-title">{approach.title}</h2>
+      <p class="lede">{approach.lede}</p>
 
       <ol class="steps">
-        <li class="step">
-          <span class="step-n">01</span>
-          <h3>Find the land</h3>
-          <p>We track large, ecologically significant properties on the open market — rainforest, wetlands, wilderness and the corridors that connect them.</p>
-        </li>
-        <li class="step">
-          <span class="step-n">02</span>
-          <h3>Secure it</h3>
-          <p>Each property is acquired with the single goal of protection — not development, logging or resale.</p>
-        </li>
-        <li class="step">
-          <span class="step-n">03</span>
-          <h3>Place it in trust</h3>
-          <p>The land is transferred into an independent trust. The trust holds it for conservation, kept separate from any one owner or company.</p>
-        </li>
-        <li class="step">
-          <span class="step-n">04</span>
-          <h3>Keep it that way</h3>
-          <p>Because protection is written into how the land is held, it stays protected for generations — well beyond any of us.</p>
-        </li>
+        {approach.steps.map((s) => (
+          <li class="step">
+            <span class="step-n">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
       </ol>
     </div>
   </section>
@@ -103,14 +82,9 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
   <!-- ======================= LAND FOR SALE ======================= -->
   <section id="land" class="land">
     <div class="wrap">
-      <p class="eyebrow">Land for sale</p>
-      <h2 class="section-title">Landscapes on the market right now.</h2>
-      <p class="lede">
-        These are real properties currently listed for sale, each handled by an
-        independent broker. Prices are shown as listed by the broker; where a price
-        isn’t publicly confirmed we show “price on request.” Follow each listing to
-        the broker for full details.
-      </p>
+      <p class="eyebrow">{land.eyebrow}</p>
+      <h2 class="section-title">{land.title}</h2>
+      <p class="lede">{land.lede}</p>
 
       <div class="grid">
         {forSale.map((p) => (
@@ -134,12 +108,9 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
       </div>
 
       <div class="candidates">
-        <p class="eyebrow">New candidates under review</p>
-        <h2 class="section-title">Landscapes we’re looking at next.</h2>
-        <p class="lede">
-          Properties we’re currently assessing for their conservation value. Each note
-          below describes the ecological case drawn from the listing itself.
-        </p>
+        <p class="eyebrow">{cand.eyebrow}</p>
+        <h2 class="section-title">{cand.title}</h2>
+        <p class="lede">{cand.lede}</p>
 
         <div class="grid">
           {candidates.map((p) => (
@@ -170,24 +141,14 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
   <section id="why" class="why">
     <div class="wrap why-inner">
       <div class="why-text">
-        <p class="eyebrow">Why it matters</p>
-        <h2 class="section-title">Wild land, once lost, is almost never recovered.</h2>
-        <p class="lede">
-          Old-growth forests, intact wetlands and unbroken wilderness are the planet’s
-          living strongholds — for the water we drink, the climate we depend on and the
-          species that have nowhere else to go.
-        </p>
-        <p class="why-para">
-          When these places change hands on the open market, their future is decided in
-          a single transaction. The same sale that could clear a forest can instead
-          protect it. By acquiring these landscapes and placing them in independent
-          trusts, we aim to make protection the outcome that lasts — not the exception
-          that fades with the next owner.
-        </p>
+        <p class="eyebrow">{why.eyebrow}</p>
+        <h2 class="section-title">{why.title}</h2>
+        <p class="lede">{why.lede}</p>
+        <p class="why-para">{why.para}</p>
         <ul class="why-points">
-          <li><strong>Whole landscapes.</strong> Large, connected areas — not fragments — so ecosystems can function.</li>
-          <li><strong>Permanent by design.</strong> Trust ownership keeps protection in place beyond any individual.</li>
-          <li><strong>Worldwide.</strong> From rainforest to wetland to wilderness corridor, wherever the need is greatest.</li>
+          {why.points.map((pt) => (
+            <li><strong>{pt.strong}</strong>{pt.rest}</li>
+          ))}
         </ul>
       </div>
       <div class="why-aside" aria-hidden="true">
@@ -216,16 +177,12 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
   <!-- ======================= GET INVOLVED ======================= -->
   <section id="involved" class="involved">
     <div class="wrap involved-inner">
-      <p class="eyebrow eyebrow--light">Get involved</p>
-      <h2 class="section-title">Help secure the next landscape.</h2>
-      <p class="involved-lede">
-        Whether you want to help fund an acquisition, contribute land, or explore
-        working together, the alliance is open to conversations. The best place to
-        start is a short call.
-      </p>
+      <p class="eyebrow eyebrow--light">{involved.eyebrow}</p>
+      <h2 class="section-title">{involved.title}</h2>
+      <p class="involved-lede">{involved.lede}</p>
       <div class="involved-actions">
-        <a class="btn btn-primary" href={CALENDLY} target="_blank" rel="noopener noreferrer">Request a conversation</a>
-        <a class="btn btn-ghost" href="#land">Browse the land</a>
+        <a class="btn btn-primary" href={involved.primaryCta.href} target="_blank" rel="noopener noreferrer">{involved.primaryCta.label}</a>
+        <a class="btn btn-ghost" href={involved.ghostCta.href}>{involved.ghostCta.label}</a>
       </div>
     </div>
   </section>
@@ -244,11 +201,7 @@ const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
           <span>Part of Liminal Commons · Anthrōpico</span>
         </div>
       </div>
-      <p class="footer-note">
-        Protecting the world’s wild places, for good. Property details are provided by
-        independent third-party brokers and are subject to change; confirm all details
-        directly with each broker.
-      </p>
+      <p class="footer-note">{footerNote}</p>
     </div>
   </footer>
 </Base>

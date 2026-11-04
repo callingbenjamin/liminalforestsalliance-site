@@ -42,4 +42,4 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
 await mkdir(outDir, { recursive: true });
 await sharp(Buffer.from(svg)).png().toFile(resolve(outDir, 'og.png'));
 await writeFile(resolve(outDir, 'og.svg'), svg);
-console.log('✓ Generated public/og.png');
+console.log('Generated public/og.png');
