@@ -1,0 +1,273 @@
+{
+  "for_sale": [
+    {
+      "name": "Rara Avis Biological Research Station",
+      "location": "Las Horquetas, Sarapiquí, Heredia, Costa Rica",
+      "country": "Costa Rica",
+      "size_ha": 426,
+      "size_acres": 1053,
+      "price": "US$2,500,000",
+      "broker": "The Jaguar Project",
+      "url": "https://www.thejaguarproject.com/conservation-properties/rara-avis/"
+    },
+    {
+      "name": "2,500-Acre Conservation Land With Precious Woods",
+      "location": "Asunción, Limón, Costa Rica",
+      "country": "Costa Rica",
+      "size_ha": 1012,
+      "size_acres": 2500,
+      "price": "US$2,700,000",
+      "broker": "Costa Rica Sotheby's International Realty",
+      "url": "https://sircostarica.com/property/2500-acre-conservation-land-with-precious-woods/"
+    },
+    {
+      "name": "531 ha of Primary Forest for Preservation",
+      "location": "La Virgen / Pangola, Sarapiquí, Costa Rica",
+      "country": "Costa Rica",
+      "size_ha": 531,
+      "size_acres": 1312,
+      "price": "US$1,600,000",
+      "broker": "Eco Realtors CR",
+      "url": "https://ecorealtorscr.com/property/reserve-of-531-ha-primary-forest-for-preservation-sarapiqui/"
+    },
+    {
+      "name": "Hacienda Santa Clara — Coastal Sanctuary",
+      "location": "Near Canoa, Manabí, Ecuador",
+      "country": "Ecuador",
+      "size_ha": 828,
+      "size_acres": 2046,
+      "price": "Price on request",
+      "broker": "Ecuador Beachfront Property",
+      "url": "https://www.ecuadorbeachfrontproperty.com/listings/index.php/listings-home/all-for-sale/land/hacienda-santa-clara-414"
+    },
+    {
+      "name": "Nature's Paradise — 17 Miles of Caribbean Coastline",
+      "location": "Maskall / Corozalito, Belize District, Belize",
+      "country": "Belize",
+      "size_ha": 4241,
+      "size_acres": 10478,
+      "price": "Sealed bid — price on request",
+      "broker": "Tranzon Asset Advisors",
+      "url": "https://www.tranzon.com/atlas26109"
+    },
+    {
+      "name": "PF0011 — 13,000 Acres of Exceptional Ecological Value",
+      "location": "Tres Leguas, Orange Walk, Belize",
+      "country": "Belize",
+      "size_ha": 5261,
+      "size_acres": 13000,
+      "price": "BZD$52,000,000",
+      "price_note": "≈ US$26M",
+      "broker": "501 Properties Belize",
+      "url": "https://501properties.com/properties/pf0011-13000-acres-of-exceptional-ecological-value/"
+    },
+    {
+      "name": "Conservation Acreage — Critical Habitat",
+      "location": "Coastal Road, Belize",
+      "country": "Belize",
+      "size_ha": 670,
+      "size_acres": 1655,
+      "price": "US$1,300 / acre",
+      "price_note": "≈ US$2.15M total",
+      "broker": "InTheTropics Network",
+      "url": "https://inthetropics.net/property-listings/conservation-acreage-critical-habitat/"
+    },
+    {
+      "name": "3,770 ha on the Shore of Lago O'Higgins",
+      "location": "Comuna O'Higgins, Aysén, Chile",
+      "country": "Chile",
+      "size_ha": 3770,
+      "size_acres": 9316,
+      "price": "CLP 1,350,000 / ha",
+      "price_note": "≈ US$5.2M",
+      "broker": "Campos Patagonia",
+      "url": "https://campospatagonia.cl/3-700-has-en-venta-a-orilla-de-lago-ohiggins-patagonia-chilena/"
+    },
+    {
+      "name": "Southern Patagonia Estate, Puerto Cisnes",
+      "location": "Puerto Cisnes, Aysén, Chile",
+      "country": "Chile",
+      "size_ha": 2000,
+      "size_acres": 4942,
+      "price": "US$5,500,000",
+      "broker": "Chile Investments",
+      "url": "https://www.chileinvestments.com/southern-patagonia-chile-real-estate/"
+    },
+    {
+      "name": "La Josefina — Estancia on Lago San Martín",
+      "location": "Lago Argentino Dept., Santa Cruz, Argentina",
+      "country": "Argentina",
+      "size_ha": 16272,
+      "size_acres": 40209,
+      "price": "US$6,400,000",
+      "broker": "Areco Patagónico",
+      "url": "https://www.arecopatagonico.com/principal/estancia-de-16000-ha-en-lago-san-mart%C3%ADn-santa-cruz"
+    },
+    {
+      "name": "Far Ralia",
+      "location": "Newtonmore, Cairngorms National Park, Scotland",
+      "country": "Scotland",
+      "size_ha": 1470,
+      "size_acres": 3633,
+      "price": "Offers over £6,900,000",
+      "price_note": "≈ US$9.2M",
+      "broker": "Savills",
+      "url": "https://www.rightmove.co.uk/properties/168517760"
+    },
+    {
+      "name": "Tyityaba Nature Reserve",
+      "location": "Near Kei Mouth, Eastern Cape, South Africa",
+      "country": "South Africa",
+      "size_ha": 13000,
+      "size_acres": 32124,
+      "price": "R145,000,000",
+      "price_note": "≈ US$8.9M",
+      "broker": "Bass Property Group",
+      "url": "https://liivra.com/listings/43a4abb5-8097-445d-bd9a-68b3d39a104a"
+    },
+    {
+      "name": "Private Nature Reserve Waterberg 0240",
+      "location": "Waterberg, Limpopo, South Africa",
+      "country": "South Africa",
+      "size_ha": 6300,
+      "size_acres": 15568,
+      "price": "R104,500,000",
+      "price_note": "≈ US$6.3M (excl. VAT)",
+      "broker": "WildNet Africa Properties",
+      "url": "https://wildnetafrica.com/south-africa/private-game-reserve-waterberg-0240/"
+    },
+    {
+      "name": "2,377 ha of Native Amazon Forest, Novo Aripuanã",
+      "location": "Novo Aripuanã, Amazonas, Brazil",
+      "country": "Brazil",
+      "size_ha": 2377,
+      "size_acres": 5874,
+      "price": "Price on request",
+      "broker": "Chãozão",
+      "url": "https://chaozao.com.br/imovel/fazenda-em-novo-aripuana-amazonas-com-area-de-2377-ha-r-522940-cod-5UXWPI/"
+    },
+    {
+      "name": "Manuka Point Station",
+      "location": "Rakaia Valley, Canterbury, New Zealand",
+      "country": "New Zealand",
+      "size_ha": 1272,
+      "size_acres": 3143,
+      "price": "NZ$25,000,000 + GST",
+      "price_note": "≈ US$14.1M",
+      "broker": "Bayleys",
+      "url": "https://www.bayleys.co.nz/listings/rural/canterbury/ashburton/-manuka-point--methven-5523056"
+    },
+    {
+      "name": "769 ha of Native Bush, Blackwattle Road",
+      "location": "Frankland River, Western Australia",
+      "country": "Australia",
+      "size_ha": 769,
+      "size_acres": 1900,
+      "price": "Expressions of interest",
+      "broker": "Ray White",
+      "url": "https://www.farmproperty.com.au/property/35131/lot-215-blackwattle-road-frankland-river-wa-6396"
+    },
+    {
+      "name": "598 ha Dehesa near Parque Doñana",
+      "location": "Almonte / Huelva, Andalusia, Spain",
+      "country": "Spain",
+      "size_ha": 598,
+      "size_acres": 1478,
+      "price": "€7,200,000",
+      "price_note": "≈ US$8.0M",
+      "broker": "Dudley Estates",
+      "url": "https://www.dudley-estates.com/property/dehesa-with-598-hectares/"
+    },
+    {
+      "name": "Forestry & Conservation Finca in Petén",
+      "location": "Poptún, Petén, Guatemala",
+      "country": "Guatemala",
+      "size_ha": 2682,
+      "size_acres": 6627,
+      "price": "Q18,000,000",
+      "price_note": "≈ US$2.4M",
+      "broker": "Inmobiliaria Santander",
+      "url": "https://www.inmobiliaria-santander.com/property/finca-propiedad-forestal-y-de-conservacion-en-peten"
+    },
+    {
+      "name": "700 Hectares of Peruvian Rainforest",
+      "location": "Loreto (Iquitos area), Peru",
+      "country": "Peru",
+      "size_ha": 700,
+      "size_acres": 1730,
+      "price": "€644,000",
+      "price_note": "≈ US$720,000",
+      "broker": "All-Real-Estate.com",
+      "url": "https://www.all-real-estate.com/property-details/700-hectares-of-peruvian-rainforest-title-deed-available-74181"
+    }
+  ],
+  "new_candidates": [
+    {
+      "name": "Bosque de Paz — Private Cloud Forest Reserve",
+      "location": "Sarchí (Toro Amarillo), Alajuela, Costa Rica",
+      "country": "Costa Rica",
+      "size_ha": 386,
+      "size_acres": 954,
+      "price": "US$5,000,000",
+      "broker": "Eco Realtors CR",
+      "url": "https://ecorealtorscr.com/property/biological-reserve-private-forest-of-386-ha-and-small-lodge-for-sale-in-the-cloud-forest-of-sarchi/",
+      "ecological_case": "Primary and secondary cloud forest on the Continental Divide, forming a biological corridor between two national parks."
+    },
+    {
+      "name": "Los Campanos Cloud Forest Reserve",
+      "location": "Palo Verde, El Guarco, Cartago, Costa Rica",
+      "country": "Costa Rica",
+      "size_ha": 206,
+      "size_acres": 509,
+      "price": "US$1,950,000",
+      "broker": "Eco Realtors CR",
+      "url": "https://ecorealtorscr.com/property/los-campanos-cloud-forest-reserve/",
+      "ecological_case": "About 90% primary Talamanca cloud forest inside the Navarro & Sombrero Rivers Protected Zone, near Tapantí National Park."
+    },
+    {
+      "name": "Three Creek Preserve",
+      "location": "Malheur County (Brogan), Oregon, USA",
+      "country": "USA",
+      "size_ha": 13331,
+      "size_acres": 32942,
+      "price": "US$13,600,000",
+      "broker": "POLVI Real Estate",
+      "url": "https://polvirealestate.com/three-creek-preserve-malheur-county-eastern-oregon/",
+      "ecological_case": "Nearly 33,000 contiguous acres of high desert — over 19,000 under permanent easement — with pronghorn migration and sage-grouse habitat."
+    },
+    {
+      "name": "Finca en Patagonia — 10,982 ha near Esquel",
+      "location": "Ejido Esquel, Futaleufú, Chubut, Argentina",
+      "country": "Argentina",
+      "size_ha": 10982,
+      "size_acres": 27137,
+      "price": "Price on request",
+      "broker": "Rural Argentina",
+      "url": "https://ruralargentina.com/venta-finca-en-patagonia-esquel-chubut",
+      "ecological_case": "Borders the Laguna La Zeta and Huemules mountain reserves, 12 km from Los Alerces National Park (UNESCO), with native Andean forest."
+    },
+    {
+      "name": "Lago Posadas — 6,128 ha in Patagonia",
+      "location": "Lago Posadas, Río Chico, Santa Cruz, Argentina",
+      "country": "Argentina",
+      "size_ha": 6128,
+      "size_acres": 15142,
+      "price": "US$2,000,000–3,000,000",
+      "broker": "Nordheimer Campos y Estancias",
+      "url": "https://nordheimer.com/campo-en-venta/6128-ha-lago-posadas-provincia-santa-cruz-campo-venta-turismo-lanares-patagonia/2262389",
+      "ecological_case": "Lenga and ñire forest, lagoons and glacier views below Cerro San Lorenzo, on the Chilean border."
+    },
+    {
+      "name": "Mauricedale Game Ranch — Adjacent to Kruger",
+      "location": "Malelane, Mpumalanga, South Africa",
+      "country": "South Africa",
+      "size_ha": 6506,
+      "size_acres": 16077,
+      "price": "R95,000,000",
+      "price_note": "≈ US$5.7M",
+      "broker": "Chas Everitt",
+      "url": "https://commercial.leadingre.com/commercial-property/malelane-properties-commercial-sale/58on9",
+      "ecological_case": "Savanna and mountain bushveld bordering Kruger National Park."
+    }
+  ]
+}
