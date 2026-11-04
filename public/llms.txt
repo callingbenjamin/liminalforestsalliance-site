@@ -1,0 +1,31 @@
+# Liminal Forests Alliance
+
+> The Liminal Forests Alliance secures large, ecologically important wild landscapes around the world - old-growth rainforest, wetlands, wilderness and wildlife corridors - and places each one in an independent trust, so it stays protected for generations. Part of Liminal Commons.
+
+## Policy on AI use
+
+This site welcomes search and answer crawlers and permits AI systems to read and cite its public pages. It does NOT permit use of its content for AI model training. The machine-readable signal on every robots.txt group is: search=yes, ai-input=yes, ai-train=no. Known AI-training crawlers are disallowed in robots.txt and additionally receive an HTTP 403.
+
+## How the model works
+
+- Find the land: track large, ecologically significant properties on the open market - rainforest, wetlands, wilderness and connecting corridors.
+- Secure it: acquire each property with the single goal of protection, not development, logging or resale.
+- Place it in trust: transfer the land into an independent trust that holds it for conservation.
+- Keep it that way: protection is written into how the land is held, so it lasts for generations.
+
+Property details are provided by independent third-party brokers and are subject to change; confirm all details directly with each broker.
+
+## Pages
+
+- [Home](https://liminalforestsalliance.com/): overview, the trust model, land listed for sale, and candidates under review.
+- [Home (Markdown)](https://liminalforestsalliance.com/index.md): the same content as plain Markdown for machine reading.
+
+## Site resources
+
+- [Sitemap](https://liminalforestsalliance.com/sitemap.xml)
+- [robots.txt](https://liminalforestsalliance.com/robots.txt)
+- [llms.txt](https://liminalforestsalliance.com/llms.txt)
+
+## Contact
+
+- Request a conversation: https://calendly.com/dr-benjamin-mv/30min
