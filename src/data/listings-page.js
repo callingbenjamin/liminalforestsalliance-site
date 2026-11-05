@@ -67,10 +67,14 @@ const REGION_BY_COUNTRY = {
   Zimbabwe: 'Africa', 'South Africa': 'Africa', Namibia: 'Africa', Kenya: 'Africa',
   Australia: 'Oceania', 'New Zealand': 'Oceania',
   'United Kingdom': 'Europe',
+  'Sri Lanka': 'Asia', India: 'Asia', Indonesia: 'Asia', Malaysia: 'Asia',
+  Philippines: 'Asia', Thailand: 'Asia', Cambodia: 'Asia', Vietnam: 'Asia',
+  'Papua New Guinea': 'Asia', Nepal: 'Asia', Bhutan: 'Asia', Myanmar: 'Asia',
+  Laos: 'Asia',
 };
 
 // Canonical display order; the page only renders the chips that are actually used.
-export const LISTING_REGIONS = ['Americas', 'Africa', 'Oceania', 'Europe', 'Other'];
+export const LISTING_REGIONS = ['Americas', 'Africa', 'Asia', 'Oceania', 'Europe', 'Other'];
 
 export const regionFor = (l) => REGION_BY_COUNTRY[l.country] || 'Other';
 
