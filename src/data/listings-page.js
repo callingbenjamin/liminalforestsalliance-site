@@ -56,6 +56,40 @@ export function lastChecked() {
 // Area line used on cards and in Markdown: "1,012 ha / 2,500 ac".
 export const areaLine = (l) => `${fmt(l.size_ha)} ha / ${fmt(l.size_acres)} ac`;
 
+// Region grouping for the accordion's filter chips. The listings dataset carries
+// a country but no region, so we fold countries into the same coarse regions the
+// home page uses ("Americas", "Africa", "Oceania", "Europe"). This is geography,
+// not a listing fact: no card detail depends on it.
+const REGION_BY_COUNTRY = {
+  Brazil: 'Americas', Argentina: 'Americas', Chile: 'Americas', Paraguay: 'Americas',
+  Peru: 'Americas', Ecuador: 'Americas', Belize: 'Americas', Guatemala: 'Americas',
+  'Costa Rica': 'Americas', Panama: 'Americas', 'United States': 'Americas', Canada: 'Americas',
+  Zimbabwe: 'Africa', 'South Africa': 'Africa', Namibia: 'Africa', Kenya: 'Africa',
+  Australia: 'Oceania', 'New Zealand': 'Oceania',
+  'United Kingdom': 'Europe',
+};
+
+// Canonical display order; the page only renders the chips that are actually used.
+export const LISTING_REGIONS = ['Americas', 'Africa', 'Oceania', 'Europe', 'Other'];
+
+export const regionFor = (l) => REGION_BY_COUNTRY[l.country] || 'Other';
+
+// A numeric US$ figure for sorting by price. Prefer the explicit ≈US$ conversion,
+// then the display/raw price when it is already in US$. Per-unit figures (e.g.
+// "US$1,300 per acre") are ignored unless a US$ total is given. Returns null when
+// no US$ figure is available (price on request, sealed bid, etc.).
+export function usdValue(l) {
+  const source = [l.price_usd, l.price_display, l.price].find(Boolean) || '';
+  const m = String(source).match(/US\$\s?([\d.,]+)\s?(M|million|K)?/i);
+  if (!m) return null;
+  const v = parseFloat(m[1].replace(/,/g, ''));
+  if (!Number.isFinite(v)) return null;
+  const unit = (m[2] || '').toLowerCase();
+  if (unit.startsWith('m')) return v * 1e6;
+  if (unit === 'k') return v * 1e3;
+  return v;
+}
+
 // Price as shown to people: the broker's listed figure (with any ≈ US$ note),
 // falling back to the raw price if a display string was not provided.
 export const priceLine = (l) => l.price_display || l.price || 'Price on request';
