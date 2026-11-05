@@ -169,19 +169,17 @@ if (track && !STATIC) {
 // ------------------------------------------------------------------ film
 const film = $('[data-film]');
 const filmToggle = $('[data-film-toggle]');
+// The pause control is no longer visible, so a pause is not remembered between
+// visits (otherwise a returning visitor could be left with a frozen film and no
+// visible way to restart it). Clear any choice saved by the earlier version.
 let filmPaused = false;
 try {
-  filmPaused = localStorage.getItem('lfa-film') === 'paused';
+  localStorage.removeItem('lfa-film');
 } catch {
   /* storage unavailable */
 }
 function setFilmPaused(paused) {
   filmPaused = paused;
-  try {
-    localStorage.setItem('lfa-film', paused ? 'paused' : 'playing');
-  } catch {
-    /* ignore */
-  }
   if (filmToggle) {
     filmToggle.setAttribute('aria-pressed', String(paused));
     $('[data-film-label]', filmToggle).textContent = paused ? 'Play film' : 'Pause film';
