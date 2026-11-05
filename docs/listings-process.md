@@ -1,6 +1,6 @@
-# How to update the Listings page (/listings)
+# How to update the Old Growth page (/listings)
 
-The public Listings page shows large, ecologically important wild land that is
+The public Old Growth page shows large, ecologically important wild land that is
 currently for sale. It is the **only** public home for this inventory: the home
 page no longer carries an on-page land section (the old "#land" Atlas accordion
 was removed), and the old callingbenjamin.com/liminal-commons page redirects
@@ -36,8 +36,8 @@ with JavaScript disabled (every detail panel is in the DOM, just collapsed).
 | Helpers + Markdown renderer | `src/data/listings-page.js` |
 | Globe pin positions (approximate) | `src/data/listings-places.js` |
 | Locator globe drawing | `src/scripts/globe.js` (land dots: `src/data/land.json`) |
-| Listings page | `src/pages/listings.astro` → `/listings` |
-| Listings Markdown | `src/pages/listings.md.js` → `/listings.md` |
+| Old Growth page | `src/pages/listings.astro` → `/listings` |
+| Old Growth Markdown | `src/pages/listings.md.js` → `/listings.md` |
 | Sitemap (merges listings) | `src/pages/sitemap.xml.js` via `listingsPages` |
 | Machine index | `public/llms.txt` (Pages section) |
 

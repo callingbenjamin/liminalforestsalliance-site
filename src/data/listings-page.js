@@ -1,4 +1,4 @@
-// Single source of truth for the public Listings page ("/listings").
+// Single source of truth for the public Old Growth page ("/listings").
 //
 // Consumed by:
 //   - src/pages/listings.astro     (the /listings HTML page)
@@ -146,7 +146,7 @@ export function renderListingsMarkdown() {
   const checked = lastChecked();
   const out = [];
 
-  out.push(`# ${listingsMeta.title || 'Land for sale — Liminal Forests Alliance'}`);
+  out.push(`# ${listingsMeta.title || 'Old Growth — Liminal Forests Alliance'}`);
   out.push('');
   if (listingsMeta.intro || listingsMeta.description) {
     out.push(listingsMeta.intro || listingsMeta.description);
@@ -164,7 +164,7 @@ export function renderListingsMarkdown() {
     'These are real properties listed by independent third-party brokers. This page is not an offer of sale and the alliance is not the seller; prices and availability change, so confirm every detail directly with the broker.',
   );
   out.push('');
-  out.push('## Listings');
+  out.push('## Old Growth');
   out.push('');
   for (const l of listings) {
     out.push(listingToMarkdown(l));
