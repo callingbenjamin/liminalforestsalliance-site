@@ -9,12 +9,23 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "node --test",
-    "check:discovery": "node scripts/check-discovery.mjs"
+    "check:discovery": "node scripts/check-discovery.mjs",
+    "gen:land": "node scripts/gen-land.mjs",
+    "gen:icons": "node scripts/gen-icons.mjs",
+    "gen:satellite": "node scripts/gen-satellite.mjs && node scripts/gen-edge.mjs"
   },
   "dependencies": {
-    "astro": "^4.16.18"
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "astro": "^4.16.18",
+    "lenis": "^1.3.27"
   },
   "devDependencies": {
-    "sharp": "^0.33.5"
+    "d3-geo": "^3.1.1",
+    "sharp": "^0.33.5",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
   }
 }

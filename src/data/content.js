@@ -15,21 +15,35 @@ export const CALENDLY = 'https://calendly.com/dr-benjamin-mv/30min';
 export const meta = {
   title: 'Liminal Forests Alliance — Protecting the world’s wild places, for good',
   description:
-    'The Liminal Forests Alliance secures large, ecologically important wild landscapes worldwide and places each one in an independent trust, so it stays protected for generations.',
+    'The Liminal Forests Alliance works to secure large, ecologically important wild landscapes worldwide and to place each one in an independent trust, so it stays protected for generations.',
 };
 
 export const content = {
   hero: {
-    eyebrow: 'Part of Liminal Commons · Anthrōpico',
     h1Lines: ['Protecting the world’s', 'wild places, for good.'],
     lede:
-      'The Liminal Forests Alliance secures large, ecologically important wild landscapes around the world — old-growth rainforest, wetlands, wilderness and wildlife corridors — and places each one in an independent trust, so it stays protected for generations to come.',
-    primaryCta: { label: 'See land for sale', href: '#land' },
-    ghostCta: { label: 'How the trust works', href: '#approach' },
+      'The Liminal Forests Alliance works to secure large, ecologically important wild landscapes around the world — old-growth rainforest, wetlands, wilderness and wildlife corridors — and to place each one in an independent trust, so it stays protected for generations to come.',
+    primaryCta: { label: 'Book a 30-minute call', href: CALENDLY },
+    ghostCta: { label: 'See the land for sale', href: '#land' },
+    ctaNote: 'Fund an acquisition, contribute land or partner with us. It starts with a short call.',
+    // "Right now we're tracking {count} wild landscapes — {hectares} hectares — listed for sale."
+    hook: {
+      lead: 'Right now we’re tracking',
+      landscapes: 'wild landscapes',
+      hectares: 'hectares',
+      tail: 'listed for sale.',
+      after: 'Each one’s future is decided in a single sale.',
+    },
   },
+  nav: [
+    { label: 'Why it matters', href: '#why' },
+    { label: 'How it works', href: '#approach' },
+    { label: 'The land', href: '#land' },
+    { label: 'Get involved', href: '#involved' },
+  ],
   approach: {
-    eyebrow: 'The approach',
-    title: 'A simple idea: buy wild land, then protect it forever.',
+    eyebrow: 'How it works',
+    title: 'A simple idea: buy wild land, then protect it for generations.',
     lede:
       'Much of the planet’s most important wild land is privately owned — and quietly for sale. Our model is straightforward, and it works in plain steps.',
     steps: [
@@ -58,12 +72,36 @@ export const content = {
           'Because protection is written into how the land is held, it stays protected for generations — well beyond any of us.',
       },
     ],
+    // Labels shown on the illustrated satellite plate, one per step.
+    mapLabels: ['Finding the land', 'Boundary secured', 'Held in trust', 'Protected for generations'],
+    ringText: 'Held in trust · Protected for conservation · Beyond any one owner · ',
+    mapCaption: 'Illustration on Copernicus Sentinel-2 imagery of Sarapiquí, Costa Rica. Not an actual property boundary.',
+    cta: { text: 'Questions about how this works?', label: 'Book a 30-minute call' },
   },
   land: {
     eyebrow: 'Land for sale',
     title: 'Landscapes on the market right now.',
     lede:
       'These are real properties currently listed for sale, each handled by an independent broker. Prices are shown as listed by the broker; where a price isn’t publicly confirmed we show “price on request.” Follow each listing to the broker for full details.',
+    status: {
+      sale: { label: 'On the market', text: 'Listed publicly by independent brokers. We track these properties for their conservation potential.' },
+      review: { label: 'Under review', text: 'Also on the market. We’re assessing their conservation value in more detail.' },
+    },
+    stats: {
+      forSale: 'Landscapes on the market',
+      hectares: 'Hectares in total',
+      countries: 'Countries',
+      review: 'Under closer review',
+    },
+    imageNote:
+      'Satellite views show the wider area around each listing, from Copernicus Sentinel-2. They are not property boundaries.',
+    priceNote: 'US$ figures are approximate conversions of the broker’s listed price.',
+    // Set this when the listings were last checked against the brokers' pages, e.g. 'November 2026'.
+    listingsChecked: '',
+    filterLabel: 'Filter by region',
+    allRegions: 'All regions',
+    askLabel: 'Ask about this property',
+    viewLabel: 'View the broker’s listing',
   },
   candidates: {
     eyebrow: 'New candidates under review',
@@ -92,17 +130,74 @@ export const content = {
         rest: ' From rainforest to wetland to wilderness corridor, wherever the need is greatest.',
       },
     ],
+    // The real satellite "edge" scene that follows the headline.
+    scene: {
+      forest: 'Unbroken forest.',
+      lost: 'One sale can clear a forest…',
+      kept: '…or keep it standing, for good.',
+      place: 'Upper Xingu basin, Mato Grosso, Brazil',
+      caption: 'Forest on the left; land cleared for farming on the right.',
+    },
+  },
+  ways: {
+    eyebrow: 'Get involved',
+    title: 'Three ways to help.',
+    items: [
+      {
+        title: 'Fund an acquisition',
+        body: 'Help fund the purchase of a landscape on the market. Start with a call about the places that matter to you.',
+      },
+      {
+        title: 'Contribute land',
+        body: 'Own wild land that should stay wild? Tell us where it is, how large it is and what lives there.',
+      },
+      {
+        title: 'Partner with us',
+        body: 'Conservation groups, land trusts, scientists and funders: let’s explore working together.',
+      },
+    ],
+    cta: 'Book a 30-minute call',
+  },
+  // Who's behind the alliance. Shown only when filled in.
+  about: {
+    title: 'Who’s behind this',
+    people: [], // e.g. [{ name: '…', role: 'Founder' }]
+    email: '',
+    body: '',
   },
   involved: {
-    eyebrow: 'Get involved',
+    eyebrow: 'Start a conversation',
     title: 'Help secure the next landscape.',
     lede:
       'Whether you want to help fund an acquisition, contribute land, or explore working together, the alliance is open to conversations. The best place to start is a short call.',
-    primaryCta: { label: 'Request a conversation', href: CALENDLY },
+    primaryCta: { label: 'Book a 30-minute call', href: CALENDLY },
+    ctaNote: 'Opens a booking page on Calendly in a new tab.',
     ghostCta: { label: 'Browse the land', href: '#land' },
   },
   footerNote:
     'Protecting the world’s wild places, for good. Property details are provided by independent third-party brokers and are subject to change; confirm all details directly with each broker.',
+  credits: {
+    satellite: 'Satellite imagery contains modified Copernicus Sentinel data (2021–2025), processed with Microsoft Planetary Computer.',
+  },
+  // Mailing-list sign-up in the footer.
+  // `action`: the sign-up endpoint of your email service (for example a Formspree,
+  // Buttondown or Mailchimp form URL). It must accept a POST with an `email`
+  // field. While empty, nothing is collected and the form says the list isn't
+  // open yet.
+  newsletter: {
+    title: 'Get occasional updates on the landscapes we’re working to protect.',
+    placeholder: 'Enter email address',
+    button: 'Sign up',
+    action: '',
+    success: 'Thank you. You’re on the list.',
+    error: 'That didn’t go through. Please try again, or book a call instead.',
+    notOpen: 'Our mailing list isn’t open yet, so nothing was saved. For now, the best way to reach us is a short call.',
+  },
+  // Social profiles shown as icons in the footer, e.g.
+  // { network: 'linkedin' | 'youtube' | 'instagram' | 'x' | 'facebook', href: 'https://…' }
+  social: [],
+  // Legal pages linked in the footer, e.g. { label: 'Privacy Policy', href: '/privacy' }
+  legal: [],
 };
 
 export { listings };
@@ -136,8 +231,6 @@ export function renderMarkdown() {
   const out = [];
 
   out.push(`# ${content.hero.h1Lines.join(' ')}`);
-  out.push('');
-  out.push(`_${c.hero.eyebrow}_`);
   out.push('');
   out.push(c.hero.lede);
   out.push('');

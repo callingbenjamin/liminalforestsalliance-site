@@ -1,0 +1,257 @@
+---
+import { content, CALENDLY } from '../data/content.js';
+import { sceneImage } from '../lib/listings.js';
+
+const { approach } = content;
+const plate = sceneImage('scene-survey');
+
+// Illustrative parcel on the 1600×1000 plate, over an area of continuous forest.
+// An irregular outline (like a real land title) rather than a geometric shape.
+const PC = [852, 486];
+const parcel = Array.from({ length: 30 }, (_, i) => {
+  const a = (i / 30) * Math.PI * 2;
+  const r = 158 * (1 + 0.13 * Math.sin(3 * a + 1.1) + 0.07 * Math.sin(5 * a + 2.3) + 0.04 * Math.sin(9 * a + 0.4));
+  return [Math.round(PC[0] + Math.cos(a) * r * 1.12), Math.round(PC[1] + Math.sin(a) * r * 0.86)];
+});
+const mid = (a, b) => [Math.round((a[0] + b[0]) / 2), Math.round((a[1] + b[1]) / 2)];
+const parcelD =
+  `M${mid(parcel[parcel.length - 1], parcel[0]).join(' ')}` +
+  parcel.map((pt, i) => `Q${pt.join(' ')} ${mid(pt, parcel[(i + 1) % parcel.length]).join(' ')}`).join('') +
+  'Z';
+const cx = Math.round(parcel.reduce((s, p) => s + p[0], 0) / parcel.length);
+const cy = Math.round(parcel.reduce((s, p) => s + p[1], 0) / parcel.length);
+const ringR = Math.round(Math.max(...parcel.map(([x, y]) => Math.hypot(x - cx, y - cy))) + 34);
+let ti = 0;
+---
+
+<section id="approach" class="approach" data-section="approach" data-paper>
+  <div class="wrap approach-intro">
+    <p class="eyebrow" data-reveal>{approach.eyebrow}</p>
+    <h2 class="approach-title split" data-reveal>
+      {approach.title.split(' ').map((w) => (
+        <Fragment><span class="w"><span style={`--i:${ti++}`}>{w}</span></span>{' '}</Fragment>
+      ))}
+    </h2>
+    <p class="lede" data-reveal style="--rd:160">{approach.lede}</p>
+  </div>
+
+  <div class="approach-track" data-approach data-labels={JSON.stringify(approach.mapLabels)} data-center={`${cx},${cy}`}>
+    <div class="approach-stage">
+      <div class="wrap approach-grid">
+        <div class="steps-col">
+          <ol class="steps">
+            {approach.steps.map((s, i) => (
+              <li class="step" data-step={i}>
+                <span class="label step-n">Step {i + 1} of {approach.steps.length}</span>
+                <h3 class="step-title">{s.title}</h3>
+                <p class="step-body">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+          <div class="step-rail" aria-hidden="true">
+            {approach.steps.map((_, i) => <span style={`--k:${i}`}><i></i></span>)}
+          </div>
+        </div>
+
+        {plate && (
+          <figure class="plate" aria-hidden="true">
+            <div class="plate-view">
+              <div class="plate-zoom" style={`transform-origin:${(cx / 16).toFixed(2)}% ${(cy / 10).toFixed(2)}%`}>
+                <img src={plate.src1600} srcset={`${plate.src800} 800w, ${plate.src1600} 1600w`} sizes="(max-width: 860px) 100vw, 55vw" width="1600" height="1000" alt="" loading="lazy" decoding="async" />
+                <svg class="plate-svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
+                  <defs>
+                    <mask id="outside" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="1000">
+                      <rect width="1600" height="1000" fill="white" />
+                      <path d={parcelD} fill="black" />
+                    </mask>
+                    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#e8c48c" stop-opacity="0" />
+                      <stop offset="1" stop-color="#e8c48c" stop-opacity="0.28" />
+                    </linearGradient>
+                  </defs>
+                  <rect class="outside-dim" width="1600" height="1000" mask="url(#outside)" />
+                  <g class="scan" data-scan><rect y="-160" width="1600" height="160" fill="url(#scanGrad)" /><line x1="0" y1="0" x2="1600" y2="0" /></g>
+                  <path class="parcel-fill" d={parcelD} />
+                  <path class="parcel-line" d={parcelD} pathLength="1" />
+                  <circle class="ring" cx={cx} cy={cy} r={ringR} pathLength="1" />
+                  <g class="reticle" data-reticle transform={`translate(${cx} ${cy})`}>
+                    <path d="M-34 -16 V-34 H-16 M16 -34 H34 V-16 M34 16 V34 H16 M-16 34 H-34 V16" />
+                    <path d="M0 -10 V10 M-10 0 H10" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <figcaption class="plate-cap">
+              <span class="label"><b data-step-num>4</b> / 4 · <span data-map-label>{approach.mapLabels[3]}</span></span>
+              <span class="plate-note">{approach.mapCaption}</span>
+            </figcaption>
+          </figure>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap approach-cta" data-reveal>
+    <p>{approach.cta.text}</p>
+    <a class="btn btn-dark" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+      {approach.cta.label}<span class="sr-only"> (opens Calendly in a new tab)</span>
+      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .approach {
+    position: relative;
+    z-index: 2;
+    background: var(--paper);
+    color: var(--ink);
+    padding-top: clamp(6rem, 14vh, 10rem);
+    --text-2: #46514b;
+  }
+  .approach .eyebrow { color: #8a5a1c; }
+  .approach-intro { padding-bottom: clamp(2rem, 5vh, 3.5rem); }
+  .approach-title { font-size: var(--t-h2); max-width: 16ch; margin-bottom: 1.6rem; }
+  .approach .lede { color: var(--ink-soft); }
+
+  .approach-stage {
+    --s1: 1; --s2: 1; --s3: 1; --s4: 1; --ap: 1;
+    padding-block: 2rem 4rem;
+  }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.4rem; }
+  .step-n { color: #8a5a1c; display: block; margin-bottom: 0.9rem; }
+  .step-title { font-size: clamp(2.2rem, 3.8vw, 3.8rem); font-weight: 330; margin-bottom: 0.9rem; }
+  .step-body { color: var(--ink-soft); max-width: 36ch; font-size: clamp(1rem, 1.2vw, 1.1rem); }
+  .step-rail { display: none; }
+
+  /* Pinned, scroll-driven version. */
+  :global(.js:not(.static)) .approach-track { height: 340vh; }
+  :global(.js:not(.static)) .approach-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: grid;
+    align-items: center;
+    padding: var(--header-h) 0 0;
+    --s1: 0; --s2: 0; --s3: 0; --s4: 0; --ap: 0;
+  }
+  :global(.js:not(.static)) .approach-grid {
+    transform: scale(calc(1 - clamp(0, (var(--ap) - 0.95) / 0.05, 1) * 0.03));
+  }
+  :global(.js:not(.static)) .steps { position: relative; display: block; min-height: 16rem; }
+  :global(.js:not(.static)) .step {
+    position: absolute;
+    inset: 0 0 auto 0;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--ease-out), transform 0.9s var(--ease-out);
+    pointer-events: none;
+  }
+  :global(.js:not(.static)) .step.is-active { opacity: 1; transform: none; pointer-events: auto; }
+  :global(.js:not(.static)) .step.is-past { transform: translateY(-28px); }
+  :global(.js:not(.static)) .step-rail {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 1.4rem;
+    max-width: 20rem;
+  }
+  .step-rail span { height: 2px; background: rgba(23, 32, 27, 0.16); overflow: hidden; }
+  .step-rail i {
+    display: block;
+    height: 100%;
+    background: var(--ink);
+    transform-origin: left;
+    transform: scaleX(clamp(0, calc(var(--ap) * 4 - var(--k)), 1));
+  }
+
+  /* ---------- the plate ---------- */
+  .plate { margin: 0; }
+  .plate-view {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    max-height: calc(100svh - var(--header-h) - 7rem);
+    width: 100%;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #1b231e;
+    box-shadow: 0 30px 60px -30px rgba(23, 32, 27, 0.45);
+  }
+  .plate-zoom {
+    position: absolute;
+    inset: 0;
+    transform: scale(calc(1 + clamp(0, var(--s2) * 1.4, 1) * 0.42 - var(--s3) * 0.42));
+    transition: none;
+  }
+  .plate-zoom img, .plate-svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .outside-dim { fill: #0b0d0c; opacity: calc(var(--s4) * 0.45); }
+  .scan { transform: translateY(calc(var(--s1) * 1000px)); opacity: calc(1 - var(--s2) * 3); }
+  .scan line { stroke: #e8c48c; stroke-width: 2; }
+  .parcel-fill { fill: #e8c48c; opacity: calc(var(--s2) * 0.14); }
+  .parcel-line {
+    fill: none;
+    stroke: #f2d29a;
+    stroke-width: 3.5;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--s2));
+    vector-effect: non-scaling-stroke;
+  }
+  .ring {
+    fill: none;
+    stroke: #f2ede3;
+    stroke-width: 2.5;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--s3));
+    vector-effect: non-scaling-stroke;
+    transform: rotate(-90deg);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .reticle path { fill: none; stroke: #f2d29a; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+  .reticle { opacity: calc(1 - var(--s2) * 2); }
+  :global(.static) .reticle, :global(html:not(.js)) .reticle, :global(.static) .scan, :global(html:not(.js)) .scan { display: none; }
+
+  .plate-cap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.4rem 1.2rem;
+    margin-top: 0.9rem;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+  }
+  .plate-cap b { font-weight: 500; color: var(--ink); }
+  .plate-note { max-width: 46ch; }
+
+  .approach-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem 2rem;
+    padding-block: clamp(3rem, 8vh, 5rem) clamp(5rem, 12vh, 8rem);
+    border-top: 1px solid rgba(23, 32, 27, 0.14);
+    margin-top: clamp(1rem, 3vh, 2rem);
+  }
+  .approach-cta p { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 350; letter-spacing: -0.015em; }
+
+  @media (max-width: 860px) {
+    .approach-grid { grid-template-columns: 1fr; }
+    :global(.js:not(.static)) .approach-grid { gap: 1.2rem; align-content: center; }
+    :global(.js:not(.static)) .plate { order: -1; }
+    :global(.js:not(.static)) .plate-view { aspect-ratio: 4 / 3; max-height: 46svh; }
+    :global(.js:not(.static)) .steps { min-height: 12.5rem; }
+    .step-title { font-size: 1.9rem; margin-bottom: 0.5rem; }
+    .step-n { margin-bottom: 0.5rem; }
+    .step-body { font-size: 0.98rem; }
+    .plate-note { font-size: 0.78rem; }
+  }
+</style>
