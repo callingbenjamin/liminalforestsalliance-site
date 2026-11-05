@@ -3,7 +3,7 @@
     "title": "Listings — Liminal Forests Alliance",
     "description": "Large, ecologically important wild land currently listed for sale worldwide. Each card is checked against the live broker page; prices and sizes are shown exactly as listed.",
     "intro": "These are real properties currently listed for sale by independent brokers. We track them for their conservation potential. Every fact on a card comes from the broker’s listing. Follow the link for full details, and never treat this page as an offer of sale.",
-    "checked": "2026-11-04",
+    "checked": "2026-11-05",
     "fx_rate_date": "2026-11-04",
     "fx_note": "Non-USD prices keep the listed currency and show an approximate US$ conversion using open market rates from the checked date."
   },
@@ -765,6 +765,48 @@
       "status": "for_sale",
       "checked": "2026-11-04",
       "tenure_label": null
+    },
+    {
+      "id": "haldummulla-beragala-500-acres",
+      "name": "500 acres of untouched hill country land",
+      "location": "Beragala, near Haldummulla, Central Province",
+      "country": "Sri Lanka",
+      "size_ha": 202.3,
+      "size_acres": 500,
+      "price": "US$900,000",
+      "price_usd": "US$900,000",
+      "price_display": "US$900,000",
+      "fx_note": null,
+      "ecological_case": "Listing describes a 500-acre swathe of untouched wooded land with a river running through it and meadows amongst the forest; suggested uses include eco-tourism.",
+      "broker": "Lanka Real Estate",
+      "url": "https://lankarealestate.com/property/sale-220601-haldummulla/",
+      "photo_url": "https://lankarealestate.com/wp-content/uploads/2025/11/Land-for-sale-500-acres-in-Haldummulla-Beragala-Sri-Lanka-12_result.jpg",
+      "photo_note": null,
+      "tenure": "Not stated on listing.",
+      "status": "for_sale",
+      "checked": "2026-11-05",
+      "tenure_label": "Leasehold (foreign buyers)"
+    },
+    {
+      "id": "pilana-galle-22-acres-jungle",
+      "name": "Twenty-two acres in Pilana near Galle",
+      "location": "Pilana, inland from Talpe, Galle, Southern Province",
+      "country": "Sri Lanka",
+      "size_ha": 8.9,
+      "size_acres": 22,
+      "price": "US$2,300,000",
+      "price_usd": "US$2,300,000",
+      "price_display": "US$2,300,000",
+      "fx_note": null,
+      "ecological_case": "Listing describes a huge plot of virgin jungle and an untouched natural landscape, ideal for eco-tourism or a community-based project.",
+      "broker": "Lanka Real Estate",
+      "url": "https://lankarealestate.com/property/sale-260303-pilana/",
+      "photo_url": "https://lankarealestate.com/wp-content/uploads/2026/05/20260303-pilana-20.jpg",
+      "photo_note": null,
+      "tenure": "Not stated on listing.",
+      "status": "for_sale",
+      "checked": "2026-11-05",
+      "tenure_label": "Leasehold (foreign buyers)"
     }
   ]
 }
