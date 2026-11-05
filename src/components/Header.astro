@@ -1,0 +1,225 @@
+---
+import { content, CALENDLY } from '../data/content.js';
+---
+
+<header class="hdr" data-hdr>
+  <div class="hdr-inner">
+    <a class="brand" href="#top" aria-label="Liminal Forests Alliance — back to top">
+      <img
+        class="brand-mark"
+        src="/brand/mark-96.webp"
+        srcset="/brand/mark-96.webp 96w, /brand/mark-192.webp 192w"
+        sizes="36px"
+        width="36"
+        height="38"
+        alt=""
+      />
+      <span class="brand-name">Liminal Forests <span class="brand-sub">Alliance</span></span>
+    </a>
+
+    <nav class="hdr-nav" aria-label="Primary">
+      {content.nav.map((n) => <a href={n.href} data-nav={n.href.slice(1)}>{n.label}</a>)}
+    </nav>
+
+    <div class="hdr-right">
+      <a class="hdr-cta" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+        Book a call<span class="sr-only"> (opens Calendly in a new tab)</span>
+      </a>
+      <button class="hdr-menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
+        <span class="hdr-menu-lines" aria-hidden="true"><i></i><i></i></span>
+        <span data-menu-label>Menu</span>
+      </button>
+    </div>
+  </div>
+  <div class="hdr-progress" aria-hidden="true"><span data-progress></span></div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" data-menu hidden>
+  <nav aria-label="Mobile">
+    {content.nav.map((n, i) => (
+      <a href={n.href} style={`--i:${i}`}><span class="label">0{i + 1}</span>{n.label}</a>
+    ))}
+  </nav>
+  <a class="btn menu-cta" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+    Book a 30-minute call<span class="sr-only"> (opens Calendly in a new tab)</span>
+  </a>
+</div>
+
+<style>
+  .hdr {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 60;
+    padding-top: env(safe-area-inset-top);
+    color: var(--bone);
+    transition: background-color 0.5s, border-color 0.5s, color 0.5s;
+    border-bottom: 1px solid transparent;
+  }
+  .hdr.is-solid {
+    background: rgba(11, 13, 12, 0.8);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    backdrop-filter: blur(14px) saturate(130%);
+    border-bottom-color: var(--line);
+  }
+  .hdr.on-paper {
+    background: rgba(236, 230, 217, 0.9);
+    border-bottom-color: rgba(23, 32, 27, 0.12);
+    color: var(--ink);
+  }
+  .hdr-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    height: var(--header-h);
+    padding-inline: var(--gutter);
+  }
+  .brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .brand-mark { display: block; width: 36px; height: auto; flex: none; }
+  .brand-name {
+    font-family: var(--f-brand);
+    font-size: 1.1rem;
+    font-weight: 720;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+  }
+  .brand-sub { font-weight: 420; opacity: 0.72; }
+
+  .hdr-nav { justify-self: center; display: flex; gap: clamp(1.1rem, 2.4vw, 2.2rem); }
+  .hdr-nav a {
+    position: relative;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    padding-block: 0.4rem;
+  }
+  .hdr-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .hdr-nav a:hover, .hdr-nav a.is-current { opacity: 1; }
+  .hdr-nav a.is-current::after { transform: scaleX(1); }
+
+  .hdr-right { display: flex; align-items: center; gap: 1rem; }
+  .hdr-cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    background: var(--bone);
+    color: var(--night);
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .hdr-cta:hover { background: var(--sun-soft); }
+  .on-paper .hdr-cta { background: var(--ink); color: var(--paper); }
+
+  .hdr-menu {
+    display: none;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.5rem;
+    background: none;
+    border: 0;
+    padding: 0.4rem 0;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .hdr-menu-lines { display: grid; gap: 5px; width: 18px; }
+  .hdr-menu-lines i { display: block; height: 1.5px; background: currentColor; transition: transform 0.4s var(--ease-out); }
+  .hdr-menu[aria-expanded='true'] .hdr-menu-lines i:first-child { transform: translateY(3.25px) rotate(45deg); }
+  .hdr-menu[aria-expanded='true'] .hdr-menu-lines i:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+
+  .hdr-progress { position: absolute; inset: auto 0 -1px 0; height: 2px; pointer-events: none; }
+  .hdr-progress span {
+    display: block;
+    height: 100%;
+    background: var(--sun);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    display: grid;
+    align-content: center;
+    gap: 2.4rem;
+    padding: calc(var(--header-h) + 2rem) var(--gutter) 3rem;
+    background: rgba(11, 13, 12, 0.97);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    animation: menu-bg 0.35s ease both;
+  }
+  .menu.is-closing { animation: menu-bg-out 0.3s ease both; }
+  @keyframes menu-bg { from { opacity: 0; } }
+  @keyframes menu-bg-out { to { opacity: 0; } }
+  .menu nav { display: grid; }
+  .menu nav a {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--f-display);
+    font-weight: 330;
+    font-size: clamp(2.2rem, 10vw, 3.4rem);
+    line-height: 1.15;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem 0;
+    animation: menu-in 0.7s var(--ease-out) both;
+    animation-delay: calc(var(--i) * 60ms + 80ms);
+  }
+  .menu nav a .label { color: var(--sun); }
+  .menu-cta { justify-self: start; }
+  @keyframes menu-in { from { opacity: 0; transform: translateY(20px); } }
+
+  @media (max-width: 1020px) {
+    /* No centre nav here: two columns, with the buttons pinned to the right edge. */
+    .hdr-inner { grid-template-columns: auto 1fr; gap: 0.75rem; }
+    .hdr-right { justify-self: end; }
+    .hdr-nav { display: none; }
+    .hdr-menu { display: inline-flex; }
+  }
+  @media (max-width: 560px) {
+    .brand { gap: 0.5rem; }
+    .brand-mark { width: 30px; }
+    .brand-name { font-size: 1rem; }
+    .brand-sub { display: none; }
+    .hdr-cta { padding-inline: 0.85rem; }
+  }
+  /* Narrow phones: the menu button keeps its name for screen readers but shows
+     only the two-line icon, so nothing is pushed off the right edge. */
+  @media (max-width: 400px) {
+    .hdr-right { gap: 0.4rem; }
+    .hdr-menu { min-width: 2.75rem; min-height: 2.75rem; justify-content: center; }
+    .hdr-menu [data-menu-label] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+  /* The smallest phones: booking stays one tap away inside the menu. */
+  @media (max-width: 350px) {
+    .hdr-cta { display: none; }
+  }
+</style>

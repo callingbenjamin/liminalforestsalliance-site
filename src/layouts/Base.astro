@@ -1,9 +1,19 @@
 ---
 import { meta, SITE_URL } from '../data/content.js';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/manrope';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '@fontsource-variable/bricolage-grotesque/opsz.css';
+import displayFont from '@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2?url';
+import bodyFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import brandFont from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2?url';
 
 const {
   title = meta.title,
   description = meta.description,
+  preloadImage,
 } = Astro.props;
 
 const path = Astro.url.pathname;
@@ -20,8 +30,7 @@ const jsonLd = {
       name: 'Liminal Forests Alliance',
       url: `${SITE_URL}/`,
       description,
-      parentOrganization: { '@type': 'Organization', name: 'Liminal Commons' },
-      logo: `${SITE_URL}/favicon.svg`,
+      logo: `${SITE_URL}/icon-512.png`,
     },
     {
       '@type': 'WebSite',
@@ -40,17 +49,24 @@ const jsonLd = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#143d2f" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b0d0c" />
+    <meta name="color-scheme" content="dark" />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="alternate" type="text/markdown" href={mdHref} />
+
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={brandFont} as="font" type="font/woff2" crossorigin />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -69,108 +85,293 @@ const jsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Flag JS early so no-JS visitors always see every word of content. -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Very short screens (phones in landscape) get the calm, unpinned layout too.
+        var short = window.innerHeight < 520;
+        if (rm) d.classList.add('rm');
+        if (rm || short) d.classList.add('static');
+      })();
+    </script>
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
+    <a class="skip" href="#main">Skip to content</a>
     <slot />
+    <div class="cut" aria-hidden="true" data-cut></div>
   </body>
 </html>
 
 <style is:global>
-  :root {
-    --forest-900: #0c2219;
-    --forest-800: #103026;
-    --forest-700: #143d2f;
-    --forest-600: #1c5240;
-    --forest-500: #2a6b52;
-    --sage-300: #9ec9a6;
-    --sage-200: #c4ddc5;
-    --paper: #f6f3ea;
-    --paper-2: #efe9dc;
-    --card: #ffffff;
-    --ink: #1a2721;
-    --ink-soft: #46574e;
-    --line: #e2dccd;
-    --gold: #b98a3e;
-    --radius: 16px;
-    --maxw: 1140px;
-    --shadow: 0 1px 2px rgba(12, 34, 25, 0.06), 0 12px 30px -16px rgba(12, 34, 25, 0.22);
+  /* Fallback faces sized close to the web fonts, to keep layout shift low while they load. */
+  @font-face {
+    font-family: 'Newsreader Fallback';
+    src: local('Georgia'), local('Times New Roman');
+    size-adjust: 94%;
+    ascent-override: 98%;
+    descent-override: 26%;
+  }
+  @font-face {
+    font-family: 'Bricolage Fallback';
+    src: local('Arial'), local('Helvetica');
+    size-adjust: 100%;
+    ascent-override: 93%;
+    descent-override: 27%;
+  }
+  @font-face {
+    font-family: 'Manrope Fallback';
+    src: local('Arial'), local('Helvetica');
+    size-adjust: 103%;
+    ascent-override: 102%;
+    descent-override: 28%;
   }
 
-  * { box-sizing: border-box; }
+  :root {
+    --night: #0b0d0c;
+    --night-2: #111513;
+    --night-3: #171c19;
+    --paper: #ece6d9;
+    --paper-2: #e2dbcb;
+    --ink: #17201b;
+    --ink-soft: #4a5550;
+    --bone: #f2ede3;
+    --sun: #d9a55b;
+    --sun-soft: #e8c48c;
+    --moss: #8fa98f;
 
-  html { scroll-behavior: smooth; }
+    /* Atlas series colours (validated for colour-blind separation on dark) */
+    --sale: #c58630;
+    --review: #3a9ccc;
 
+    --text-1: #f2ede3;
+    --text-2: rgba(242, 237, 227, 0.78);
+    --text-3: rgba(242, 237, 227, 0.64);
+    --line: rgba(242, 237, 227, 0.13);
+    --line-2: rgba(242, 237, 227, 0.24);
+
+    --f-display: 'Newsreader Variable', 'Newsreader Fallback', Georgia, serif;
+    --f-body: 'Manrope Variable', 'Manrope Fallback', ui-sans-serif, system-ui, sans-serif;
+    --f-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    /* The name, next to the frog: header, footer and the giant footer wordmark. */
+    --f-brand: 'Bricolage Grotesque Variable', 'Bricolage Fallback', ui-sans-serif, system-ui, sans-serif;
+
+    /* One type scale for the whole page */
+    --t-hero: clamp(3rem, 7.4vw, 8.2rem);
+    --t-h2: clamp(2.5rem, 5.6vw, 6rem);
+    --t-h3: clamp(1.6rem, 2.4vw, 2.2rem);
+    --t-lede: clamp(1.1rem, 1.5vw, 1.32rem);
+    --t-body: 1.02rem;
+    --t-label: 0.75rem;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-film: cubic-bezier(0.76, 0, 0.18, 1);
+    --gutter: max(clamp(20px, 5vw, 72px), env(safe-area-inset-left), env(safe-area-inset-right));
+    --maxw: 1360px;
+    --header-h: 64px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  /* Components set their own display; make the hidden attribute always win. */
+  [hidden] { display: none !important; }
+
+  html {
+    background: var(--night);
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    color: var(--ink);
-    background: var(--paper);
-    line-height: 1.6;
+    font-family: var(--f-body);
+    font-size: var(--t-body);
+    color: var(--text-1);
+    background: var(--night);
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   h1, h2, h3 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
+    font-family: var(--f-display);
+    font-weight: 330;
+    font-variation-settings: 'opsz' 72;
+    line-height: 1;
+    letter-spacing: -0.02em;
     margin: 0;
+    text-wrap: balance;
   }
-
+  h2 { font-size: var(--t-h2); }
+  p { margin: 0; text-wrap: pretty; }
   a { color: inherit; }
+  img, svg, canvas, video { display: block; max-width: 100%; }
+  button { font: inherit; color: inherit; }
+  ::selection { background: var(--sun); color: var(--night); }
 
-  img, svg { max-width: 100%; display: block; }
+  :focus-visible {
+    outline: 2px solid var(--sun);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  /* Programmatic focus targets (sections after an in-page jump) need no ring. */
+  [tabindex='-1']:focus { outline: none; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .skip {
+    position: fixed;
+    left: 16px;
+    top: -100px;
+    z-index: 100;
+    background: var(--bone);
+    color: var(--night);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .skip:focus { top: 16px; }
 
   .wrap {
     width: 100%;
     max-width: var(--maxw);
     margin-inline: auto;
-    padding-inline: clamp(20px, 5vw, 48px);
+    padding-inline: var(--gutter);
   }
 
-  .eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+  /* ---------- type helpers ---------- */
+  .label {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    font-weight: 400;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--forest-500);
-    margin: 0 0 0.9rem;
+    line-height: 1.4;
   }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sun);
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
+  }
+  .eyebrow .num { color: var(--text-3); }
+  .lede {
+    font-size: var(--t-lede);
+    line-height: 1.6;
+    color: var(--text-2);
+    max-width: 54ch;
+  }
+  .nb { white-space: nowrap; }
 
-  section { padding-block: clamp(64px, 9vw, 120px); }
-
-  .lede { font-size: clamp(1.05rem, 2.4vw, 1.3rem); color: var(--ink-soft); max-width: 60ch; }
-
+  /* ---------- buttons ---------- */
   .btn {
+    --bg: var(--bone);
+    --fg: var(--night);
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.7rem;
+    min-height: 3.1rem;
+    padding: 0.85rem 1.4rem 0.85rem 1.55rem;
+    border-radius: 999px;
+    font-family: var(--f-body);
     font-weight: 600;
-    font-size: 0.98rem;
-    padding: 0.85rem 1.5rem;
-    border-radius: 100px;
+    font-size: 0.96rem;
+    letter-spacing: 0.005em;
     text-decoration: none;
-    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    background: var(--bg);
+    color: var(--fg);
     border: 1px solid transparent;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.45s var(--ease-out), color 0.3s, border-color 0.3s;
   }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-primary { background: var(--forest-700); color: var(--paper); box-shadow: var(--shadow); }
-  .btn-primary:hover { background: var(--forest-600); }
-  .btn-ghost { border-color: rgba(255,255,255,0.4); color: var(--paper); }
-  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--sun-soft);
+    transform: translateY(101%);
+    border-radius: inherit;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .btn:hover::before, .btn:focus-visible::before { transform: translateY(0); }
+  .btn .arrow { width: 1.05rem; height: 1.05rem; transition: transform 0.45s var(--ease-out); }
+  .btn:hover .arrow { transform: translateX(3px); }
+  .btn-ghost { --bg: transparent; --fg: var(--bone); border-color: var(--line-2); }
+  .btn-ghost::before { background: rgba(242, 237, 227, 0.12); }
+  .btn-dark { --bg: var(--ink); --fg: var(--paper); }
+  .btn-dark::before { background: #2c3a32; }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-decoration-color: var(--line-2);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.3s, color 0.3s;
+  }
+  .link:hover { color: var(--sun-soft); text-decoration-color: currentColor; }
+
+  /* ---------- reveal on scroll (only when JS is running) ---------- */
+  .js:not(.rm) [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1s var(--ease-out), transform 1.2s var(--ease-out);
+    transition-delay: calc(var(--rd, 0) * 1ms);
+  }
+  .js:not(.rm) [data-reveal].is-in { opacity: 1; transform: none; }
+
+  .split .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .split .w > span { display: inline-block; }
+  .js:not(.rm) .split[data-reveal] { opacity: 1; transform: none; }
+  .js:not(.rm) .split[data-reveal] .w > span {
+    transform: translateY(104%);
+    transition: transform 1.15s var(--ease-out);
+    transition-delay: calc(var(--i) * 45ms + var(--rd, 0) * 1ms);
+  }
+  .js:not(.rm) .split[data-reveal].is-in .w > span { transform: none; }
+
+  /* Full-screen dissolve used for long in-page jumps. */
+  .cut {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    background: var(--night);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.32s ease;
+  }
+  .cut.is-on { opacity: 1; }
 
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { transition: none !important; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      transition-delay: 0s !important;
+    }
   }
 </style>

@@ -1,0 +1,117 @@
+---
+import { content } from '../data/content.js';
+import { media } from '../data/media.js';
+
+const { involved } = content;
+const shot = media.closing;
+let ti = 0;
+---
+
+<section id="closing" class="finale" data-section="involved" data-finale>
+  <div class="finale-stage">
+    <div class="finale-media" aria-hidden="true">
+      {shot && <img src={shot.poster || shot.src} alt="" width={shot.width} height={shot.height} loading="lazy" decoding="async" />}
+      {shot?.video && <video muted loop playsinline preload="none" poster={shot.poster} data-hd={shot.video} data-sd={shot.sd || shot.video} data-film-secondary></video>}
+    </div>
+    <div class="finale-light" aria-hidden="true"></div>
+    <div class="finale-copy wrap">
+      <p class="eyebrow">{involved.eyebrow}</p>
+      <h2 class="finale-title">
+        {involved.title.split(' ').map((w) => (
+          <Fragment><span class="fw" style={`--i:${ti++}`}>{w}</span>{' '}</Fragment>
+        ))}
+      </h2>
+      <p class="finale-lede">{involved.lede}</p>
+      <div class="finale-actions">
+        <a class="btn btn-big" href={involved.primaryCta.href} target="_blank" rel="noopener noreferrer">
+          {involved.primaryCta.label}<span class="sr-only"> (opens Calendly in a new tab)</span>
+          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </a>
+        <a class="btn btn-ghost" href={involved.ghostCta.href}>{involved.ghostCta.label}</a>
+      </div>
+      <p class="finale-note">{involved.ctaNote}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .finale {
+    --fp: 1;
+    position: relative;
+    z-index: 2;
+    background: var(--night);
+  }
+  :global(.js:not(.static)) .finale { height: 170vh; --fp: 0; }
+  .finale-stage {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    padding-block: calc(var(--header-h) + 3rem) 4rem;
+  }
+  :global(.js:not(.static)) .finale-stage { position: sticky; top: 0; height: 100vh; height: 100svh; }
+
+  .finale-media {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    background: radial-gradient(60% 50% at 60% 40%, #3a3326, var(--night));
+    transform: scale(calc(1.14 - var(--fp) * 0.12));
+    filter: brightness(calc(0.45 + var(--fp) * 0.6)) saturate(calc(0.8 + var(--fp) * 0.3));
+  }
+  .finale-media img, .finale-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .finale-media video { opacity: 0; transition: opacity 1.6s ease; }
+  .finale-media video.is-playing { opacity: 1; }
+  .finale-light {
+    /* Warm morning light grows as you scroll; edges stay dark for the type. */
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(70% 60% at 50% 30%, rgba(232, 196, 140, calc(var(--fp) * 0.18)), rgba(232, 196, 140, 0) 70%),
+      linear-gradient(180deg, var(--night) 0%, rgba(11, 13, 12, 0.35) 22%, rgba(11, 13, 12, 0.45) 70%, var(--night) 100%),
+      radial-gradient(55% 50% at 50% 52%, rgba(11, 13, 12, 0.5), rgba(11, 13, 12, 0) 80%);
+  }
+
+  .finale-copy { text-align: center; display: grid; justify-items: center; }
+  .finale-copy .eyebrow { justify-content: center; opacity: clamp(0, calc(var(--fp) * 8 + 0.4), 1); }
+  .finale-copy .eyebrow::before { display: none; }
+  .finale-title {
+    font-size: clamp(3rem, 8vw, 8.6rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+    text-shadow: 0 2px 40px rgba(11, 13, 12, 0.45);
+  }
+  .fw {
+    display: inline-block;
+    --w: clamp(0, calc((var(--fp) + 0.16 - var(--i) * 0.04) * 5), 1);
+    opacity: var(--w);
+    transform: translate3d(0, calc((1 - var(--w)) * 0.35em), 0);
+    filter: blur(calc((1 - var(--w)) * 6px));
+  }
+  .finale-lede {
+    margin-top: 1.8rem;
+    max-width: 50ch;
+    color: var(--bone);
+    font-size: var(--t-lede);
+    text-shadow: 0 1px 18px rgba(11, 13, 12, 0.7);
+    opacity: clamp(0, calc((var(--fp) - 0.22) * 6), 1);
+  }
+  .finale-actions {
+    margin-top: 2.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    opacity: clamp(0, calc((var(--fp) - 0.32) * 6), 1);
+    transform: translate3d(0, calc((1 - clamp(0, (var(--fp) - 0.32) * 6, 1)) * 16px), 0);
+  }
+  .finale-actions.is-gone { pointer-events: none; }
+  .finale-note { margin-top: 1rem; font-size: 0.88rem; color: var(--text-2); opacity: clamp(0, calc((var(--fp) - 0.38) * 6), 1); }
+  .btn-big { min-height: 3.6rem; padding: 1rem 1.7rem 1rem 1.9rem; font-size: 1.02rem; }
+</style>
