@@ -1,0 +1,156 @@
+---
+import Blog from '../../layouts/Blog.astro';
+import { posts, postUrl } from '../../data/blog.js';
+import { SITE_URL } from '../../data/content.js';
+
+export function getStaticPaths() {
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const fmt = (n) => n.toLocaleString('en-US');
+
+const facts = [
+  ['Location', post.location],
+  ['Size', `${fmt(post.size_ha)} ha · ${fmt(post.size_acres)} ac`],
+  ['Sale price', post.price],
+  ['Sale date', post.saleDate],
+  ['Seller', post.seller],
+  ['Buyer', post.buyer],
+  ['Current use', post.currentUse],
+  ['Outcome', post.outcome],
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${postUrl(post.slug)}#article`,
+  headline: post.title,
+  description: post.summary,
+  datePublished: post.date,
+  dateModified: post.date,
+  inLanguage: 'en',
+  url: postUrl(post.slug),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl(post.slug) },
+  author: {
+    '@type': 'Organization',
+    name: 'Liminal Forests Alliance',
+    url: `${SITE_URL}/`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Liminal Forests Alliance',
+    url: `${SITE_URL}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
+    parentOrganization: { '@type': 'Organization', name: 'Liminal Commons' },
+  },
+  isPartOf: { '@type': 'Blog', '@id': `${SITE_URL}/blog#blog`, name: 'Dispatches' },
+  image: `${SITE_URL}/og.png`,
+};
+---
+
+<Blog
+  title={`${post.title} — Liminal Forests Alliance`}
+  description={post.summary}
+  ogType="article"
+  publishedTime={post.date}
+  jsonLd={jsonLd}
+>
+  <article class="post">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/blog">Dispatches</a>
+        <span aria-hidden="true">/</span>
+        <span>{post.region}</span>
+      </nav>
+
+      <header class="post-header">
+        <div class="post-tags">
+          <span class={`chip ${post.outcome === 'Cautionary tale' ? 'chip--alt' : ''}`}>{post.outcome}</span>
+          <time datetime={post.date}>Published {post.date}</time>
+        </div>
+        <h1>{post.title}</h1>
+        <p class="post-loc">{post.location}</p>
+        <p class="lead">{post.lead}</p>
+      </header>
+
+      <aside class="facts" aria-label="Property at a glance">
+        <h2>Property at a glance</h2>
+        <dl>
+          {facts.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </aside>
+
+      <div class="prose">
+        {post.sections.map((s) => (
+          <section>
+            <h2>{s.heading}</h2>
+            {s.paras.map((para) => <p>{para}</p>)}
+          </section>
+        ))}
+      </div>
+
+      <section class="sources">
+        <h2>Sources</h2>
+        <ol>
+          {post.sources.map((s) => (
+            <li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a></li>
+          ))}
+        </ol>
+      </section>
+
+      <p class="dateline">
+        The facts in this post are drawn from the cited sources and were accurate as of November 2026.
+        A plain-text version is available at <a href={`/blog/${post.slug}.md`}>/blog/{post.slug}.md</a>.
+      </p>
+
+      <p class="back"><a href="/blog">Back to all dispatches</a></p>
+    </div>
+  </article>
+</Blog>
+
+<style>
+  .post { padding-block: clamp(3rem, 7vh, 5rem) clamp(4rem, 10vh, 6.5rem); }
+  .post .wrap { max-width: 760px; }
+  .crumbs { display: flex; gap: 0.5rem; align-items: center; font-family: var(--f-mono); font-size: 0.8rem; color: var(--text-3); margin-bottom: 1.8rem; }
+  .crumbs a { color: var(--sun-soft); text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+
+  .post-header h1 { font-family: var(--f-display); font-weight: 340; font-size: clamp(2.2rem, 5.2vw, 3.4rem); line-height: 1.08; margin-bottom: 0.7rem; }
+  .post-tags { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+  .post-tags time { font-family: var(--f-mono); font-size: 0.8rem; color: var(--text-3); }
+  .chip { font-family: var(--f-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--moss); border: 1px solid var(--line-2); padding: 0.28rem 0.6rem; border-radius: 999px; white-space: nowrap; }
+  .chip--alt { color: var(--sun-soft); border-color: rgba(217, 165, 91, 0.45); }
+  .post-loc { margin: 0 0 1.5rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.85rem; }
+  .lead { font-size: var(--t-lede); line-height: 1.55; color: var(--text-1); margin: 0; }
+
+  .facts { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem 1.7rem; margin: 2.6rem 0; }
+  .facts h2 { font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun); margin-bottom: 1.1rem; }
+  .facts dl { margin: 0; display: grid; gap: 0; }
+  .facts dl > div { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; border-top: 1px solid var(--line); padding-block: 0.7rem; }
+  .facts dl > div:first-child { border-top: none; padding-top: 0; }
+  .facts dt { color: var(--text-3); font-family: var(--f-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; margin: 0; }
+  .facts dd { margin: 0; font-size: 0.94rem; color: var(--text-1); }
+  @media (max-width: 560px) { .facts dl > div { grid-template-columns: 1fr; gap: 0.2rem; } }
+
+  .prose section { margin-top: 2.4rem; }
+  .prose h2 { font-family: var(--f-display); font-weight: 350; font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.9rem; letter-spacing: -0.015em; }
+  .prose p { color: var(--text-2); line-height: 1.75; margin: 0 0 1.1rem; max-width: 66ch; }
+
+  .sources { margin-top: 2.8rem; border-top: 1px solid var(--line); padding-top: 1.8rem; }
+  .sources h2 { font-family: var(--f-display); font-weight: 350; font-size: 1.4rem; margin-bottom: 0.9rem; }
+  .sources ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.55rem; color: var(--text-3); }
+  .sources a { color: var(--sun-soft); word-break: break-word; }
+  .sources a:hover { color: var(--sun); }
+
+  .dateline { margin-top: 2.2rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-2); background: var(--night-2); border-left: 2px solid var(--sun); padding: 0.9rem 1.1rem; border-radius: 0 8px 8px 0; }
+  .dateline a { color: var(--sun-soft); }
+  .back { margin-top: 2.2rem; }
+  .back a { color: var(--sun-soft); font-weight: 600; text-decoration: none; }
+  .back a:hover { text-decoration: underline; }
+</style>

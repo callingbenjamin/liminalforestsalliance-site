@@ -1,0 +1,70 @@
+---
+import Blog from '../../layouts/Blog.astro';
+import { posts, blogMeta } from '../../data/blog.js';
+
+const fmt = (n) => n.toLocaleString('en-US');
+// Newest first; all posts share a date here, so keep source order as a tiebreak.
+const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+---
+
+<Blog title={blogMeta.title} description={blogMeta.description}>
+  <section class="blog-head">
+    <div class="wrap">
+      <p class="eyebrow">Dispatches</p>
+      <h1>Land that changed hands, and what became of it.</h1>
+      <p class="lede">{blogMeta.intro}</p>
+    </div>
+  </section>
+
+  <section class="blog-list">
+    <div class="wrap">
+      <ul class="posts">
+        {ordered.map((p) => (
+          <li class="post-card">
+            <div class="post-top">
+              <span class={`chip ${p.outcome === 'Cautionary tale' ? 'chip--alt' : ''}`}>{p.outcome}</span>
+              <time datetime={p.date}>{p.date}</time>
+            </div>
+            <h2><a href={`/blog/${p.slug}`}>{p.title}</a></h2>
+            <p class="post-loc">{p.location} · {fmt(p.size_ha)} ha / {fmt(p.size_acres)} ac</p>
+            <p class="post-summary">{p.summary}</p>
+            <a class="post-link" href={`/blog/${p.slug}`}>
+              Read the dispatch
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="feed-note">
+        Prefer to read in plain text or subscribe? There is a <a href="/blog.md">Markdown index</a> and an <a href="/blog/rss.xml">RSS feed</a>.
+      </p>
+    </div>
+  </section>
+</Blog>
+
+<style>
+  .blog-head { padding-block: clamp(5rem, 11vh, 8rem) clamp(1.5rem, 4vh, 2.5rem); }
+  .blog-head h1 { font-size: var(--t-h2); margin-bottom: 1.2rem; max-width: 16ch; }
+  .eyebrow { font-family: var(--f-mono); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sun); margin: 0 0 1.1rem; }
+  .lede { font-size: var(--t-lede); color: var(--text-2); max-width: 60ch; line-height: 1.6; }
+
+  .blog-list { padding-block: 0 clamp(4.5rem, 11vh, 7rem); }
+  .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.3rem; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .post-card { background: var(--night-2); border: 1px solid var(--line); border-radius: 16px; padding: 1.7rem; display: flex; flex-direction: column; transition: border-color 0.3s, transform 0.3s var(--ease-out); }
+  .post-card:hover { transform: translateY(-4px); border-color: var(--line-2); }
+  .post-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .post-top time { font-family: var(--f-mono); font-size: 0.76rem; color: var(--text-3); }
+  .chip { font-family: var(--f-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--moss); border: 1px solid var(--line-2); padding: 0.28rem 0.6rem; border-radius: 999px; white-space: nowrap; }
+  .chip--alt { color: var(--sun-soft); border-color: rgba(217, 165, 91, 0.45); }
+  .post-card h2 { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 350; line-height: 1.12; margin-bottom: 0.5rem; }
+  .post-card h2 a { text-decoration: none; color: var(--text-1); }
+  .post-card h2 a:hover { color: var(--sun-soft); }
+  .post-loc { margin: 0 0 0.8rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.8rem; }
+  .post-summary { margin: 0 0 1.3rem; color: var(--text-2); font-size: 0.98rem; line-height: 1.6; }
+  .post-link { margin-top: auto; display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 600; font-size: 0.92rem; color: var(--sun-soft); text-decoration: none; }
+  .post-link:hover { color: var(--sun); }
+  .post-link svg { transition: transform 0.25s var(--ease-out); }
+  .post-link:hover svg { transform: translateX(4px); }
+  .feed-note { margin-top: 2.6rem; color: var(--text-3); font-size: 0.9rem; }
+  .feed-note a { color: var(--sun-soft); }
+</style>

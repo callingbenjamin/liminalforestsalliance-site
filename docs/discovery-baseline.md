@@ -6,7 +6,10 @@ site content, pages, robots/WAF rules or crawler behaviour change.
 
 - Domain: https://liminalforestsalliance.com
 - Framework: Astro (static output), deployed on Vercel
-- HTML pages: 1 (`/`)
+- HTML pages: 9 (`/`, `/blog`, and 7 `/blog/<slug>` posts)
+- Blog ("Dispatches") added 2026-11-04: see `docs/blog-process.md`. Each post
+  has a `/blog/<slug>.md` Markdown alternate; the index has `/blog.md`; there is
+  an RSS feed at `/blog/rss.xml`. All are generated from `src/data/blog.js`.
 
 ## Policy
 
@@ -24,6 +27,9 @@ site content, pages, robots/WAF rules or crawler behaviour change.
 | Markdown alternate | `/index.md` | generated at build from `src/data/content.js` |
 | JSON-LD | in `/` head | `Organization` + `WebSite` (schema.org) |
 | Canonical | in `/` head | `https://liminalforestsalliance.com/` |
+| Blog index | `/blog` + `/blog.md` | generated at build from `src/data/blog.js` |
+| Blog posts | `/blog/<slug>` + `.md` | generated at build from `src/data/blog.js`; each post head carries `BlogPosting` JSON-LD |
+| RSS feed | `/blog/rss.xml` | generated at build from `src/data/blog.js` |
 
 ## robots.txt crawler decisions
 
