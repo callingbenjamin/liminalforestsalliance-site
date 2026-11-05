@@ -4,14 +4,14 @@ The public Rewilding page shows **working** land that is currently for sale and
 could be restored rather than intensified: plantations (tea, coffee, oil palm),
 logged leases and farm lots. It is deliberately **separate** from the Listings
 page (`/listings`), which carries large, ecologically important **wild** land.
-A property belongs on Rewilding, not Listings, when its current use is
+A property belongs on Rewilding, not Old Growth, when its current use is
 agricultural or extractive and the case is for conversion/restoration — not
 because it is already intact wild forest.
 
-The page is an **accordion**, and it mirrors the Listings page UX: a stats row,
+The page is an **accordion**, and it mirrors the Old Growth page UX: a stats row,
 filter chips, a sort control, a locator globe, and a collapsed row per property
 that expands to a detail panel with the broker's photo and the full listed
-facts. The one deliberate difference is the filter axis: Listings filters by
+facts. The one deliberate difference is the filter axis: Old Growth filters by
 geographic **region**, Rewilding filters by **land use** (plantation, logged
 lease, farm lot), because every rewilding candidate so far is in Asia and the
 useful distinction is the kind of working land.
@@ -47,12 +47,12 @@ JavaScript disabled (every detail panel is in the DOM, just collapsed).
 | Locator globe drawing | `src/scripts/globe.js` (land dots: `src/data/land.json`) |
 | Rewilding page | `src/pages/rewilding.astro` → `/rewilding` |
 | Rewilding Markdown | `src/pages/rewilding.md.js` → `/rewilding.md` |
-| Nav entry (next to Listings) | `src/data/content.js` (`content.nav`) |
+| Nav entry (next to Old Growth) | `src/data/content.js` (`content.nav`) |
 | Sitemap (merges rewilding) | `src/pages/sitemap.xml.js` via `rewildingPages` |
 | Machine index | `public/llms.txt` (Pages section) |
 
 Do **not** confuse this with `src/data/listings-page.json` + `src/data/listings-page.js`
-(the wild Listings page) or with `src/data/listings.json` + `src/lib/listings.js`
+(the wild Old Growth page) or with `src/data/listings.json` + `src/lib/listings.js`
 (the old home-page Atlas data). The rewilding inventory is independent.
 
 ## Card data shape

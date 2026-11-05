@@ -38,7 +38,7 @@ export const content = {
   nav: [
     { label: 'Why it matters', href: '#why' },
     { label: 'How it works', href: '#approach' },
-    { label: 'Listings', href: '/listings' },
+    { label: 'Old Growth', href: '/listings' },
     { label: 'Rewilding', href: '/rewilding' },
     { label: 'Dispatches', href: '/blog' },
     { label: 'Get involved', href: '#involved' },
@@ -238,7 +238,7 @@ export function renderMarkdown() {
   // /listings.md), so the home Markdown mirrors the home page and does not
   // repeat the inventory here.
   out.push('');
-  out.push('## Land for sale');
+  out.push('## Old Growth');
   out.push('');
   out.push(
     `We track large, ecologically important wild land currently listed for sale by independent brokers. The full, regularly checked inventory is on its own page: ${SITE_URL}/listings (plain text: ${SITE_URL}/listings.md).`,

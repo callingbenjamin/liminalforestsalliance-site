@@ -19,7 +19,7 @@ import { listingPlace, warnMissingPlaces, placeLabel } from '../data/listings-pl
 const stats = listingsStats();
 const checked = lastChecked();
 
-const pageTitle = listingsMeta.title || 'Land for sale — Liminal Forests Alliance';
+const pageTitle = listingsMeta.title || 'Old Growth — Liminal Forests Alliance';
 const pageDesc =
   listingsMeta.description ||
   listingsMeta.intro ||
@@ -82,7 +82,7 @@ const first = rows[0];
 <Blog title={pageTitle} description={pageDesc} current="listings">
   <section class="lst-head">
     <div class="wrap">
-      <p class="eyebrow">Land for sale</p>
+      <p class="eyebrow">Old Growth</p>
       <h1>Wild land on the market, right now.</h1>
       <p class="lede">{intro}</p>
       <ul class="lst-stats" aria-label="Summary">
