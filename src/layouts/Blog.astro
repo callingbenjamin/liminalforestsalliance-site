@@ -13,6 +13,8 @@ const {
   ogType = 'website',
   publishedTime = null,
   jsonLd = null,
+  // Which primary nav item to mark as current: 'blog' | 'listings' | null.
+  current = null,
 } = Astro.props;
 ---
 
@@ -34,7 +36,8 @@ const {
       <nav class="bhdr-nav" aria-label="Primary">
         <a href="/#why">Why it matters</a>
         <a href="/#land">The land</a>
-        <a href="/blog" aria-current="page">Dispatches</a>
+        <a href="/listings" aria-current={current === 'listings' ? 'page' : undefined}>Listings</a>
+        <a href="/blog" aria-current={current === 'blog' ? 'page' : undefined}>Dispatches</a>
         <a class="bhdr-cta" href={CALENDLY} target="_blank" rel="noopener noreferrer">Book a call<span class="sr-only"> (opens Calendly in a new tab)</span></a>
       </nav>
     </div>
@@ -62,6 +65,7 @@ const {
       </div>
       <nav class="bftr-links" aria-label="Footer">
         <a href="/">Home</a>
+        <a href="/listings">Listings</a>
         <a href="/blog">Dispatches</a>
         <a href="/blog.md">This blog as plain text</a>
         <a href="/blog/rss.xml">RSS feed</a>

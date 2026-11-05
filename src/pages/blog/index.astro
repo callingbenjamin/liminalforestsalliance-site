@@ -7,7 +7,7 @@ const fmt = (n) => n.toLocaleString('en-US');
 const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 ---
 
-<Blog title={blogMeta.title} description={blogMeta.description}>
+<Blog title={blogMeta.title} description={blogMeta.description} current="blog">
   <section class="blog-head">
     <div class="wrap">
       <p class="eyebrow">Dispatches</p>
