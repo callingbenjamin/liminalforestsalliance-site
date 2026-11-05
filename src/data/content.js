@@ -39,6 +39,7 @@ export const content = {
     { label: 'Why it matters', href: '#why' },
     { label: 'How it works', href: '#approach' },
     { label: 'Listings', href: '/listings' },
+    { label: 'Rewilding', href: '/rewilding' },
     { label: 'Dispatches', href: '/blog' },
     { label: 'Get involved', href: '#involved' },
   ],

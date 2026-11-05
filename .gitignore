@@ -14,3 +14,4 @@ dist/
 .DS_Store
 .astro/
 .cache/
+rewilding-candidates.inbox.json

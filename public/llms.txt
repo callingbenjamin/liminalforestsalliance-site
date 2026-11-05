@@ -21,6 +21,8 @@ Property details are provided by independent third-party brokers and are subject
 - [Home (Markdown)](https://liminalforestsalliance.com/index.md): the same content as plain Markdown for machine reading.
 - [Listings](https://liminalforestsalliance.com/listings): photo cards of large, ecologically important wild land currently listed for sale by independent brokers, each linking to the broker's listing.
 - [Listings (Markdown)](https://liminalforestsalliance.com/listings.md): the listings as plain Markdown for machine reading.
+- [Rewilding](https://liminalforestsalliance.com/rewilding): working plantations, logged leases and farm lots listed for sale by independent brokers, tracked for their restoration potential rather than as wild land; separate from the Listings page above.
+- [Rewilding (Markdown)](https://liminalforestsalliance.com/rewilding.md): the rewilding candidates as plain Markdown for machine reading.
 - [Dispatches (blog)](https://liminalforestsalliance.com/blog): short, sourced stories about large wild land that has changed hands, and what became of it.
 - [Dispatches (Markdown)](https://liminalforestsalliance.com/blog.md): the blog index as plain Markdown.
 - [Dispatches (RSS)](https://liminalforestsalliance.com/blog/rss.xml): RSS 2.0 feed of the dispatches.

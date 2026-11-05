@@ -1,0 +1,678 @@
+---
+import Blog from '../layouts/Blog.astro';
+import { CALENDLY } from '../data/content.js';
+import {
+  rewildings,
+  rewildingMeta,
+  rewildingStats,
+  lastChecked,
+  formatDate,
+  fmt,
+  areaLine,
+  priceLine,
+  rewildingCase,
+  categoryFor,
+  categoryLabel,
+  REWILDING_CATEGORIES,
+  usdValue,
+} from '../data/rewilding-page.js';
+import { rewildingPlace, warnMissingPlaces, placeLabel } from '../data/rewilding-places.js';
+
+const stats = rewildingStats();
+const checked = lastChecked();
+
+const pageTitle = rewildingMeta.title || 'Rewilding — Liminal Forests Alliance';
+const pageDesc =
+  rewildingMeta.description ||
+  rewildingMeta.intro ||
+  'Working plantations, logged leases and farm lots tracked for their restoration potential. Separate from wild land on Listings.';
+const intro =
+  rewildingMeta.intro ||
+  'These are broker listings of working plantations, logged leases and farm lots. We track them because they could be restored rather than intensified. Every fact on a card comes from the broker’s listing.';
+
+// Country is often already part of the location string; only append it when not.
+const placeOf = (l) =>
+  l.country && !String(l.location || '').includes(l.country)
+    ? `${l.location}, ${l.country}`
+    : l.location;
+
+const ask = (name) => `${CALENDLY}?a1=${encodeURIComponent(`About: ${name}`)}`;
+
+// Only render chips for the land-use categories actually present, in canonical order.
+const categories = REWILDING_CATEGORIES.filter((c) => rewildings.some((l) => categoryFor(l) === c));
+
+// Compact, honest price for the collapsed row. Full figures stay in the panel.
+const compactUsd = (v) =>
+  v >= 1e6
+    ? `US$${(v / 1e6).toFixed(v < 1e7 ? 1 : 0).replace(/\.0$/, '')}M`
+    : v >= 1e3
+      ? `US$${Math.round(v / 1e3)}K`
+      : `US$${Math.round(v)}`;
+
+function rowPrice(l) {
+  // An explicit ≈US$ conversion of the broker's asking price.
+  if (l.price_usd != null && l.price_usd !== '') {
+    if (typeof l.price_usd === 'number') return `≈ ${compactUsd(l.price_usd)}`;
+    const m = String(l.price_usd).match(/US\$\s?([\d.,]+)/);
+    if (m) return `≈ ${compactUsd(parseFloat(m[1].replace(/,/g, '')))}`;
+    const n = Number(String(l.price_usd).replace(/[^\d.]/g, ''));
+    if (Number.isFinite(n) && n > 0) return `≈ ${compactUsd(n)}`;
+  }
+  // A clean US$ asking price (not per-unit, not an appraisal aside).
+  if (/^US\$[\d.,]/.test(String(l.price || '').trim()) && !/\/|\bper\b|appraisal|sealed/i.test(l.price)) {
+    const m = l.price.match(/US\$\s?([\d.,]+)\s?(M|million)?/i);
+    if (m) {
+      let v = parseFloat(m[1].replace(/,/g, ''));
+      if (/m/i.test(m[2] || '')) v *= 1e6;
+      return compactUsd(v);
+    }
+  }
+  if (/request/i.test(l.price || '')) return 'On request';
+  return 'See listing';
+}
+
+const rows = rewildings.map((l, i) => ({
+  l,
+  i,
+  category: categoryFor(l),
+  usd: usdValue(l),
+  slug: l.id || `rewilding-${i}`,
+  place: rewildingPlace(l),
+}));
+warnMissingPlaces();
+const first = rows[0];
+---
+
+<Blog title={pageTitle} description={pageDesc} current="rewilding">
+  <section class="lst-head">
+    <div class="wrap">
+      <p class="eyebrow">Rewilding</p>
+      <h1>Working land that could be let go wild.</h1>
+      <p class="lede">{intro}</p>
+      <ul class="lst-stats" aria-label="Summary">
+        <li><strong>{fmt(stats.count)}</strong><span>{stats.count === 1 ? 'property' : 'properties'}</span></li>
+        <li><strong>{fmt(stats.totalHa)}</strong><span>hectares</span></li>
+        <li><strong>{fmt(stats.countries)}</strong><span>{stats.countries === 1 ? 'country' : 'countries'}</span></li>
+      </ul>
+      <p class="lst-meta">
+        {checked && <Fragment>Last checked {formatDate(checked)}.{' '}</Fragment>}
+        These are working properties, not wild land — see <a href="/listings">Listings</a> for wild land for sale.
+      </p>
+    </div>
+  </section>
+
+  <section class="lst-index-sec" data-atlas>
+    <div class="wrap atlas-body">
+      <!-- Locator globe. Decorative: every fact it shows is also in the list. -->
+      <aside class="preview" aria-hidden="true">
+        <div class="preview-sticky">
+          <div class="preview-globe"><canvas data-globe></canvas></div>
+          <div class="preview-meta">
+            <p class="preview-coords" data-pv-coords>{first && placeLabel(first.place)}</p>
+            <p class="preview-name" data-pv-name>{first?.l.name}</p>
+            <p class="preview-loc" data-pv-loc>{first && placeOf(first.l)}</p>
+            <p class="preview-facts" data-pv-facts>{first && `${fmt(first.l.size_ha)} ha · ${rowPrice(first.l)}`}</p>
+          </div>
+          <p class="preview-note">Pins show approximate locations, not property boundaries.</p>
+        </div>
+      </aside>
+
+      <div class="index">
+        <div class="toolbar" data-toolbar>
+          <div class="chips">
+            <span class="chip-group" role="group" aria-label="Filter by land use">
+              <button type="button" class="chip is-on" aria-pressed="true" data-category="">All</button>
+              {categories.map((c) => <button type="button" class="chip" aria-pressed="false" data-category={c}>{categoryLabel(c)}</button>)}
+            </span>
+            {rewildings.some((l) => l.critical) && (
+              <button type="button" class="chip chip-toggle" aria-pressed="false" data-critical-toggle>Critical only</button>
+            )}
+          </div>
+          <div class="toolbar-row">
+            <label class="sort">
+              <span class="label">Sort</span>
+              <select data-sort>
+                <option value="default">As listed</option>
+                <option value="size">Largest first</option>
+                <option value="price">Price, low to high</option>
+                <option value="name">Name, A–Z</option>
+              </select>
+            </label>
+            <p class="count label" aria-live="polite" data-count-label>{rows.length} properties</p>
+          </div>
+        </div>
+
+        <div class="index-head label" aria-hidden="true">
+          <span>Property</span><span>Area</span><span>Price</span>
+        </div>
+
+        <ul class="rows" data-rows>
+          {rows.map(({ l, i, category, usd, slug, place }) => (
+            <li
+              class="row"
+              data-row
+              data-i={i}
+              data-category={category}
+              data-critical={l.critical ? '1' : ''}
+              data-ha={l.size_ha}
+              data-usd={usd ?? ''}
+              data-name={l.name}
+              data-location={placeOf(l)}
+              data-lat={place.lat}
+              data-lng={place.lng}
+              data-coords={placeLabel(place)}
+              data-facts={`${fmt(l.size_ha)} ha · ${rowPrice(l)}`}
+            >
+              <button type="button" class="row-btn" aria-expanded="false" aria-controls={`d-${slug}`} data-row-btn>
+                <span class={`row-key ${l.critical ? 'row-key--critical' : ''}`} aria-hidden="true"></span>
+                <span class="row-name">
+                  <span class="row-title">
+                    {l.name}
+                    {l.critical && <span class="flag">Critical</span>}
+                  </span>
+                  <span class="row-loc">{placeOf(l)}</span>
+                </span>
+                <span class="row-area"><span class="sr-only">, area </span>{fmt(l.size_ha)} ha</span>
+                <span class="row-price"><span class="sr-only">, price </span>{rowPrice(l)}</span>
+                <svg class="row-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </button>
+
+              <div class="row-detail" id={`d-${slug}`} hidden>
+                <div class="detail-inner">
+                  <figure class={`detail-photo ${l.photo_url ? '' : 'detail-photo--empty'}`}>
+                    {l.photo_url && (
+                      <img
+                        class="detail-img"
+                        src={l.photo_url}
+                        alt={`Photo of ${l.name} from the broker's listing.`}
+                        loading="lazy"
+                        decoding="async"
+                        referrerpolicy="no-referrer"
+                        onerror="this.closest('.detail-photo').classList.add('detail-photo--empty'); this.remove();"
+                      />
+                    )}
+                    <span class="detail-photo-note">See photos on the broker listing.</span>
+                  </figure>
+
+                  <div class="detail-text">
+                    {l.critical && l.critical_reason && (
+                      <p class="crit">
+                        <span class="crit-tag">Critical</span>
+                        <span class="crit-reason">{l.critical_reason}</span>
+                      </p>
+                    )}
+                    {rewildingCase(l) && <p class="eco">{rewildingCase(l)}</p>}
+
+                    <dl class="facts">
+                      <div><dt>Location</dt><dd>{placeOf(l)}</dd></div>
+                      <div><dt>Land use</dt><dd>{categoryLabel(category)}</dd></div>
+                      <div><dt>Area</dt><dd>{areaLine(l)}</dd></div>
+                      <div><dt>Listed price</dt><dd>{priceLine(l)}</dd></div>
+                      {l.tenure_label && <div><dt>Tenure</dt><dd>{l.tenure_label}</dd></div>}
+                      {l.broker && <div><dt>Broker</dt><dd>{l.broker}</dd></div>}
+                      {l.checked && <div><dt>Last checked</dt><dd>{formatDate(l.checked)}</dd></div>}
+                    </dl>
+
+                    <div class="detail-actions">
+                      <a class="btn btn-sm" href={ask(l.name)} target="_blank" rel="noopener noreferrer">
+                        Ask about this property<span class="sr-only">: {l.name} (opens Calendly in a new tab)</span>
+                      </a>
+                      {l.url && (
+                        <a class="link" href={l.url} target="_blank" rel="noopener noreferrer">
+                          View the broker’s listing<span class="sr-only"> for {l.name} (opens in a new tab)</span>
+                          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M9 7h8v8" /></svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <p class="empty" data-empty hidden>No properties match this filter.</p>
+
+        <div class="index-foot">
+          <p class="lst-disclaimer">
+            This page is not an offer of sale, and the Liminal Forests Alliance is not the seller. Every property is listed by an independent third-party broker. These are working plantations, logged leases and farm lots that we track for their restoration potential — they are not wild land. Prices are shown as listed by the broker and are subject to change, and foreign-ownership rules often apply; confirm details, availability and tenure directly with each broker.
+          </p>
+          <p class="feed-note">
+            Prefer plain text? There is a <a href="/rewilding.md">Markdown version</a> of this page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Blog>
+
+<style>
+  .lst-head { padding-block: clamp(5rem, 11vh, 8rem) clamp(1.5rem, 4vh, 2.5rem); }
+  .lst-head h1 { font-size: var(--t-h2); margin-bottom: 1.2rem; max-width: 18ch; }
+  .eyebrow { font-family: var(--f-mono); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sun); margin: 0 0 1.1rem; }
+  .lede { font-size: var(--t-lede); color: var(--text-2); max-width: 62ch; line-height: 1.6; }
+
+  .lst-stats { list-style: none; margin: 2.2rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2.4rem; }
+  .lst-stats li { display: flex; flex-direction: column; gap: 0.2rem; }
+  .lst-stats strong { font-family: var(--f-display); font-weight: 350; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--text-1); line-height: 1; }
+  .lst-stats span { font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+  .lst-meta { margin: 1.8rem 0 0; color: var(--text-3); font-family: var(--f-mono); font-size: 0.8rem; line-height: 1.6; max-width: 70ch; }
+  .lst-meta a { color: var(--sun-soft); }
+
+  .lst-index-sec { padding-block: clamp(1rem, 3vh, 2rem) clamp(4.5rem, 11vh, 7rem); }
+  .index { width: 100%; min-width: 0; }
+
+  /* ---------- globe on the left, list on the right ---------- */
+  /* The globe needs JavaScript and a wide screen; otherwise the list runs full width. */
+  .preview { display: none; }
+  @media (min-width: 1001px) {
+    :global(.js) .atlas-body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: clamp(2rem, 4vw, 4.5rem);
+      align-items: start;
+    }
+    /* Stretch so the sticky panel has the full list height to travel in. */
+    :global(.js) .preview { display: block; align-self: stretch; }
+  }
+  .preview-sticky {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+    display: grid;
+    justify-items: center;
+    gap: 1.1rem;
+    text-align: center;
+  }
+  .preview-globe {
+    width: clamp(220px, calc(100svh - var(--header-h) - 19rem), 100%);
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 50% 46%, rgba(217, 165, 91, 0.07), rgba(217, 165, 91, 0) 62%);
+  }
+  .preview-globe canvas { display: block; width: 100%; height: 100%; }
+  .preview-meta { display: grid; gap: 0.35rem; max-width: 36ch; }
+  .preview-coords { margin: 0; font-family: var(--f-mono); font-size: var(--t-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--sun-soft); }
+  .preview-name { margin: 0; font-family: var(--f-display); font-size: clamp(1.4rem, 2vw, 1.9rem); font-weight: 360; line-height: 1.15; letter-spacing: -0.015em; text-wrap: balance; }
+  .preview-loc { margin: 0; color: var(--text-2); }
+  .preview-facts { margin: 0.2rem 0 0; font-variant-numeric: tabular-nums; color: var(--text-1); }
+  .preview-note { margin: 0; color: var(--text-3); font-size: 0.8rem; }
+  /* Keep the panel's text from jumping while it changes. */
+  .preview-meta > * { transition: opacity 0.25s ease; }
+  .preview-meta.is-swapping > * { opacity: 0; }
+
+  /* ---------- toolbar ---------- */
+  .toolbar {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 3;
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.9rem 0 0.8rem;
+    background: rgba(11, 13, 12, 0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toolbar-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem 1rem; align-items: center; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.25rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--line-2);
+    background: transparent;
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .chip:hover { border-color: var(--bone); color: var(--bone); }
+  .chip.is-on { background: var(--bone); border-color: var(--bone); color: var(--night); }
+  /* The "Critical only" toggle is a priority filter, not a land-use choice, so it
+     sits apart from the land-use group and carries the sun accent when active. */
+  .chip-group { display: contents; }
+  .chip-toggle { margin-left: 0.5rem; border-color: var(--sun); color: var(--sun-soft); }
+  .chip-toggle:hover { border-color: var(--sun-soft); color: var(--sun-soft); }
+  .chip-toggle.is-on { background: var(--sun); border-color: var(--sun); color: var(--night); }
+  .sort { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--text-2); }
+  .sort select {
+    min-height: 2.25rem;
+    padding: 0.3rem 2rem 0.3rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--line-2);
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23f2ede3' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 0.6rem center / 14px;
+    color: var(--bone);
+    font: inherit;
+    font-size: 0.84rem;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+  .sort select option { background: var(--night); }
+  .count { color: var(--text-3); }
+  .label { font-family: var(--f-mono); font-size: var(--t-label); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ---------- rows ---------- */
+  .index-head {
+    display: grid;
+    grid-template-columns: 3px minmax(0, 1fr) 6.5rem 7.5rem 1.2rem;
+    gap: 1rem;
+    padding: 1.1rem 0 0.6rem;
+    color: var(--text-3);
+  }
+  .index-head span:first-child { grid-column: 2; }
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .row { border-bottom: 1px solid var(--line); }
+  .row.is-entering { animation: row-in 0.55s var(--ease-out) both; animation-delay: calc(var(--k, 0) * 28ms); }
+  @keyframes row-in { from { opacity: 0; transform: translateY(10px); } }
+  .row-btn {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3px minmax(0, 1fr) 6.5rem 7.5rem 1.2rem;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .row-key { display: inline-block; width: 3px; height: 2.4rem; border-radius: 2px; background: var(--sun-soft); opacity: 0.7; }
+  /* A fully opaque, sun-coloured key marks critical rows at a glance. */
+  .row-key--critical { background: var(--sun); opacity: 1; }
+  /* "Critical" pill on the collapsed row header; reset so it is not the display face. */
+  .flag {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.6rem;
+    padding: 0.1rem 0.5rem 0.14rem;
+    border: 1px solid var(--sun);
+    border-radius: 999px;
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--sun);
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .row-title { display: block; font-family: var(--f-display); font-size: 1.32rem; font-weight: 380; line-height: 1.2; letter-spacing: -0.01em; transition: color 0.3s; }
+  .row-loc { display: block; margin-top: 0.15rem; font-size: 0.86rem; color: var(--text-2); }
+  .row-area, .row-price { font-variant-numeric: tabular-nums; font-size: 0.95rem; color: var(--text-1); }
+  .row-chev { width: 1.2rem; height: 1.2rem; color: var(--text-3); transition: transform 0.4s var(--ease-out); }
+  .row-btn:hover .row-title, .row.is-preview .row-title { color: var(--sun-soft); }
+  .row-btn[aria-expanded='true'] .row-chev { transform: rotate(180deg); }
+
+  .row-detail { padding: 0 0 1.8rem calc(3px + 1rem); }
+  .row-detail:not([hidden]) { animation: row-open 0.5s var(--ease-out) both; }
+  @keyframes row-open { from { opacity: 0; transform: translateY(-6px); } }
+  .detail-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: start; }
+
+  .detail-photo { position: relative; margin: 0; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: var(--night-3); }
+  .detail-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .detail-photo-note { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1.2rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.74rem; line-height: 1.5; letter-spacing: 0.02em; }
+  .detail-photo:not(.detail-photo--empty) .detail-photo-note { display: none; }
+
+  .detail-text { display: grid; gap: 1.2rem; }
+  /* Critical note: the listing-based reason this card sits on an ecological
+     priority. Shown just above the rewilding case; same accent as the header pill. */
+  .crit { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.75rem; padding: 0.7rem 0.9rem; border: 1px solid var(--sun); border-left-width: 3px; border-radius: 6px; background: rgba(217, 165, 91, 0.06); }
+  .crit-tag { flex: none; font-family: var(--f-mono); font-size: var(--t-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun); }
+  .crit-reason { font-size: 0.92rem; line-height: 1.5; color: var(--text-1); }
+  .eco { font-family: var(--f-display); font-style: italic; font-size: 1.18rem; line-height: 1.45; max-width: 52ch; }
+  .facts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem 1.5rem; }
+  .facts div { display: grid; gap: 0.1rem; }
+  .facts dt { font-family: var(--f-mono); font-size: var(--t-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+  .facts dd { margin: 0; font-size: 0.95rem; color: var(--text-1); }
+  .detail-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; }
+  .btn-sm { min-height: 2.6rem; padding: 0.6rem 1.1rem; font-size: 0.88rem; }
+  .link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.9rem; color: var(--sun-soft); text-decoration: none; }
+  .link:hover { color: var(--sun); }
+  .link svg { transition: transform 0.25s var(--ease-out); }
+  .link:hover svg { transform: translate(2px, -2px); }
+
+  .empty { color: var(--text-2); padding: 2rem 0; }
+  .index-foot { margin-top: 2rem; }
+  .lst-disclaimer { margin: 0; color: var(--text-3); font-size: 0.82rem; line-height: 1.6; max-width: 90ch; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+  .feed-note { margin-top: 1.4rem; color: var(--text-3); font-size: 0.9rem; }
+  .feed-note a { color: var(--sun-soft); }
+
+  @media (max-width: 760px) {
+    .detail-inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .index-head { display: none; }
+    .row-btn { grid-template-columns: 3px minmax(0, 1fr) auto 1.2rem; row-gap: 0.35rem; column-gap: 0.9rem; }
+    .row-name { grid-column: 2 / 4; }
+    .row-area, .row-price { grid-row: 2; font-size: 0.9rem; }
+    .row-area { grid-column: 2; }
+    .row-price { grid-column: 3; text-align: right; color: var(--text-2); }
+    .row-chev { grid-column: 4; grid-row: 1; }
+    .row-key { grid-row: 1 / span 2; height: 100%; }
+    .row-title { font-size: 1.2rem; }
+    .facts { grid-template-columns: 1fr; }
+    .toolbar { gap: 0.45rem; padding-block: 0.7rem 0.6rem; }
+    .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: none; }
+    .sort .label { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .row.is-entering { animation: none; }
+    .row-detail:not([hidden]) { animation: none; }
+    .row-chev { transition: none; }
+    .preview-meta > * { transition: none; }
+  }
+</style>
+
+<script>
+  // /rewilding: land-use filter, sort, one-open-at-a-time accordion, and the
+  // locator globe on the left that turns to the listing you point at, scroll
+  // to or open. The page is fully readable with JavaScript disabled: every
+  // row's details are in the DOM, just collapsed, and the globe is hidden.
+  // This mirrors the /listings script; the only difference is the filter axis
+  // (land-use category here, geographic region there).
+  import { Globe } from '../scripts/globe.js';
+
+  const atlas = document.querySelector('[data-atlas]');
+  if (atlas) {
+    const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wide = window.matchMedia('(min-width: 1001px)');
+    const $ = (s, el = atlas) => el.querySelector(s);
+    const $$ = (s, el = atlas) => [...el.querySelectorAll(s)];
+    const list = $('[data-rows]');
+    const rows = $$('[data-row]');
+    const countEl = $('[data-count-label]');
+    const emptyEl = $('[data-empty]');
+
+    // ---------- globe ----------
+    const canvas = $('[data-globe]');
+    const pvMeta = $('.preview-meta');
+    const pv = {
+      coords: $('[data-pv-coords]'),
+      name: $('[data-pv-name]'),
+      loc: $('[data-pv-loc]'),
+      facts: $('[data-pv-facts]'),
+    };
+    const css = getComputedStyle(document.documentElement);
+    const gold = css.getPropertyValue('--sun').trim() || '#d9a55b';
+    const goldSoft = css.getPropertyValue('--sun-soft').trim() || '#e8c48c';
+    let globe = null;
+    let raf = 0;
+    let lastT = 0;
+    let previewIndex = 0;
+
+    // Draw only while something is moving; the globe idles otherwise.
+    const tick = (t) => {
+      const more = globe.render(lastT ? t - lastT : 16.7);
+      lastT = t;
+      raf = more ? requestAnimationFrame(tick) : 0;
+      if (!raf) lastT = 0;
+    };
+    const kick = () => {
+      if (globe && globe.w && !raf) raf = requestAnimationFrame(tick);
+    };
+
+    if (canvas) {
+      globe = new Globe(canvas, {
+        markers: rows.map((r) => ({
+          lat: Number(r.dataset.lat),
+          lng: Number(r.dataset.lng),
+          ha: Number(r.dataset.ha) || 1,
+          kind: 'sale',
+        })),
+        colors: { sale: gold, star: goldSoft },
+      });
+      // Size the canvas once it is actually on screen (it is hidden on narrow screens).
+      new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting || !wide.matches) return;
+        if (!globe.w) {
+          globe.resize();
+          globe.flyTo(previewIndex, true);
+        }
+        kick();
+      }).observe(canvas);
+      let resizeTimer = 0;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!wide.matches) return;
+          globe.resize();
+          kick();
+        }, 150);
+      });
+    }
+
+    let swapTimer = 0;
+    function preview(i) {
+      if (!wide.matches || i === previewIndex) return;
+      previewIndex = i;
+      const r = rows[i];
+      rows.forEach((row, k) => row.classList.toggle('is-preview', k === i));
+      const fill = () => {
+        pv.coords.textContent = r.dataset.coords;
+        pv.name.textContent = r.dataset.name;
+        pv.loc.textContent = r.dataset.location;
+        pv.facts.textContent = r.dataset.facts;
+        pvMeta.classList.remove('is-swapping');
+      };
+      clearTimeout(swapTimer);
+      if (RM) fill();
+      else {
+        pvMeta.classList.add('is-swapping');
+        swapTimer = setTimeout(fill, 180);
+      }
+      globe?.flyTo(i, RM);
+      kick();
+    }
+
+    // Pointing at a row previews it (after a short pause so a quick sweep
+    // across the list does not spin the globe back and forth).
+    let hoverTimer = 0;
+    let lastHover = 0;
+    rows.forEach((r, i) => {
+      const btn = $('[data-row-btn]', r);
+      const detail = document.getElementById(btn.getAttribute('aria-controls'));
+      r.addEventListener('pointerenter', () => {
+        lastHover = performance.now();
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => preview(i), 70);
+      });
+      btn.addEventListener('focus', () => preview(i));
+
+      // Expand / collapse. One property open at a time keeps the list easy to scan.
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        rows.forEach((other) => {
+          if (other === r) return;
+          const b = $('[data-row-btn]', other);
+          if (b.getAttribute('aria-expanded') === 'true') {
+            b.setAttribute('aria-expanded', 'false');
+            document.getElementById(b.getAttribute('aria-controls')).hidden = true;
+          }
+        });
+        btn.setAttribute('aria-expanded', String(open));
+        detail.hidden = !open;
+        if (open) preview(i);
+      });
+    });
+
+    // While reading, follow the row crossing the middle of the screen,
+    // unless the visitor has just pointed at a row.
+    const rowIO = new IntersectionObserver(
+      (entries) => {
+        if (performance.now() - lastHover < 1200) return;
+        for (const e of entries) if (e.isIntersecting && !e.target.hidden) preview(rows.indexOf(e.target));
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    rows.forEach((r) => rowIO.observe(r));
+
+    // ---------- filter by land use, sort, live count ----------
+    const state = { category: '', criticalOnly: false, sort: 'default' };
+    const num = (v) => (v === '' || v == null ? NaN : Number(v));
+    const order = {
+      default: (a, b) => num(a.dataset.i) - num(b.dataset.i),
+      size: (a, b) => num(b.dataset.ha) - num(a.dataset.ha),
+      price: (a, b) => (num(a.dataset.usd) || Infinity) - (num(b.dataset.usd) || Infinity),
+      name: (a, b) => a.dataset.name.localeCompare(b.dataset.name),
+    };
+    function apply() {
+      const match = (r) =>
+        (!state.category || r.dataset.category === state.category) &&
+        (!state.criticalOnly || r.dataset.critical === '1');
+      const sorted = [...rows].sort(order[state.sort]);
+      let k = 0;
+      sorted.forEach((r) => {
+        list.appendChild(r);
+        const show = match(r);
+        r.hidden = !show;
+        if (show && !RM) {
+          r.classList.remove('is-entering');
+          void r.offsetWidth;
+          r.style.setProperty('--k', String(k++));
+          r.classList.add('is-entering');
+        }
+      });
+      const shown = rows.filter((r) => !r.hidden).length;
+      countEl.textContent =
+        shown === rows.length ? `${shown} properties` : `${shown} of ${rows.length} properties`;
+      emptyEl.hidden = shown > 0;
+      // Fade the pins the filter hides, and turn to the first match.
+      globe?.setFilter((m) => match(rows[m.i]));
+      const firstShown = sorted.find((r) => !r.hidden);
+      if (firstShown) preview(rows.indexOf(firstShown));
+      kick();
+    }
+    $$('.chip[data-category]').forEach((b) =>
+      b.addEventListener('click', () => {
+        state.category = b.dataset.category;
+        $$('.chip[data-category]').forEach((o) => {
+          o.classList.toggle('is-on', o === b);
+          o.setAttribute('aria-pressed', String(o === b));
+        });
+        apply();
+      }),
+    );
+    const critBtn = $('[data-critical-toggle]');
+    critBtn?.addEventListener('click', () => {
+      state.criticalOnly = !state.criticalOnly;
+      critBtn.classList.toggle('is-on', state.criticalOnly);
+      critBtn.setAttribute('aria-pressed', String(state.criticalOnly));
+      apply();
+    });
+    $('[data-sort]')?.addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      apply();
+    });
+
+    if (wide.matches) rows[0]?.classList.add('is-preview');
+  }
+</script>
