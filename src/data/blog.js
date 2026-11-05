@@ -413,7 +413,7 @@ export const posts = [
     seller: 'INPA Parket, a Bolivian affiliate of a Dutch wood-flooring maker owned by the Roosenboom family',
     buyer: 'Reported to be Bom Futuro, a Brazilian agribusiness group; the sale is contested',
     currentUse:
-      'FSC-certified, selectively logged native dry forest. The reported buyer intends to clear much of it for agriculture, and Indigenous and conservation groups are challenging the deal in court.',
+      'FSC-certified, selectively logged native dry forest. The reported buyer intends to clear much of it for agriculture, and nearby Indigenous organisations are preparing legal and regulatory challenges.',
     summary:
       'A 30,019-hectare patch of Bolivian dry forest, kept intact for two decades under sustainable logging, was reportedly being sold to a soy producer who plans to clear much of it. The deal is contested.',
     lead:
@@ -423,13 +423,13 @@ export const posts = [
         heading: 'What is being sold, and to whom',
         paras: [
           'The forest is held by INPA Parket, the Bolivian affiliate of a Dutch wood-flooring company owned by the Roosenboom family. For roughly twenty years it was managed under FSC certification for selective, sustainable hardwood logging, which is part of why it survived as an island of forest while neighbouring land was converted to farmland.',
-          'According to Mongabay, an agreement reported in July 2025 would sell the property for about US$20 million, with a US$2 million deposit said to have been placed. The reported buyer is Bom Futuro, a large Brazilian agribusiness group associated with the Maggi soy family. Both parties declined to confirm the deal to journalists, and it was described as pending rather than closed.',
+          'According to Mongabay, an agreement reported in July 2025 would sell the property for about US$20 million, with a US$2 million deposit said to have been placed. The reported buyer is Bom Futuro, a large Brazilian agribusiness group associated with the Maggi soy family. Bom Futuro did not respond to Mongabay, Revista Nómadas could not get either party to confirm the sale, and it was described as pending rather than closed. Mongabay also reported that a conservation-minded buyer, the Swedish agroforestry investor Amazonas For Life Europe AB, had been in talks to buy the land earlier in 2025 with backing from Dutch lenders, before the owner agreed to sell to Bom Futuro instead.',
         ],
       },
       {
         heading: 'What it would mean',
         paras: [
-          'The reported plan is to clear a large share of the forest, by some accounts around two-thirds, for soy and other agriculture. More than 120,000 hectares of forest were lost within 40 kilometres of the property in the decade to 2023, so this parcel is one of the last large intact pieces in its area. Indigenous groups and conservationists are pursuing legal challenges to block any clearing, which would also require government approvals. As of late 2025 the outcome was unresolved.',
+          'The reported plan is to clear a large share of the forest, by some accounts around two-thirds, for soy and other agriculture. Revista Nómadas found that within 40 kilometres of the property, deforestation averaged more than 10,000 hectares a year between 2021 and 2023, so this parcel is one of the last large intact pieces in its area. Nearby Indigenous organisations in Lomerío, with legal support from the Jenecherú Foundation, have been preparing a petition to Bolivia’s forest and land regulator to halt any land-use change; clearing would also require approvals from that regulator and the Santa Cruz government. As of late 2025 the outcome was unresolved.',
           'The Chiquitano dry forest is less famous than the Amazon to its north, but it is one of the largest and best preserved tropical dry forests left in the world, and it has been losing ground fast to the soy and cattle frontier. An intact block of 30,000 hectares inside that frontier is not an ordinary parcel. It is the kind of keystone piece whose fate shapes everything around it, which is partly why the reported deal drew the attention it did.',
         ],
       },
