@@ -19,7 +19,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const topo = JSON.parse(await readFile(require.resolve('world-atlas/land-50m.json'), 'utf8'));
 const land = feature(topo, topo.objects.land);
 
-const STEP = 1.5; // degrees between rows
+const STEP = 1.0; // degrees between rows (fine enough for the large /listings globe)
 const rows = [];
 let total = 0;
 

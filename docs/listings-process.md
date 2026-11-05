@@ -34,6 +34,8 @@ with JavaScript disabled (every detail panel is in the DOM, just collapsed).
 | --- | --- |
 | Card data (source of truth) | `src/data/listings-page.json` (`meta` + `listings`) |
 | Helpers + Markdown renderer | `src/data/listings-page.js` |
+| Globe pin positions (approximate) | `src/data/listings-places.js` |
+| Locator globe drawing | `src/scripts/globe.js` (land dots: `src/data/land.json`) |
 | Listings page | `src/pages/listings.astro` → `/listings` |
 | Listings Markdown | `src/pages/listings.md.js` → `/listings.md` |
 | Sitemap (merges listings) | `src/pages/sitemap.xml.js` via `listingsPages` |
@@ -93,6 +95,10 @@ correct even if `meta` is incomplete.
 
 1. Re-run the weekly listings check and regenerate the dataset.
 2. Copy it over `src/data/listings-page.json`.
+   If a listing is new, add its id to `src/data/listings-places.js` with an
+   approximate position (town or district level) and a `precision`. Until you
+   do, its pin sits at the country centre and the build prints a
+   `[listings-places]` warning naming it.
 3. Rebuild and verify from the repo root:
 
    ```

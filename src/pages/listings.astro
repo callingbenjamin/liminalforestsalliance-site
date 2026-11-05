@@ -14,6 +14,7 @@ import {
   LISTING_REGIONS,
   usdValue,
 } from '../data/listings-page.js';
+import { listingPlace, warnMissingPlaces, placeLabel } from '../data/listings-places.js';
 
 const stats = listingsStats();
 const checked = lastChecked();
@@ -72,7 +73,10 @@ const rows = listings.map((l, i) => ({
   region: regionFor(l),
   usd: usdValue(l),
   slug: l.id || `listing-${i}`,
+  place: listingPlace(l),
 }));
+warnMissingPlaces();
+const first = rows[0];
 ---
 
 <Blog title={pageTitle} description={pageDesc} current="listings">
@@ -94,7 +98,21 @@ const rows = listings.map((l, i) => ({
   </section>
 
   <section class="lst-index-sec" data-atlas>
-    <div class="wrap">
+    <div class="wrap atlas-body">
+      <!-- Locator globe. Decorative: every fact it shows is also in the list. -->
+      <aside class="preview" aria-hidden="true">
+        <div class="preview-sticky">
+          <div class="preview-globe"><canvas data-globe></canvas></div>
+          <div class="preview-meta">
+            <p class="preview-coords" data-pv-coords>{first && placeLabel(first.place)}</p>
+            <p class="preview-name" data-pv-name>{first?.l.name}</p>
+            <p class="preview-loc" data-pv-loc>{first && placeOf(first.l)}</p>
+            <p class="preview-facts" data-pv-facts>{first && `${fmt(first.l.size_ha)} ha · ${rowPrice(first.l)}`}</p>
+          </div>
+          <p class="preview-note">Pins show approximate locations, not property boundaries.</p>
+        </div>
+      </aside>
+
       <div class="index">
         <div class="toolbar" data-toolbar>
           <div class="chips" role="group" aria-label="Filter by region">
@@ -120,7 +138,7 @@ const rows = listings.map((l, i) => ({
         </div>
 
         <ul class="rows" data-rows>
-          {rows.map(({ l, i, region, usd, slug }) => (
+          {rows.map(({ l, i, region, usd, slug, place }) => (
             <li
               class="row"
               data-row
@@ -129,6 +147,12 @@ const rows = listings.map((l, i) => ({
               data-ha={l.size_ha}
               data-usd={usd ?? ''}
               data-name={l.name}
+              data-location={placeOf(l)}
+              data-lat={place.lat}
+              data-lng={place.lng}
+              data-coords={placeLabel(place)}
+              data-facts={`${fmt(l.size_ha)} ha · ${rowPrice(l)}`}
+              data-star={l.exceptional ? '1' : undefined}
             >
               <button type="button" class="row-btn" aria-expanded="false" aria-controls={`d-${slug}`} data-row-btn>
                 <span class={`row-key ${l.exceptional ? 'row-key--star' : ''}`} aria-hidden="true"></span>
@@ -217,7 +241,44 @@ const rows = listings.map((l, i) => ({
   .lst-meta { margin: 1.8rem 0 0; color: var(--text-3); font-family: var(--f-mono); font-size: 0.8rem; line-height: 1.6; max-width: 70ch; }
 
   .lst-index-sec { padding-block: clamp(1rem, 3vh, 2rem) clamp(4.5rem, 11vh, 7rem); }
-  .index { width: 100%; }
+  .index { width: 100%; min-width: 0; }
+
+  /* ---------- globe on the left, list on the right ---------- */
+  /* The globe needs JavaScript and a wide screen; otherwise the list runs full width. */
+  .preview { display: none; }
+  @media (min-width: 1001px) {
+    :global(.js) .atlas-body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: clamp(2rem, 4vw, 4.5rem);
+      align-items: start;
+    }
+    /* Stretch so the sticky panel has the full list height to travel in. */
+    :global(.js) .preview { display: block; align-self: stretch; }
+  }
+  .preview-sticky {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+    display: grid;
+    justify-items: center;
+    gap: 1.1rem;
+    text-align: center;
+  }
+  .preview-globe {
+    width: clamp(220px, calc(100svh - var(--header-h) - 19rem), 100%);
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 50% 46%, rgba(217, 165, 91, 0.07), rgba(217, 165, 91, 0) 62%);
+  }
+  .preview-globe canvas { display: block; width: 100%; height: 100%; }
+  .preview-meta { display: grid; gap: 0.35rem; max-width: 36ch; }
+  .preview-coords { margin: 0; font-family: var(--f-mono); font-size: var(--t-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--sun-soft); }
+  .preview-name { margin: 0; font-family: var(--f-display); font-size: clamp(1.4rem, 2vw, 1.9rem); font-weight: 360; line-height: 1.15; letter-spacing: -0.015em; text-wrap: balance; }
+  .preview-loc { margin: 0; color: var(--text-2); }
+  .preview-facts { margin: 0.2rem 0 0; font-variant-numeric: tabular-nums; color: var(--text-1); }
+  .preview-note { margin: 0; color: var(--text-3); font-size: 0.8rem; }
+  /* Keep the panel's text from jumping while it changes. */
+  .preview-meta > * { transition: opacity 0.25s ease; }
+  .preview-meta.is-swapping > * { opacity: 0; }
 
   /* ---------- toolbar ---------- */
   .toolbar {
@@ -301,7 +362,7 @@ const rows = listings.map((l, i) => ({
   .row-loc { display: block; margin-top: 0.15rem; font-size: 0.86rem; color: var(--text-2); }
   .row-area, .row-price { font-variant-numeric: tabular-nums; font-size: 0.95rem; color: var(--text-1); }
   .row-chev { width: 1.2rem; height: 1.2rem; color: var(--text-3); transition: transform 0.4s var(--ease-out); }
-  .row-btn:hover .row-title { color: var(--sun-soft); }
+  .row-btn:hover .row-title, .row.is-preview .row-title { color: var(--sun-soft); }
   .row-btn[aria-expanded='true'] .row-chev { transform: rotate(180deg); }
 
   .row-detail { padding: 0 0 1.8rem calc(3px + 1rem); }
@@ -359,17 +420,21 @@ const rows = listings.map((l, i) => ({
     .row.is-entering { animation: none; }
     .row-detail:not([hidden]) { animation: none; }
     .row-chev { transition: none; }
+    .preview-meta > * { transition: none; }
   }
 </style>
 
 <script>
-  // Self-contained accordion for /listings: region filter, sort, and one-open-
-  // at-a-time expand. No globe or satellite preview (this page has none); the
-  // broker photo lives in each expanded panel. The page is fully readable with
-  // JavaScript disabled — every row's details are in the DOM, just collapsed.
+  // /listings: region filter, sort, one-open-at-a-time accordion, and the
+  // locator globe on the left that turns to the listing you point at, scroll
+  // to or open. The page is fully readable with JavaScript disabled: every
+  // row's details are in the DOM, just collapsed, and the globe is hidden.
+  import { Globe } from '../scripts/globe.js';
+
   const atlas = document.querySelector('[data-atlas]');
   if (atlas) {
     const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wide = window.matchMedia('(min-width: 1001px)');
     const $ = (s, el = atlas) => el.querySelector(s);
     const $$ = (s, el = atlas) => [...el.querySelectorAll(s)];
     const list = $('[data-rows]');
@@ -377,10 +442,102 @@ const rows = listings.map((l, i) => ({
     const countEl = $('[data-count-label]');
     const emptyEl = $('[data-empty]');
 
-    // Expand / collapse. One property open at a time keeps the list easy to scan.
-    rows.forEach((r) => {
+    // ---------- globe ----------
+    const canvas = $('[data-globe]');
+    const pvMeta = $('.preview-meta');
+    const pv = {
+      coords: $('[data-pv-coords]'),
+      name: $('[data-pv-name]'),
+      loc: $('[data-pv-loc]'),
+      facts: $('[data-pv-facts]'),
+    };
+    const css = getComputedStyle(document.documentElement);
+    const gold = css.getPropertyValue('--sun').trim() || '#d9a55b';
+    const goldSoft = css.getPropertyValue('--sun-soft').trim() || '#e8c48c';
+    let globe = null;
+    let raf = 0;
+    let lastT = 0;
+    let previewIndex = 0;
+
+    // Draw only while something is moving; the globe idles otherwise.
+    const tick = (t) => {
+      const more = globe.render(lastT ? t - lastT : 16.7);
+      lastT = t;
+      raf = more ? requestAnimationFrame(tick) : 0;
+      if (!raf) lastT = 0;
+    };
+    const kick = () => {
+      if (globe && globe.w && !raf) raf = requestAnimationFrame(tick);
+    };
+
+    if (canvas) {
+      globe = new Globe(canvas, {
+        markers: rows.map((r) => ({
+          lat: Number(r.dataset.lat),
+          lng: Number(r.dataset.lng),
+          ha: Number(r.dataset.ha) || 1,
+          kind: r.dataset.star ? 'star' : 'sale',
+        })),
+        colors: { sale: gold, star: goldSoft },
+      });
+      // Size the canvas once it is actually on screen (it is hidden on narrow screens).
+      new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting || !wide.matches) return;
+        if (!globe.w) {
+          globe.resize();
+          globe.flyTo(previewIndex, true);
+        }
+        kick();
+      }).observe(canvas);
+      let resizeTimer = 0;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!wide.matches) return;
+          globe.resize();
+          kick();
+        }, 150);
+      });
+    }
+
+    let swapTimer = 0;
+    function preview(i) {
+      if (!wide.matches || i === previewIndex) return;
+      previewIndex = i;
+      const r = rows[i];
+      rows.forEach((row, k) => row.classList.toggle('is-preview', k === i));
+      const fill = () => {
+        pv.coords.textContent = r.dataset.coords;
+        pv.name.textContent = r.dataset.name;
+        pv.loc.textContent = r.dataset.location;
+        pv.facts.textContent = r.dataset.facts;
+        pvMeta.classList.remove('is-swapping');
+      };
+      clearTimeout(swapTimer);
+      if (RM) fill();
+      else {
+        pvMeta.classList.add('is-swapping');
+        swapTimer = setTimeout(fill, 180);
+      }
+      globe?.flyTo(i, RM);
+      kick();
+    }
+
+    // Pointing at a row previews it (after a short pause so a quick sweep
+    // across the list does not spin the globe back and forth).
+    let hoverTimer = 0;
+    let lastHover = 0;
+    rows.forEach((r, i) => {
       const btn = $('[data-row-btn]', r);
       const detail = document.getElementById(btn.getAttribute('aria-controls'));
+      r.addEventListener('pointerenter', () => {
+        lastHover = performance.now();
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => preview(i), 70);
+      });
+      btn.addEventListener('focus', () => preview(i));
+
+      // Expand / collapse. One property open at a time keeps the list easy to scan.
       btn.addEventListener('click', () => {
         const open = btn.getAttribute('aria-expanded') !== 'true';
         rows.forEach((other) => {
@@ -393,10 +550,22 @@ const rows = listings.map((l, i) => ({
         });
         btn.setAttribute('aria-expanded', String(open));
         detail.hidden = !open;
+        if (open) preview(i);
       });
     });
 
-    // Filter by region, sort, live count.
+    // While reading, follow the row crossing the middle of the screen,
+    // unless the visitor has just pointed at a row.
+    const rowIO = new IntersectionObserver(
+      (entries) => {
+        if (performance.now() - lastHover < 1200) return;
+        for (const e of entries) if (e.isIntersecting && !e.target.hidden) preview(rows.indexOf(e.target));
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    rows.forEach((r) => rowIO.observe(r));
+
+    // ---------- filter by region, sort, live count ----------
     const state = { region: '', sort: 'default' };
     const num = (v) => (v === '' || v == null ? NaN : Number(v));
     const order = {
@@ -424,6 +593,11 @@ const rows = listings.map((l, i) => ({
       countEl.textContent =
         shown === rows.length ? `${shown} properties` : `${shown} of ${rows.length} properties`;
       emptyEl.hidden = shown > 0;
+      // Fade the pins the filter hides, and turn to the first match.
+      globe?.setFilter((m) => match(rows[m.i]));
+      const firstShown = sorted.find((r) => !r.hidden);
+      if (firstShown) preview(rows.indexOf(firstShown));
+      kick();
     }
     $$('.chip[data-region]').forEach((b) =>
       b.addEventListener('click', () => {
@@ -439,5 +613,7 @@ const rows = listings.map((l, i) => ({
       state.sort = e.target.value;
       apply();
     });
+
+    if (wide.matches) rows[0]?.classList.add('is-preview');
   }
 </script>

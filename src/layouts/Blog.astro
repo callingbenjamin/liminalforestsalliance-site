@@ -1,10 +1,11 @@
 ---
-// Shared chrome for the blog ("Dispatches"): a static header and footer styled
-// to match the site's dark, documentary theme. Wraps Base.astro (which owns
-// <head>, canonical, the Markdown alternate, the RSS link and the JSON-LD) and
-// passes SEO props straight through. The header is deliberately static (not the
-// scroll-driven home-page header) so the blog needs no client script.
+// Shared chrome for the blog ("Dispatches") and /listings: the site header
+// (the same component as the home page, solid from the start) and a footer
+// styled to match the site's dark, documentary theme. Wraps Base.astro (which
+// owns <head>, canonical, the Markdown alternate, the RSS link and the JSON-LD)
+// and passes SEO props straight through.
 import Base from './Base.astro';
+import Header from '../components/Header.astro';
 import { CALENDLY } from '../data/content.js';
 
 const {
@@ -19,28 +20,7 @@ const {
 ---
 
 <Base {title} {description} {ogType} {publishedTime} {jsonLd}>
-  <header class="bhdr">
-    <div class="bhdr-inner">
-      <a class="brand" href="/" aria-label="Liminal Forests Alliance home">
-        <img
-          class="brand-mark"
-          src="/brand/mark-96.webp"
-          srcset="/brand/mark-96.webp 96w, /brand/mark-192.webp 192w"
-          sizes="34px"
-          width="34"
-          height="36"
-          alt=""
-        />
-        <span class="brand-name">Liminal Forests <span class="brand-sub">Alliance</span></span>
-      </a>
-      <nav class="bhdr-nav" aria-label="Primary">
-        <a href="/#why">Why it matters</a>
-        <a href="/listings" aria-current={current === 'listings' ? 'page' : undefined}>Listings</a>
-        <a href="/blog" aria-current={current === 'blog' ? 'page' : undefined}>Dispatches</a>
-        <a class="bhdr-cta" href={CALENDLY} target="_blank" rel="noopener noreferrer">Book a call<span class="sr-only"> (opens Calendly in a new tab)</span></a>
-      </nav>
-    </div>
-  </header>
+  <Header page={current} />
 
   <main id="main" class="blog-main" tabindex="-1">
     <slot />
@@ -60,7 +40,7 @@ const {
           decoding="async"
           alt=""
         />
-        <p><strong>Liminal Forests <span>Alliance</span></strong><br /><span class="bftr-sub">Part of Liminal Commons</span></p>
+        <p><strong>Liminal Forests <span>Alliance</span></strong></p>
       </div>
       <nav class="bftr-links" aria-label="Footer">
         <a href="/">Home</a>
@@ -77,6 +57,24 @@ const {
   </footer>
 </Base>
 
+<script>
+  import { initHeader } from '../scripts/header.js';
+
+  const header = initHeader({ reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      header.updateProgress();
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  header.updateProgress();
+</script>
+
 <style>
   .sr-only {
     position: absolute;
@@ -85,52 +83,6 @@ const {
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-
-  /* ---------- header ---------- */
-  .bhdr {
-    position: sticky;
-    top: 0;
-    z-index: 60;
-    background: rgba(11, 13, 12, 0.82);
-    -webkit-backdrop-filter: blur(14px) saturate(130%);
-    backdrop-filter: blur(14px) saturate(130%);
-    border-bottom: 1px solid var(--line);
-    color: var(--bone);
-  }
-  .bhdr-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    height: var(--header-h);
-    max-width: var(--maxw);
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
-  .brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
-  .brand-mark { width: 34px; height: auto; flex: none; }
-  .brand-name { font-family: var(--f-brand); font-size: 1.05rem; font-weight: 720; letter-spacing: -0.025em; white-space: nowrap; }
-  .brand-sub { font-weight: 420; opacity: 0.72; }
-  .bhdr-nav { display: flex; align-items: center; gap: clamp(0.9rem, 2.4vw, 1.9rem); }
-  .bhdr-nav a { font-size: 0.88rem; font-weight: 500; text-decoration: none; color: inherit; opacity: 0.82; transition: opacity 0.3s; white-space: nowrap; }
-  .bhdr-nav a:hover, .bhdr-nav a[aria-current='page'] { opacity: 1; }
-  .bhdr-cta {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.4rem;
-    padding: 0.45rem 1.05rem;
-    border-radius: 999px;
-    background: var(--bone);
-    color: var(--night) !important;
-    font-weight: 600;
-    opacity: 1 !important;
-    transition: background-color 0.3s;
-  }
-  .bhdr-cta:hover { background: var(--sun-soft); }
-  @media (max-width: 640px) {
-    .bhdr-nav a:not(.bhdr-cta):not([aria-current='page']) { display: none; }
-    .brand-sub { display: none; }
   }
 
   .blog-main { background: var(--night); color: var(--text-1); min-height: 60vh; }
@@ -143,7 +95,6 @@ const {
   .bftr-mark { width: 64px; height: auto; }
   .bftr-brand strong { font-family: var(--f-brand); font-weight: 720; font-size: 1.15rem; letter-spacing: -0.025em; color: var(--text-1); }
   .bftr-brand strong span { font-weight: 420; opacity: 0.72; }
-  .bftr-sub { font-size: 0.85rem; color: var(--text-3); }
   .bftr-links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; justify-self: end; }
   .bftr-links a { color: var(--text-2); text-decoration: none; font-size: 0.9rem; }
   .bftr-links a:hover { color: var(--sun-soft); }
