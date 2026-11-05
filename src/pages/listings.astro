@@ -1,0 +1,165 @@
+---
+import Blog from '../layouts/Blog.astro';
+import {
+  listings,
+  listingsMeta,
+  listingsStats,
+  lastChecked,
+  formatDate,
+  fmt,
+  areaLine,
+  priceLine,
+} from '../data/listings-page.js';
+
+const stats = listingsStats();
+const checked = lastChecked();
+
+const pageTitle = listingsMeta.title || 'Land for sale — Liminal Forests Alliance';
+const pageDesc =
+  listingsMeta.description ||
+  listingsMeta.intro ||
+  'Large, ecologically important wild land currently listed for sale by independent brokers around the world.';
+const intro =
+  listingsMeta.intro ||
+  'These are large, ecologically important properties currently listed for sale by independent brokers around the world. Each card links straight to the broker’s own listing. We track them because the future of each place is decided in a single sale.';
+
+// Country is often already part of the location string; only append it when not.
+const placeOf = (l) =>
+  l.country && !String(l.location || '').includes(l.country)
+    ? `${l.location}, ${l.country}`
+    : l.location;
+---
+
+<Blog title={pageTitle} description={pageDesc} current="listings">
+  <section class="lst-head">
+    <div class="wrap">
+      <p class="eyebrow">Land for sale</p>
+      <h1>Wild land on the market, right now.</h1>
+      <p class="lede">{intro}</p>
+      <ul class="lst-stats" aria-label="Summary">
+        <li><strong>{fmt(stats.count)}</strong><span>properties</span></li>
+        <li><strong>{fmt(stats.totalHa)}</strong><span>hectares</span></li>
+        <li><strong>{fmt(stats.countries)}</strong><span>{stats.countries === 1 ? 'country' : 'countries'}</span></li>
+      </ul>
+      <p class="lst-meta">
+        {checked && <Fragment>Last checked {formatDate(checked)}.{' '}</Fragment>}
+        {listingsMeta.fx_note}
+      </p>
+    </div>
+  </section>
+
+  <section class="lst-grid-sec">
+    <div class="wrap">
+      <ul class="cards">
+        {listings.map((l) => (
+          <li class="card">
+            <div class={`card-media ${l.photo_url ? '' : 'card-media--empty'}`}>
+              {l.photo_url && (
+                <img
+                  class="card-img"
+                  src={l.photo_url}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  referrerpolicy="no-referrer"
+                  onerror="this.remove()"
+                />
+              )}
+              <span class="card-media-note">{l.photo_note || 'Photo available at the broker’s listing.'}</span>
+            </div>
+
+            <div class="card-body">
+              <div class="card-chips">
+                {l.exceptional && <span class="chip chip--star">Exceptional</span>}
+                {l.tenure_label && <span class="chip">{l.tenure_label}</span>}
+              </div>
+
+              <h2>{l.name}</h2>
+              <p class="card-loc">{placeOf(l)}</p>
+
+              <dl class="card-facts">
+                <div><dt>Size</dt><dd>{areaLine(l)}</dd></div>
+                <div><dt>Price</dt><dd>{priceLine(l)}</dd></div>
+              </dl>
+
+              {l.exceptional && l.exceptional_note && (
+                <p class="card-note">{l.exceptional_note}</p>
+              )}
+
+              {l.ecological_case && <p class="card-eco">{l.ecological_case}</p>}
+
+              <div class="card-foot">
+                {l.broker && <p class="card-broker">{l.broker}</p>}
+                {l.url && (
+                  <a class="card-link" href={l.url} target="_blank" rel="noopener noreferrer">
+                    View the broker’s listing
+                    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/></svg>
+                  </a>
+                )}
+                {l.checked && <p class="card-checked">Last checked {formatDate(l.checked)}</p>}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="lst-disclaimer">
+        This page is not an offer of sale, and the Liminal Forests Alliance is not the seller. Every property is listed by an independent third-party broker. Prices are shown as listed by the broker and are subject to change; details, availability and figures should be confirmed directly with each broker.
+      </p>
+      <p class="feed-note">
+        Prefer plain text? There is a <a href="/listings.md">Markdown version</a> of this page.
+      </p>
+    </div>
+  </section>
+</Blog>
+
+<style>
+  .lst-head { padding-block: clamp(5rem, 11vh, 8rem) clamp(1.5rem, 4vh, 2.5rem); }
+  .lst-head h1 { font-size: var(--t-h2); margin-bottom: 1.2rem; max-width: 18ch; }
+  .eyebrow { font-family: var(--f-mono); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sun); margin: 0 0 1.1rem; }
+  .lede { font-size: var(--t-lede); color: var(--text-2); max-width: 62ch; line-height: 1.6; }
+
+  .lst-stats { list-style: none; margin: 2.2rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2.4rem; }
+  .lst-stats li { display: flex; flex-direction: column; gap: 0.2rem; }
+  .lst-stats strong { font-family: var(--f-display); font-weight: 350; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--text-1); line-height: 1; }
+  .lst-stats span { font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+  .lst-meta { margin: 1.8rem 0 0; color: var(--text-3); font-family: var(--f-mono); font-size: 0.8rem; line-height: 1.6; max-width: 70ch; }
+
+  .lst-grid-sec { padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(4.5rem, 11vh, 7rem); }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .card { background: var(--night-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.3s, transform 0.3s var(--ease-out); }
+  .card:hover { transform: translateY(-4px); border-color: var(--line-2); }
+
+  .card-media { position: relative; aspect-ratio: 16 / 10; background: var(--night-3); overflow: hidden; }
+  .card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .card-media-note { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1.2rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.72rem; line-height: 1.5; letter-spacing: 0.02em; }
+
+  .card-body { display: flex; flex-direction: column; flex: 1; padding: 1.5rem 1.6rem 1.6rem; }
+  .card-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; min-height: 0; }
+  .chip { font-family: var(--f-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--moss); border: 1px solid var(--line-2); padding: 0.28rem 0.6rem; border-radius: 999px; }
+  .chip--star { color: var(--sun-soft); border-color: rgba(217, 165, 91, 0.45); }
+
+  .card h2 { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 350; line-height: 1.14; margin-bottom: 0.4rem; color: var(--text-1); }
+  .card-loc { margin: 0 0 1.1rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.78rem; line-height: 1.5; }
+
+  .card-facts { margin: 0 0 1.1rem; display: grid; gap: 0; }
+  .card-facts > div { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.8rem; border-top: 1px solid var(--line); padding-block: 0.55rem; }
+  .card-facts > div:first-child { border-top: none; padding-top: 0; }
+  .card-facts dt { margin: 0; color: var(--text-3); font-family: var(--f-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; align-self: center; }
+  .card-facts dd { margin: 0; color: var(--text-1); font-size: 0.92rem; }
+
+  .card-note { margin: 0 0 1rem; color: var(--sun-soft); font-size: 0.88rem; line-height: 1.55; }
+  .card-eco { margin: 0 0 1.3rem; color: var(--text-2); font-size: 0.95rem; line-height: 1.6; }
+
+  .card-foot { margin-top: auto; display: grid; gap: 0.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+  .card-broker { margin: 0; color: var(--text-3); font-size: 0.82rem; }
+  .card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.9rem; color: var(--sun-soft); text-decoration: none; }
+  .card-link:hover { color: var(--sun); }
+  .card-link svg { transition: transform 0.25s var(--ease-out); }
+  .card-link:hover svg { transform: translate(2px, -2px); }
+  .card-checked { margin: 0; color: var(--text-3); font-family: var(--f-mono); font-size: 0.72rem; }
+
+  .lst-disclaimer { margin: 2.8rem 0 0; color: var(--text-3); font-size: 0.82rem; line-height: 1.6; max-width: 90ch; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+  .feed-note { margin-top: 1.4rem; color: var(--text-3); font-size: 0.9rem; }
+  .feed-note a { color: var(--sun-soft); }
+</style>
