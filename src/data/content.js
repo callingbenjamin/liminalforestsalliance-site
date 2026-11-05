@@ -24,7 +24,7 @@ export const content = {
     lede:
       'The Liminal Forests Alliance works to secure large, ecologically important wild landscapes around the world — old-growth rainforest, wetlands, wilderness and wildlife corridors — and to place each one in an independent trust, so it stays protected for generations to come.',
     primaryCta: { label: 'Book a 30-minute call', href: CALENDLY },
-    ghostCta: { label: 'See the land for sale', href: '/listings' },
+    ghostCta: { label: 'See the land for sale', href: '/old-growth' },
     ctaNote: 'Fund an acquisition, contribute land or partner with us. It starts with a short call.',
     // "Right now we're tracking {count} wild landscapes — {hectares} hectares — listed for sale."
     hook: {
@@ -38,7 +38,7 @@ export const content = {
   nav: [
     { label: 'Why it matters', href: '#why' },
     { label: 'How it works', href: '#approach' },
-    { label: 'Old Growth', href: '/listings' },
+    { label: 'Old Growth', href: '/old-growth' },
     { label: 'Rewilding', href: '/rewilding' },
     { label: 'Dispatches', href: '/blog' },
     { label: 'Get involved', href: '#involved' },
@@ -174,7 +174,7 @@ export const content = {
       'Whether you want to help fund an acquisition, contribute land, or explore working together, the alliance is open to conversations. The best place to start is a short call.',
     primaryCta: { label: 'Book a 30-minute call', href: CALENDLY },
     ctaNote: 'Opens a booking page on Calendly in a new tab.',
-    ghostCta: { label: 'Browse the land for sale', href: '/listings' },
+    ghostCta: { label: 'Browse the land for sale', href: '/old-growth' },
   },
   footerNote:
     'Protecting the world’s wild places, for good. Property details are provided by independent third-party brokers and are subject to change; confirm all details directly with each broker.',
@@ -234,14 +234,14 @@ export function renderMarkdown() {
     out.push(`${Number(s.n)}. ${s.title} — ${s.body}`);
   }
 
-  // The land listed for sale lives on its own page now (see /listings and
-  // /listings.md), so the home Markdown mirrors the home page and does not
+  // The land listed for sale lives on its own page now (see /old-growth and
+  // /old-growth.md), so the home Markdown mirrors the home page and does not
   // repeat the inventory here.
   out.push('');
   out.push('## Old Growth');
   out.push('');
   out.push(
-    `We track large, ecologically important wild land currently listed for sale by independent brokers. The full, regularly checked inventory is on its own page: ${SITE_URL}/listings (plain text: ${SITE_URL}/listings.md).`,
+    `We track large, ecologically important wild land currently listed for sale by independent brokers. The full, regularly checked inventory is on its own page: ${SITE_URL}/old-growth (plain text: ${SITE_URL}/old-growth.md).`,
   );
 
   out.push('');

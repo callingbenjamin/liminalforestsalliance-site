@@ -1,4 +1,4 @@
-// Markdown alternate of the Listings page, served at /listings.md.
+// Markdown alternate of the Old Growth page, served at /old-growth.md.
 // Generated at build time from src/data/listings-page.js (same source as the HTML).
 import { renderListingsMarkdown } from '../data/listings-page.js';
 

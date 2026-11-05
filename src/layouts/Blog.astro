@@ -1,5 +1,5 @@
 ---
-// Shared chrome for the blog ("Dispatches") and /listings: the site header
+// Shared chrome for the blog ("Dispatches") and /old-growth: the site header
 // (the same component as the home page, solid from the start) and a footer
 // styled to match the site's dark, documentary theme. Wraps Base.astro (which
 // owns <head>, canonical, the Markdown alternate, the RSS link and the JSON-LD)
@@ -14,7 +14,7 @@ const {
   ogType = 'website',
   publishedTime = null,
   jsonLd = null,
-  // Which primary nav item to mark as current: 'blog' | 'listings' | null.
+  // Which primary nav item to mark as current: 'blog' | 'old-growth' | 'rewilding' | null.
   current = null,
 } = Astro.props;
 ---
@@ -44,12 +44,12 @@ const {
       </div>
       <nav class="bftr-links" aria-label="Footer">
         <a href="/">Home</a>
-        <a href="/listings">Old Growth</a>
+        <a href="/old-growth">Old Growth</a>
         <a href="/rewilding">Rewilding</a>
         <a href="/blog">Dispatches</a>
         <a href="/blog.md">This blog as plain text</a>
         <a href="/blog/rss.xml">RSS feed</a>
-        <a href="/listings">Old Growth</a>
+        <a href="/old-growth">Old Growth</a>
       </nav>
       <p class="bftr-note">
         Dispatches are short, sourced stories about large wild land that has changed hands. Every fact is drawn from the cited sources and was accurate as of November 2026; confirm current details with the original sources. This site permits search and answer crawlers but does not permit AI-training crawlers.

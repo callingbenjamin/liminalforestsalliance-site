@@ -1,5 +1,5 @@
 // Locator globe — a dot-matrix Earth on <canvas> that turns to the listing
-// being previewed (used on /listings). Pins mark every listing (height ∝
+// being previewed (used on /old-growth). Pins mark every listing (height ∝
 // √area); the active one is drawn larger with a ring. It never moves on its
 // own: it only turns when the visitor points at, scrolls to, or opens a
 // listing. Line widths and pin sizes scale with the globe's size.

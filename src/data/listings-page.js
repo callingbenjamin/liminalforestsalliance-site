@@ -1,8 +1,8 @@
-// Single source of truth for the public Old Growth page ("/listings").
+// Single source of truth for the public Old Growth page ("/old-growth").
 //
 // Consumed by:
-//   - src/pages/listings.astro     (the /listings HTML page)
-//   - src/pages/listings.md.js      (the /listings.md Markdown alternate)
+//   - src/pages/old-growth.astro     (the /old-growth HTML page)
+//   - src/pages/old-growth.md.js      (the /old-growth.md Markdown alternate)
 //   - src/pages/sitemap.xml.js      (adds the Listings pages to the sitemap)
 //
 // The verified dataset lives in a sibling JSON file, src/data/listings-page.json,
@@ -118,7 +118,7 @@ export function listingsStats() {
 // Merged into the sitemap by src/pages/sitemap.xml.js so content.js does not
 // need to import this module.
 export const listingsPages = [
-  { path: '/listings', md: '/listings.md', changefreq: 'weekly', priority: '0.9' },
+  { path: '/old-growth', md: '/old-growth.md', changefreq: 'weekly', priority: '0.9' },
 ];
 
 // ---- Markdown rendering (shared by the .md alternate) ---------------------
@@ -152,7 +152,7 @@ export function renderListingsMarkdown() {
     out.push(listingsMeta.intro || listingsMeta.description);
     out.push('');
   }
-  out.push(`Canonical page: ${SITE_URL}/listings`);
+  out.push(`Canonical page: ${SITE_URL}/old-growth`);
   out.push('');
   out.push(
     `${stats.count} ${stats.count === 1 ? 'property' : 'properties'} currently listed for sale across ${stats.countries} ${stats.countries === 1 ? 'country' : 'countries'}, roughly ${fmt(stats.totalHa)} hectares in total.`,
