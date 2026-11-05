@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/listings", "destination": "/old-growth", "permanent": true },
+    { "source": "/listings/", "destination": "/old-growth", "permanent": true },
+    { "source": "/listings.md", "destination": "/old-growth.md", "permanent": true }
+  ]
+}

@@ -3,7 +3,7 @@
 The public Rewilding page shows **working** land that is currently for sale and
 could be restored rather than intensified: plantations (tea, coffee, oil palm),
 logged leases and farm lots. It is deliberately **separate** from the Listings
-page (`/listings`), which carries large, ecologically important **wild** land.
+page (`/old-growth`), which carries large, ecologically important **wild** land.
 A property belongs on Rewilding, not Old Growth, when its current use is
 agricultural or extractive and the case is for conversion/restoration — not
 because it is already intact wild forest.
@@ -113,7 +113,7 @@ short (e.g. "near, but not stated as bordering, a protected area"); that text is
   withdrawn on the next check.
 - **Working land, not wild land.** This page is for plantations, logged leases
   and farm lots with a restoration/conversion case. Genuinely intact wild land
-  belongs on `/listings` instead.
+  belongs on `/old-growth` instead.
 - **Prices exactly as listed.** Show the broker's figure. For non-USD prices,
   keep the original currency; add an approximate `≈ US$` conversion only when you
   have a dated rate, recorded in `fx_note`.

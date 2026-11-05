@@ -1,4 +1,4 @@
-// Where each /listings property sits on the locator globe.
+// Where each /old-growth property sits on the locator globe.
 //
 // Keyed by the listing `id` in src/data/listings-page.json (two listings share
 // a broker URL, so the URL cannot be the key). Coordinates are APPROXIMATE and

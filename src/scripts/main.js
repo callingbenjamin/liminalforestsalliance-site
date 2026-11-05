@@ -1,6 +1,6 @@
 // Page orchestration: smooth scroll, scroll-driven scenes, film playback,
 // reveals, header state, the menu and the mailing-list sign-up. (The land
-// index and its globe live on /listings, in src/pages/listings.astro.)
+// index and its globe live on /old-growth, in src/pages/old-growth.astro.)
 // The page is fully readable without this script (see `.js` / `.static` in CSS).
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
