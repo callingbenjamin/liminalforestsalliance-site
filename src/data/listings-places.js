@@ -52,6 +52,11 @@ const BY_ID = {
   'bosque-de-paz-private-cloud-forest-reserve-with-field-statio': { lat: 10.17, lng: -84.33, precision: 'town' },
   '849-acre-cloud-forest-estate-cerro-punta': { lat: 8.85, lng: -82.57, precision: 'town' },
   'los-campanos-cloud-forest-reserve': { lat: 9.75, lng: -83.92, precision: 'town' },
+  'haldummulla-beragala-500-acres': { lat: 6.76, lng: 80.9, precision: 'area' },
+  'pilana-galle-22-acres-jungle': { lat: 6.23, lng: 80.18, precision: 'town' },
+  'sigiriya-34-acres-jungle': { lat: 7.95, lng: 80.76, precision: 'area' },
+  'sigiriya-48-acres-jungle-lakes': { lat: 7.96, lng: 80.75, precision: 'area' },
+  'kandy-25-acres-wooded': { lat: 7.29, lng: 80.63, precision: 'area' },
 };
 
 // Rough country centres, used only when a listing has no entry above.
@@ -75,6 +80,7 @@ const BY_COUNTRY = {
   Australia: { lat: -25.0, lng: 134.0 },
   'New Zealand': { lat: -41.5, lng: 172.5 },
   'United Kingdom': { lat: 54.0, lng: -2.5 },
+  'Sri Lanka': { lat: 7.5, lng: 80.7 },
 };
 
 const missing = [];
