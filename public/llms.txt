@@ -19,6 +19,21 @@ Property details are provided by independent third-party brokers and are subject
 
 - [Home](https://liminalforestsalliance.com/): overview, the trust model, land listed for sale, and candidates under review.
 - [Home (Markdown)](https://liminalforestsalliance.com/index.md): the same content as plain Markdown for machine reading.
+- [Dispatches (blog)](https://liminalforestsalliance.com/blog): short, sourced stories about large wild land that has changed hands, and what became of it.
+- [Dispatches (Markdown)](https://liminalforestsalliance.com/blog.md): the blog index as plain Markdown.
+- [Dispatches (RSS)](https://liminalforestsalliance.com/blog/rss.xml): RSS 2.0 feed of the dispatches.
+
+## Blog
+
+Each dispatch is a short, sourced story. Facts are drawn from the cited sources and were accurate as of November 2026. An HTML page and a Markdown alternate are listed for each.
+
+- From sheep ranch to national park: the Chacabuco Valley (Chile, conservation win) - [HTML](https://liminalforestsalliance.com/blog/patagonia-national-park-chacabuco) and [Markdown](https://liminalforestsalliance.com/blog/patagonia-national-park-chacabuco.md)
+- A rainforest saved at auction: Chile's Valdivian coast (Chile, conservation win) - [HTML](https://liminalforestsalliance.com/blog/valdivian-coastal-reserve) and [Markdown](https://liminalforestsalliance.com/blog/valdivian-coastal-reserve.md)
+- 253,000 acres of Appalachia, bought to keep working (USA, conservation win) - [HTML](https://liminalforestsalliance.com/blog/cumberland-forest-appalachia) and [Markdown](https://liminalforestsalliance.com/blog/cumberland-forest-appalachia.md)
+- The world's largest rhino farm, handed to conservation (South Africa, conservation win) - [HTML](https://liminalforestsalliance.com/blog/platinum-rhino-african-parks) and [Markdown](https://liminalforestsalliance.com/blog/platinum-rhino-african-parks.md)
+- Bon Bon: a sheep station the size of a small country, retired (Australia, conservation win) - [HTML](https://liminalforestsalliance.com/blog/bon-bon-station-reserve) and [Markdown](https://liminalforestsalliance.com/blog/bon-bon-station-reserve.md)
+- The Lost Forest that lived up to its name (Scotland, cautionary tale) - [HTML](https://liminalforestsalliance.com/blog/brewdog-lost-forest-kinrara) and [Markdown](https://liminalforestsalliance.com/blog/brewdog-lost-forest-kinrara.md)
+- An island of forest, and the soy frontier closing in (Bolivia, cautionary tale) - [HTML](https://liminalforestsalliance.com/blog/chiquitano-dry-forest-inpa) and [Markdown](https://liminalforestsalliance.com/blog/chiquitano-dry-forest-inpa.md)
 
 ## Site resources
 

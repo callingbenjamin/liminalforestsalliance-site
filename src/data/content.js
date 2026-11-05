@@ -39,6 +39,7 @@ export const content = {
     { label: 'Why it matters', href: '#why' },
     { label: 'How it works', href: '#approach' },
     { label: 'The land', href: '#land' },
+    { label: 'Dispatches', href: '/blog' },
     { label: 'Get involved', href: '#involved' },
   ],
   approach: {
@@ -294,9 +295,11 @@ export function renderMarkdown() {
   return out.join('\n');
 }
 
-// Build the sitemap XML from the page list.
-export function renderSitemap() {
-  const urls = pages
+// Build the sitemap XML from the page list. Extra pages (e.g. the blog, which
+// lives in src/data/blog.js) can be merged in by callers so this module does
+// not need to import the blog and risk a circular dependency.
+export function renderSitemap(extraPages = []) {
+  const urls = [...pages, ...extraPages]
     .map((p) => {
       const loc = `${SITE_URL}${p.path === '/' ? '/' : p.path}`;
       return [

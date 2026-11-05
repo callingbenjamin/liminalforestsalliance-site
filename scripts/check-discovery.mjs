@@ -40,6 +40,25 @@ await requireFile('sitemap.xml', 'sitemap');
 await requireFile('index.html', 'home');
 await requireFile('index.md', 'markdown alternate');
 
+// 1b. Blog artifacts (index, its Markdown alternate, the RSS feed, and a
+// representative post with its Markdown alternate).
+await requireFile('blog/index.html', 'blog index');
+await requireFile('blog.md', 'blog index markdown');
+await requireFile('blog/rss.xml', 'blog rss feed');
+await requireFile('blog/patagonia-national-park-chacabuco/index.html', 'blog post sample');
+await requireFile('blog/patagonia-national-park-chacabuco.md', 'blog post markdown sample');
+
+// 1c. Each post page links its Markdown alternate and carries BlogPosting JSON-LD.
+if (await exists(join(dist, 'blog/patagonia-national-park-chacabuco/index.html'))) {
+  const postHtml = await readFile(join(dist, 'blog/patagonia-national-park-chacabuco/index.html'), 'utf8');
+  if (/rel="alternate"[^>]*type="text\/markdown"/.test(postHtml)) ok('blog post: Markdown alternate link present');
+  else bad('blog post: Markdown alternate link MISSING');
+  if (/"@type":\s*"BlogPosting"/.test(postHtml)) ok('blog post: BlogPosting JSON-LD present');
+  else bad('blog post: BlogPosting JSON-LD MISSING');
+  if (/rel="alternate"[^>]*type="application\/rss\+xml"/.test(postHtml)) ok('blog post: RSS alternate link present');
+  else bad('blog post: RSS alternate link MISSING');
+}
+
 // 2. robots.txt carries the no-AI-training policy signal.
 if (await exists(join(dist, 'robots.txt'))) {
   const robots = await readFile(join(dist, 'robots.txt'), 'utf8');
