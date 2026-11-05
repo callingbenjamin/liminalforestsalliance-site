@@ -17,7 +17,7 @@ Property details are provided by independent third-party brokers and are subject
 
 ## Pages
 
-- [Home](https://liminalforestsalliance.com/): overview, the trust model, land listed for sale, and candidates under review.
+- [Home](https://liminalforestsalliance.com/): overview of the alliance, why wild land matters, and how the trust model works. Land currently for sale lives on the Listings page below.
 - [Home (Markdown)](https://liminalforestsalliance.com/index.md): the same content as plain Markdown for machine reading.
 - [Listings](https://liminalforestsalliance.com/listings): photo cards of large, ecologically important wild land currently listed for sale by independent brokers, each linking to the broker's listing.
 - [Listings (Markdown)](https://liminalforestsalliance.com/listings.md): the listings as plain Markdown for machine reading.

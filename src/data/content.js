@@ -24,7 +24,7 @@ export const content = {
     lede:
       'The Liminal Forests Alliance works to secure large, ecologically important wild landscapes around the world — old-growth rainforest, wetlands, wilderness and wildlife corridors — and to place each one in an independent trust, so it stays protected for generations to come.',
     primaryCta: { label: 'Book a 30-minute call', href: CALENDLY },
-    ghostCta: { label: 'See the land for sale', href: '#land' },
+    ghostCta: { label: 'See the land for sale', href: '/listings' },
     ctaNote: 'Fund an acquisition, contribute land or partner with us. It starts with a short call.',
     // "Right now we're tracking {count} wild landscapes — {hectares} hectares — listed for sale."
     hook: {
@@ -38,7 +38,6 @@ export const content = {
   nav: [
     { label: 'Why it matters', href: '#why' },
     { label: 'How it works', href: '#approach' },
-    { label: 'The land', href: '#land' },
     { label: 'Listings', href: '/listings' },
     { label: 'Dispatches', href: '/blog' },
     { label: 'Get involved', href: '#involved' },
@@ -174,7 +173,7 @@ export const content = {
       'Whether you want to help fund an acquisition, contribute land, or explore working together, the alliance is open to conversations. The best place to start is a short call.',
     primaryCta: { label: 'Book a 30-minute call', href: CALENDLY },
     ctaNote: 'Opens a booking page on Calendly in a new tab.',
-    ghostCta: { label: 'Browse the land', href: '#land' },
+    ghostCta: { label: 'Browse the land for sale', href: '/listings' },
   },
   footerNote:
     'Protecting the world’s wild places, for good. Property details are provided by independent third-party brokers and are subject to change; confirm all details directly with each broker.',
@@ -210,23 +209,6 @@ export const pages = [
   { path: '/', md: '/index.md', changefreq: 'weekly', priority: '1.0' },
 ];
 
-const fmt = (n) => n.toLocaleString('en-US');
-
-function listingToMarkdown(p) {
-  const price = p.price_note ? `${p.price} (${p.price_note})` : p.price;
-  const area = `${fmt(p.size_ha)} ha / ${fmt(p.size_acres)} ac`;
-  const lines = [
-    `### ${p.name}`,
-    `- Location: ${p.location}`,
-    `- Area: ${area}`,
-    `- Price: ${price}`,
-    `- Broker: ${p.broker}`,
-  ];
-  if (p.ecological_case) lines.push(`- Ecological case: ${p.ecological_case}`);
-  lines.push(`- Listing: ${p.url}`);
-  return lines.join('\n');
-}
-
 // Build the Markdown alternate of the home page from the same content + data.
 export function renderMarkdown() {
   const c = content;
@@ -251,25 +233,17 @@ export function renderMarkdown() {
     out.push(`${Number(s.n)}. ${s.title} — ${s.body}`);
   }
 
+  // The land listed for sale lives on its own page now (see /listings and
+  // /listings.md), so the home Markdown mirrors the home page and does not
+  // repeat the inventory here.
   out.push('');
-  out.push(`## ${c.land.title}`);
+  out.push('## Land for sale');
   out.push('');
-  out.push(c.land.lede);
-  out.push('');
-  for (const p of listings.for_sale) {
-    out.push(listingToMarkdown(p));
-    out.push('');
-  }
+  out.push(
+    `We track large, ecologically important wild land currently listed for sale by independent brokers. The full, regularly checked inventory is on its own page: ${SITE_URL}/listings (plain text: ${SITE_URL}/listings.md).`,
+  );
 
-  out.push(`## ${c.candidates.title}`);
   out.push('');
-  out.push(c.candidates.lede);
-  out.push('');
-  for (const p of listings.new_candidates) {
-    out.push(listingToMarkdown(p));
-    out.push('');
-  }
-
   out.push(`## ${c.why.title}`);
   out.push('');
   out.push(c.why.lede);

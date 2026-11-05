@@ -1,12 +1,32 @@
 # How to update the Listings page (/listings)
 
-The public Listings page shows photo cards of large, ecologically important wild
-land that is currently for sale. It is the only public home for these listings
-(the old callingbenjamin.com/liminal-commons page redirects here).
+The public Listings page shows large, ecologically important wild land that is
+currently for sale. It is the **only** public home for this inventory: the home
+page no longer carries an on-page land section (the old "#land" Atlas accordion
+was removed), and the old callingbenjamin.com/liminal-commons page redirects
+here.
+
+The page is an **accordion**, styled to match the site's documentary theme
+(stats row, region filter chips, a sort control, and a collapsed row per
+property that expands to a detail panel). The design deliberately mirrors the
+look the home page's Atlas section used to have. In the expanded panel we show:
+
+- the broker's **photo** (`photo_url`), hotlinked with `referrerpolicy="no-referrer"`
+  and cropped to a landscape frame (`object-fit: cover`);
+- the ecological case, the full listed facts (location, area, price, tenure,
+  broker, last-checked date), and two actions — "Ask about this property"
+  (Calendly) and "View the broker's listing";
+- when there is no usable photo, a neutral empty state reading
+  "See photos on the broker listing." — never the technical `photo_note`, a QR
+  code, a broker logo or a tiny thumbnail.
+
+The collapsed row stays scannable: name, location, area and a compact price.
 
 Like the home page and the blog, the page is generated from a single dataset, so
 the HTML page, the Markdown alternate and the sitemap entry all follow from one
-file and cannot drift apart.
+file and cannot drift apart. The accordion's filter/sort/expand behaviour is a
+small self-contained script inside `listings.astro`; the page is fully readable
+with JavaScript disabled (every detail panel is in the DOM, just collapsed).
 
 ## Where things live
 
@@ -24,9 +44,11 @@ dataset at `/workspace/liminal-forests/listings.json` (outside this repo). The
 weekly check re-verifies each listing against the broker's page and rebuilds the
 JSON; copy the resulting file into `src/data/listings-page.json` and open a PR.
 
-Do **not** confuse this with `src/data/listings.json` + `src/lib/listings.js`,
-which power the home-page Atlas satellite cards. Those are separate and are left
-untouched by this page.
+Do **not** confuse this with `src/data/listings.json` + `src/lib/listings.js`.
+That dataset powered the old home-page Atlas section, which has been removed;
+only the hero's "landscapes tracked" count still reads from it. It is separate
+from, and must not be mixed with, the public listings inventory in
+`src/data/listings-page.json`.
 
 ## Card data shape
 
@@ -56,9 +78,14 @@ correct even if `meta` is incomplete.
   state the conversion's rate date in `fx_note`.
 - **Photos are hotlinks only.** `photo_url` is the broker's own image URL, loaded
   with `referrerpolicy="no-referrer"`. Never download or commit broker images
-  into the repo. Where there is no usable photo, set `photo_url` to `null` and
-  put a short explanation in `photo_note`; the card shows that note instead of an
-  image (and if a hotlinked image fails to load, the same note shows through).
+  into the repo. Prefer a large landscape gallery image or the page's `og:image`.
+  **Reject** QR codes, broker logos, HTML/error pages, and tiny or near-square
+  thumbnails (roughly under 400px on the short side) — these look broken in the
+  landscape frame. Where there is no usable photo, set `photo_url` to `null`
+  (keep any note in `photo_note` for the record); the expanded panel then shows
+  the neutral empty state "See photos on the broker listing." — it never renders
+  `photo_note` in the photo area. If a hotlinked image fails to load at runtime,
+  the same neutral empty state shows through automatically.
 - **Tenure labels.** Use `tenure_label` to flag non-standard tenure such as
   co-funding, sealed-bid or leasehold arrangements.
 
