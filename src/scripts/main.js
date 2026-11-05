@@ -1,9 +1,10 @@
 // Page orchestration: smooth scroll, scroll-driven scenes, film playback,
-// reveals, header state, the menu, and the property index.
+// reveals, header state, the menu and the mailing-list sign-up. (The land
+// index and its globe live on /listings, in src/pages/listings.astro.)
 // The page is fully readable without this script (see `.js` / `.static` in CSS).
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
-import { Globe } from './globe.js';
+import { initHeader } from './header.js';
 
 const root = document.documentElement;
 const RM = root.classList.contains('rm');
@@ -242,7 +243,6 @@ $$('[data-reveal]').forEach((el) => revealIO.observe(el));
 
 // ------------------------------------------------------------------ header
 const hdr = $('[data-hdr]');
-const progressBar = $('[data-progress]');
 const paper = $('[data-paper]');
 const navLinks = $$('[data-nav]');
 const sections = $$('[data-section]');
@@ -260,8 +260,7 @@ sections.forEach((s) => sectionIO.observe(s));
 
 function updateHeader() {
   const y = window.scrollY;
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  if (progressBar) progressBar.style.transform = `scaleX(${max > 0 ? (y / max).toFixed(4) : 0})`;
+  header.updateProgress();
   if (!hdr) return;
   hdr.classList.toggle('is-solid', y > 40);
   if (paper) {
@@ -271,203 +270,14 @@ function updateHeader() {
   }
 }
 
-// ------------------------------------------------------------------ menu (modal)
-const menuBtn = $('[data-menu-btn]');
-const menu = $('[data-menu]');
-const outside = [$('main'), $('footer'), $('.brand'), $('.hdr-cta')].filter(Boolean);
-function closeMenu(returnFocus = true) {
-  if (!menu || menu.hidden) return;
-  menu.classList.add('is-closing');
-  setTimeout(() => {
-    menu.hidden = true;
-    menu.classList.remove('is-closing');
-  }, RM ? 0 : 280);
-  menuBtn.setAttribute('aria-expanded', 'false');
-  $('[data-menu-label]', menuBtn).textContent = 'Menu';
-  outside.forEach((el) => setInert(el, false));
-  lenis?.start();
-  if (returnFocus) menuBtn.focus();
-}
-menuBtn?.addEventListener('click', () => {
-  if (!menu.hidden) return closeMenu();
-  menu.hidden = false;
-  menuBtn.setAttribute('aria-expanded', 'true');
-  $('[data-menu-label]', menuBtn).textContent = 'Close';
-  outside.forEach((el) => setInert(el, true));
-  lenis?.stop();
-  $('a', menu)?.focus();
+// ------------------------------------------------------------------ menu (modal) + progress line
+// Shared with every page (src/scripts/header.js). Smooth scrolling pauses while the menu is open.
+const header = initHeader({
+  reducedMotion: RM,
+  onMenuOpen: () => lenis?.stop(),
+  onMenuClose: () => lenis?.start(),
 });
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMenu();
-});
-menu?.addEventListener('click', (e) => {
-  if (e.target.closest('a[target="_blank"]')) closeMenu(false);
-});
-
-// ------------------------------------------------------------------ property index
-const atlas = $('[data-atlas]');
-let globe = null;
-let globeVisible = false;
-if (atlas) {
-  const list = $('[data-rows]', atlas);
-  const rows = $$('[data-row]', atlas);
-  const css = getComputedStyle(root);
-  const wide = window.matchMedia('(min-width: 1001px)');
-  const pvA = $('[data-pv-a]', atlas);
-  const pvB = $('[data-pv-b]', atlas);
-  const pvName = $('[data-pv-name]', atlas);
-  const pvLoc = $('[data-pv-loc]', atlas);
-  const pvCoords = $('[data-pv-coords]', atlas);
-  const pvSrc = $('[data-pv-src]', atlas);
-  const canvas = $('[data-globe]', atlas);
-  let front = pvA;
-  let previewIndex = 0;
-  let pending = 0;
-
-  if (canvas) {
-    globe = new Globe(canvas, {
-      markers: rows.map((r) => ({
-        lat: Number(r.dataset.lat),
-        lng: Number(r.dataset.lng),
-        ha: Number(r.dataset.ha),
-        kind: r.dataset.kind,
-        region: r.dataset.region,
-      })),
-      colors: { sale: css.getPropertyValue('--sale').trim() || '#c58630', review: css.getPropertyValue('--review').trim() || '#3a9ccc' },
-    });
-    new IntersectionObserver(([e]) => {
-      globeVisible = e.isIntersecting;
-      if (globeVisible && !globe.w) {
-        globe.resize();
-        globe.flyTo(0, true);
-      }
-    }).observe(canvas);
-  }
-
-  function preview(i) {
-    if (!wide.matches || i === previewIndex) return;
-    previewIndex = i;
-    const r = rows[i];
-    rows.forEach((row, k) => row.classList.toggle('is-preview', k === i));
-    pvName.textContent = r.dataset.name;
-    pvLoc.textContent = r.dataset.location;
-    pvCoords.textContent = r.dataset.coords;
-    pvSrc.textContent = `Copernicus Sentinel-2 · ${r.dataset.date}`;
-    globe?.flyTo(i, RM);
-    const src = r.dataset.img;
-    if (!src) return;
-    const back = front === pvA ? pvB : pvA;
-    const token = ++pending;
-    back.onload = () => {
-      if (token !== pending) return;
-      back.classList.add('is-on');
-      front.classList.remove('is-on');
-      front = back;
-    };
-    back.src = src;
-  }
-
-  let hoverTimer = 0;
-  rows.forEach((r, i) => {
-    const btn = $('[data-row-btn]', r);
-    const detail = $(`#${btn.getAttribute('aria-controls')}`);
-    r.addEventListener('pointerenter', () => {
-      clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(() => preview(i), 70);
-    });
-    btn.addEventListener('focus', () => preview(i));
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') !== 'true';
-      // One property open at a time keeps the list easy to scan.
-      rows.forEach((other) => {
-        if (other === r) return;
-        const b = $('[data-row-btn]', other);
-        if (b.getAttribute('aria-expanded') === 'true') {
-          b.setAttribute('aria-expanded', 'false');
-          $(`#${b.getAttribute('aria-controls')}`).hidden = true;
-        }
-      });
-      btn.setAttribute('aria-expanded', String(open));
-      detail.hidden = !open;
-      if (open) preview(i);
-      lenis?.resize();
-    });
-  });
-
-  // Keep the preview in step with reading: the row crossing the middle of the
-  // screen, unless the visitor has just pointed at a row.
-  let lastHover = 0;
-  rows.forEach((r) => r.addEventListener('pointerenter', () => (lastHover = performance.now())));
-  const rowIO = new IntersectionObserver(
-    (entries) => {
-      if (performance.now() - lastHover < 1200) return;
-      for (const e of entries) if (e.isIntersecting && !e.target.hidden) preview(rows.indexOf(e.target));
-    },
-    { rootMargin: '-45% 0px -50% 0px' },
-  );
-  rows.forEach((r) => rowIO.observe(r));
-
-  // Filters and sorting.
-  const state = { region: '', status: '', sort: 'default' };
-  const countEl = $('[data-count-label]', atlas);
-  const emptyEl = $('[data-empty]', atlas);
-  const order = {
-    default: (a, b) => Number(a.dataset.i) - Number(b.dataset.i),
-    size: (a, b) => Number(b.dataset.ha) - Number(a.dataset.ha),
-    price: (a, b) => (Number(a.dataset.usd) || Infinity) - (Number(b.dataset.usd) || Infinity),
-    name: (a, b) => a.dataset.name.localeCompare(b.dataset.name),
-  };
-  function apply() {
-    const match = (r) => (!state.region || r.dataset.region === state.region) && (!state.status || r.dataset.kind === state.status);
-    const sorted = [...rows].sort(order[state.sort]);
-    let k = 0;
-    sorted.forEach((r) => {
-      list.appendChild(r);
-      const show = match(r);
-      r.hidden = !show;
-      if (show && !RM) {
-        r.classList.remove('is-entering');
-        void r.offsetWidth;
-        r.style.setProperty('--k', String(k++));
-        r.classList.add('is-entering');
-      }
-    });
-    const shown = rows.filter((r) => !r.hidden).length;
-    countEl.textContent = shown === rows.length ? `${shown} landscapes` : `${shown} of ${rows.length} landscapes`;
-    emptyEl.hidden = shown > 0;
-    globe?.setFilter((m) => {
-      const r = rows[m.i];
-      return match(r);
-    });
-    const firstShown = sorted.find((r) => !r.hidden);
-    if (firstShown) preview(rows.indexOf(firstShown));
-    lenis?.resize();
-  }
-  $$('.chip[data-region]', atlas).forEach((b) =>
-    b.addEventListener('click', () => {
-      state.region = b.dataset.region;
-      $$('.chip[data-region]', atlas).forEach((o) => {
-        o.classList.toggle('is-on', o === b);
-        o.setAttribute('aria-pressed', String(o === b));
-      });
-      apply();
-    }),
-  );
-  $$('.chip[data-status]', atlas).forEach((b) =>
-    b.addEventListener('click', () => {
-      state.status = b.dataset.status;
-      $$('.chip[data-status]', atlas).forEach((o) => {
-        o.classList.toggle('is-on', o === b);
-        o.setAttribute('aria-pressed', String(o === b));
-      });
-      apply();
-    }),
-  );
-  $('[data-sort]', atlas)?.addEventListener('change', (e) => {
-    state.sort = e.target.value;
-    apply();
-  });
-}
+const closeMenu = (returnFocus = true) => header.closeMenu(returnFocus);
 
 // ------------------------------------------------------------------ mailing-list sign-up
 const signup = $('[data-signup]');
@@ -503,18 +313,8 @@ signup?.addEventListener('submit', async (e) => {
   }
 });
 
-// ------------------------------------------------------------------ resize
-let resizeTimer = 0;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => globe?.w && globe.resize(), 150);
-});
-
 // ------------------------------------------------------------------ main loop
-let last = performance.now();
 function frame(now) {
-  const dt = now - last;
-  last = now;
   lenis?.raf(now);
   const vh = window.innerHeight;
   for (const s of scenes) s.next = measure(s, vh);
@@ -525,7 +325,6 @@ function frame(now) {
     }
   }
   updateHeader();
-  if (globe && globeVisible) globe.render(dt);
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);

@@ -1,7 +1,8 @@
-// Locator globe — a small dot-matrix Earth on <canvas> that turns to the
-// listing being previewed. Spikes mark every listing (height ∝ √area); the
-// active one is drawn larger. It never moves on its own: it only turns when
-// the visitor points at, or opens, a listing.
+// Locator globe — a dot-matrix Earth on <canvas> that turns to the listing
+// being previewed (used on /listings). Pins mark every listing (height ∝
+// √area); the active one is drawn larger with a ring. It never moves on its
+// own: it only turns when the visitor points at, scrolls to, or opens a
+// listing. Line widths and pin sizes scale with the globe's size.
 import land from '../data/land.json';
 
 const D2R = Math.PI / 180;
@@ -120,6 +121,11 @@ export class Globe {
     c.beginPath();
     c.arc(CX, CY, R, 0, TAU);
     c.fill();
+    // A faint rim so the sphere reads against the page.
+    c.strokeStyle = 'rgba(242,237,227,0.14)';
+    c.lineWidth = 1;
+    c.stroke();
+    const u = clamp(R / 80, 1, 2.6);
 
     const d = this.dots;
     const tmp = [0, 0, 0];
@@ -151,20 +157,20 @@ export class Globe {
       const tx = CX + tip[0] * R, ty = CY - tip[1] * R;
       c.globalAlpha = clamp(b[2] * 3, 0, 1) * (1 - m.dim * 0.85) * (isActive ? 1 : 0.75);
       c.strokeStyle = this.colors[m.kind];
-      c.lineWidth = isActive ? 2 : 1.2;
+      c.lineWidth = (isActive ? 2 : 1.2) * u;
       c.beginPath();
       c.moveTo(bx, by);
       c.lineTo(tx, ty);
       c.stroke();
       c.fillStyle = this.colors[m.kind];
       c.beginPath();
-      c.arc(tx, ty, isActive ? 3 : 1.6, 0, TAU);
+      c.arc(tx, ty, (isActive ? 3 : 1.6) * u, 0, TAU);
       c.fill();
       if (isActive) {
         c.strokeStyle = '#f2ede3';
-        c.lineWidth = 1;
+        c.lineWidth = Math.max(1, u * 0.75);
         c.beginPath();
-        c.arc(tx, ty, 6, 0, TAU);
+        c.arc(tx, ty, 6 * u, 0, TAU);
         c.stroke();
       }
     }

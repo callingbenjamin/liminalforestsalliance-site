@@ -1,10 +1,32 @@
 ---
+// The site header, shared by every page.
+// `page`: 'home' for the scroll-driven home page (transparent over the film,
+// in-page links). On any other page pass the section it belongs to
+// ('listings' or 'blog', or null): the header is then solid from the start,
+// sits in the page flow, links back to the home page's sections, and marks
+// the current section.
 import { content, CALENDLY } from '../data/content.js';
+
+const { page = 'home' } = Astro.props;
+const isHome = page === 'home';
+const nav = content.nav.map((n) => {
+  const inPage = n.href.startsWith('#');
+  return {
+    label: n.label,
+    href: !isHome && inPage ? `/${n.href}` : n.href,
+    key: isHome ? n.href.replace(/^\/?#?/, '') : undefined,
+    current: !isHome && n.href === `/${page}`,
+  };
+});
 ---
 
-<header class="hdr" data-hdr>
+<header class:list={['hdr', !isHome && 'hdr--page is-solid']} data-hdr>
   <div class="hdr-inner">
-    <a class="brand" href="#top" aria-label="Liminal Forests Alliance — back to top">
+    <a
+      class="brand"
+      href={isHome ? '#top' : '/'}
+      aria-label={isHome ? 'Liminal Forests Alliance — back to top' : 'Liminal Forests Alliance home'}
+    >
       <img
         class="brand-mark"
         src="/brand/mark-96.webp"
@@ -18,7 +40,11 @@ import { content, CALENDLY } from '../data/content.js';
     </a>
 
     <nav class="hdr-nav" aria-label="Primary">
-      {content.nav.map((n) => <a href={n.href} data-nav={n.href.slice(1)}>{n.label}</a>)}
+      {nav.map((n) => (
+        <a href={n.href} data-nav={n.key} class:list={[n.current && 'is-current']} aria-current={n.current ? 'page' : undefined}>
+          {n.label}
+        </a>
+      ))}
     </nav>
 
     <div class="hdr-right">
@@ -36,8 +62,8 @@ import { content, CALENDLY } from '../data/content.js';
 
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" data-menu hidden>
   <nav aria-label="Mobile">
-    {content.nav.map((n, i) => (
-      <a href={n.href} style={`--i:${i}`}><span class="label">0{i + 1}</span>{n.label}</a>
+    {nav.map((n, i) => (
+      <a href={n.href} style={`--i:${i}`} aria-current={n.current ? 'page' : undefined}><span class="label">0{i + 1}</span>{n.label}</a>
     ))}
   </nav>
   <a class="btn menu-cta" href={CALENDLY} target="_blank" rel="noopener noreferrer">
@@ -55,6 +81,8 @@ import { content, CALENDLY } from '../data/content.js';
     transition: background-color 0.5s, border-color 0.5s, color 0.5s;
     border-bottom: 1px solid transparent;
   }
+  /* Every page except home: in the page flow, and solid from the start. */
+  .hdr--page { position: sticky; inset: auto; top: 0; }
   .hdr.is-solid {
     background: rgba(11, 13, 12, 0.8);
     -webkit-backdrop-filter: blur(14px) saturate(130%);
