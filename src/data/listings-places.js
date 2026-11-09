@@ -26,7 +26,6 @@ const BY_ID = {
   '12-000-hectares-north-eastern-namibia': { lat: -19.0, lng: 20.5, precision: 'region' },
   'finca-en-patagonia-10-982-ha-esquel': { lat: -42.91, lng: -71.32, precision: 'town' },
   'ngorare-ranch-27-000-acres-ewaso-nyiro-frontage': { lat: 0.2, lng: 36.5, precision: 'area' },
-  'mauricedale-game-ranch-6-506-ha-adjacent-to-kruger': { lat: -25.48, lng: 31.52, precision: 'town' },
   'private-nature-reserve-waterberg-0240': { lat: -24.2, lng: 28.0, precision: 'area' },
   'lago-posadas-6-128-ha': { lat: -47.55, lng: -71.75, precision: 'town' },
   'la-dorita-farm-13-897-acres-78-near-virgin-forest': { lat: -23.4, lng: -58.4, precision: 'country' },
@@ -57,6 +56,10 @@ const BY_ID = {
   'sigiriya-34-acres-jungle': { lat: 7.95, lng: 80.76, precision: 'area' },
   'sigiriya-48-acres-jungle-lakes': { lat: 7.96, lng: 80.75, precision: 'area' },
   'kandy-25-acres-wooded': { lat: 7.29, lng: 80.63, precision: 'area' },
+  'sete-barras-2-925-ha-atlantic-forest': { lat: -24.39, lng: -47.93, precision: 'town' },
+  'puerto-cisnes-652-ha-virgin-forest': { lat: -43.75, lng: -72.9, precision: 'area' },
+  'la-invernada-73-000-ha-magallanes': { lat: -52.3, lng: -71.6, precision: 'region' },
+  'yarawa-serua-1-240-acres-fiji': { lat: -18.2, lng: 177.95, precision: 'area' },
 };
 
 // Rough country centres, used only when a listing has no entry above.
@@ -81,6 +84,7 @@ const BY_COUNTRY = {
   'New Zealand': { lat: -41.5, lng: 172.5 },
   'United Kingdom': { lat: 54.0, lng: -2.5 },
   'Sri Lanka': { lat: 7.5, lng: 80.7 },
+  Fiji: { lat: -17.8, lng: 178.0 },
 };
 
 const missing = [];
