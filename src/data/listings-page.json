@@ -3,11 +3,32 @@
     "title": "Old Growth — Liminal Forests Alliance",
     "description": "Old-growth and other large, ecologically important wild land currently listed for sale worldwide. Each card is checked against the live broker page; prices and sizes are shown exactly as listed.",
     "intro": "These are real properties currently listed for sale by independent brokers. We track them for their conservation potential. Every fact on a card comes from the broker’s listing. Follow the link for full details, and never treat this page as an offer of sale.",
-    "checked": "2026-11-05",
-    "fx_rate_date": "2026-11-04",
+    "checked": "2026-11-09",
+    "fx_rate_date": "2026-11-09",
     "fx_note": "Non-USD prices keep the listed currency and show an approximate US$ conversion using open market rates from the checked date."
   },
   "listings": [
+    {
+      "id": "la-invernada-73-000-ha-magallanes",
+      "name": "La Invernada — about 73,000 ha, Magallanes",
+      "location": "Between Puerto Natales and Punta Arenas, Magallanes",
+      "country": "Chile",
+      "size_ha": 73000,
+      "size_acres": 180387,
+      "price": "US$26,000,000",
+      "price_usd": null,
+      "fx_note": null,
+      "ecological_case": "About 73,000 contiguous hectares in six parcels with native lenga forest and regenerating areas, peatlands, rivers, streams and lagoons. The listing markets it mainly for resuming lenga logging, so purchase would also stop that.",
+      "broker": "Chile Sotheby's International Realty (Javier Contreras)",
+      "url": "https://sothebysrealty.ca/en/property/global/region-chile/natales-real-estate/3162861/la-invernada",
+      "photo_url": "https://img.gtsstatic.net/reno/imagereader.aspx?option=N&permitphotoenlargement=false&w=1800&imageurl=//openapi.images.anywhere.re/64AFC978-631F-4238-92F6-9E26131757F9",
+      "photo_note": null,
+      "tenure": "Six independent parcels, sold together or separately.",
+      "tenure_label": "Whole or by parcel",
+      "status": "for_sale",
+      "checked": "2026-11-09",
+      "price_display": "US$26,000,000"
+    },
     {
       "id": "rea-rural-floresta-nativa-61-500-ha-carauari",
       "name": "Área Rural — Floresta Nativa 61,500 ha, Carauari",
@@ -16,9 +37,9 @@
       "size_ha": 61500,
       "size_acres": 151969,
       "price": "R$ 52.275.000 (R$850/ha)",
-      "price_usd": "≈ US$9,559,027",
-      "price_display": "R$ 52.275.000 (R$850/ha) (≈ US$9,559,027)",
-      "fx_note": "≈ at BRL 5.47/USD on 2026-11-04",
+      "price_usd": "≈ US$9,496,589",
+      "price_display": "R$ 52.275.000 (R$850/ha) (≈ US$9,496,589)",
+      "fx_note": "≈ at BRL 5.50/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "61,500 ha of native forest near Carauari, Amazonas.",
       "broker": "MF Rural (cód. 869799)",
       "url": "https://www.mfrural.com.br/detalhe/869799/area-rural-floresta-nativa",
@@ -26,7 +47,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -47,7 +68,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale_listing_date_unknown",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -58,9 +79,9 @@
       "size_ha": 20333,
       "size_acres": 50244,
       "price": "A$24.7M purchase plus initial management (Bush Heritage figure)",
-      "price_usd": "≈ US$17,301,196",
-      "price_display": "A$24.7M purchase plus initial management (Bush Heritage figure) (≈ US$17,301,196)",
-      "fx_note": "≈ at AUD 1.43/USD on 2026-11-04",
+      "price_usd": "≈ US$16,966,593",
+      "price_display": "A$24.7M purchase plus initial management (Bush Heritage figure) (≈ US$16,966,593)",
+      "fx_note": "≈ at AUD 1.46/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Nearly intact Wet Tropics rainforest edge; Bush Heritage Australia is purchasing and seeking co-funding.",
       "broker": "Bush Heritage Australia appeal",
       "url": "https://www.bushheritage.org.au/news/wooroora-opportunity",
@@ -68,7 +89,7 @@
       "photo_note": null,
       "tenure": "co_funding",
       "status": "under_purchase_by_conservation_buyer",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": "Co-funding opportunity"
     },
     {
@@ -81,7 +102,7 @@
       "price": "U$D 6.400.000",
       "price_usd": "≈ US$6,400,000",
       "price_display": "U$D 6.400.000 (≈ US$6,400,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "fx_note": "Listed in US dollars; no conversion needed",
       "ecological_case": "Glaciers, native forest, rivers, lagoons and steppe with over 30 km of Lago San Martín shoreline, and an active plan to bring back the endangered huemul.",
       "broker": "Areco Patagónico (Juan Cruz Madero / Hernán Fiore)",
       "url": "https://www.arecopatagonico.com/principal/estancia-de-16000-ha-en-lago-san-mart%C3%ADn-santa-cruz",
@@ -89,7 +110,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -123,7 +144,7 @@
       "price": "R 145 000 000 (listing also states US$8.9M)",
       "price_usd": "≈ US$8,900,000",
       "price_display": "R 145 000 000 (listing also states US$8.9M) (≈ US$8,900,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "fx_note": "US$ figure as stated on the listing",
       "ecological_case": "A proclaimed nature reserve of Eastern Valley Bushveld, endemic Bhisho Thornveld and protected Amatole Mistbelt Forest, with over 26 km of Kei River frontage.",
       "broker": "Bass Property Group (Joshua Bassingthwaighte) via Liivra",
       "url": "https://liivra.com/listings/43a4abb5-8097-445d-bd9a-68b3d39a104a",
@@ -131,7 +152,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -152,7 +173,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale_listing_date_unknown",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -163,9 +184,9 @@
       "size_ha": 12000,
       "size_acres": 29600,
       "price": "N$109,000,000 excl. VAT",
-      "price_usd": "≈ US$6,500,000",
-      "price_display": "N$109,000,000 excl. VAT (≈ US$6,500,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "price_usd": "≈ US$6,592,371",
+      "price_display": "N$109,000,000 excl. VAT (≈ US$6,592,371)",
+      "fx_note": "≈ at NAD 16.53/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "About 12,000 ha in north-eastern Namibia.",
       "broker": "Wiltinnet",
       "url": "https://www.wiltinnet.co.za/properties/%c2%b112000-hectares-north-eastern-namibia/",
@@ -173,7 +194,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -194,7 +215,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -205,9 +226,9 @@
       "size_ha": 10927,
       "size_acres": 27000,
       "price": "KSh 9,450,000,000 (KSh 350,000/acre)",
-      "price_usd": "≈ US$73,000,000",
-      "price_display": "KSh 9,450,000,000 (KSh 350,000/acre) (≈ US$73,000,000)",
-      "fx_note": "≈ at KES 130/USD on 2026-11-04",
+      "price_usd": "≈ US$72,726,281",
+      "price_display": "KSh 9,450,000,000 (KSh 350,000/acre) (≈ US$72,726,281)",
+      "fx_note": "≈ at KES 130/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Ewaso Nyiro river frontage; borders Segera, Sosian and Ol Maisor; agent notes 7,000+ acres of natural habitat.",
       "broker": "Mkaazi Real Estate Ltd",
       "url": "https://mkaazirealestate.com/property/27000-acre-prime-ranch-for-sale-in-laikipia-ngorare-ranch-ksh-350000-per-acre/",
@@ -215,29 +236,8 @@
       "photo_note": null,
       "tenure": "leasehold_foreigners",
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": "Leasehold (foreign buyers)"
-    },
-    {
-      "id": "mauricedale-game-ranch-6-506-ha-adjacent-to-kruger",
-      "name": "Mauricedale Game Ranch — 6,506 ha adjacent to Kruger",
-      "location": "Malelane, Mpumalanga, South Africa",
-      "country": "South Africa",
-      "size_ha": 6506,
-      "size_acres": 16077,
-      "price": "R95,000,000",
-      "price_usd": "≈ US$5,705,952",
-      "price_display": "R95,000,000 (≈ US$5,705,952)",
-      "fx_note": "USD approx; rate date 2026-11-04",
-      "ecological_case": "Savanna and mountain bushveld bordering Kruger National Park.",
-      "broker": "Chas Everitt (Dottie Niemandt) via Leading RE",
-      "url": "https://commercial.leadingre.com/commercial-property/malelane-properties-commercial-sale/58on9",
-      "photo_url": "https://imageresize.leadingre.com/B6IwH5iLIPFDyO3Wx1D-MFUHhEJuSByNwAL7ZnjOpbs/format:png/sm:1/q:50/rs:fill/g:no/el:0/cb:2026-11-05023940/w:1200/h:630/aHR0cHM6Ly9zdGFyaW5wdXRkYXRhbHJlcHJvZC5ibG9iLmNvcmUud2luZG93cy5uZXQvc3RhcnByb2plY3QvSW1hZ2VzL3Byb3BlcnR5L29yaWdpbmFsLzIwNTk3NzUvNzc4MTI1MjguanBn.png",
-      "photo_note": null,
-      "tenure": null,
-      "status": "for_sale",
-      "checked": "2026-11-04",
-      "tenure_label": null
     },
     {
       "id": "private-nature-reserve-waterberg-0240",
@@ -247,9 +247,9 @@
       "size_ha": 6300,
       "size_acres": 15568,
       "price": "R104,500,000 excl. VAT",
-      "price_usd": "≈ US$6,280,000",
-      "price_display": "R104,500,000 excl. VAT (≈ US$6,280,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "price_usd": "≈ US$6,320,209",
+      "price_display": "R104,500,000 excl. VAT (≈ US$6,320,209)",
+      "fx_note": "≈ at ZAR 16.53/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "A gazetted private nature reserve in the Waterberg, a UNESCO Biosphere region, with species including leopard, brown hyena, sable and giraffe.",
       "broker": "WildNet Africa Properties",
       "url": "https://wildnetafrica.com/south-africa/private-game-reserve-waterberg-0240/",
@@ -257,7 +257,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -270,7 +270,7 @@
       "price": "USD 2.000.000–3.000.000",
       "price_usd": "≈ US$2,500,000",
       "price_display": "USD 2.000.000–3.000.000 (≈ US$2,500,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "fx_note": "Listed in US dollars; no conversion needed",
       "ecological_case": "Lenga and ñire forest, lagoons and glacier views below Cerro San Lorenzo, on the Chilean border.",
       "broker": "Nordheimer Campos y Estancias",
       "url": "https://nordheimer.com/campo-en-venta/6128-ha-lago-posadas-provincia-santa-cruz-campo-venta-turismo-lanares-patagonia/2262389",
@@ -278,7 +278,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -299,7 +299,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale_listing_date_unknown",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -312,7 +312,7 @@
       "price": "BZD$52,000,000",
       "price_usd": "≈ US$26,000,000",
       "price_display": "BZD$52,000,000 (≈ US$26,000,000)",
-      "fx_note": "≈ at BZD 2/USD on 2026-11-04",
+      "fx_note": "≈ at BZD 2.00/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Mostly broadleaf forest with creeks, bordered by Rio Bravo Private Reserve to the south and Aguas Turbias National Park to the west.",
       "broker": "501 Properties Belize",
       "url": "https://501properties.com/properties/pf0011-13000-acres-of-exceptional-ecological-value/",
@@ -320,7 +320,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -341,7 +341,7 @@
       "photo_note": null,
       "tenure": "sealed_bid",
       "status": "for_sale_sealed_bid",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": "Sealed-bid sale"
     },
     {
@@ -352,9 +352,9 @@
       "size_ha": 3770,
       "size_acres": 9316,
       "price": "CLP 1,350,000/ha (≈CLP 5,089,500,000) + 3% + IVA",
-      "price_usd": "≈ US$5,170,000",
-      "price_display": "CLP 1,350,000/ha (≈CLP 5,089,500,000) + 3% + IVA (≈ US$5,170,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "price_usd": "≈ US$5,207,132",
+      "price_display": "CLP 1,350,000/ha (≈CLP 5,089,500,000) + 3% + IVA (≈ US$5,207,132)",
+      "fx_note": "≈ at CLP 977/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Untouched native lenga and coigüe forest with more than 18 km of Lago O’Higgins shoreline and over 20 interior lagoons.",
       "broker": "Campos Patagonia (José Luis Gutiérrez Formantel)",
       "url": "https://campospatagonia.cl/3-700-has-en-venta-a-orilla-de-lago-ohiggins-patagonia-chilena/",
@@ -362,8 +362,29 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
+    },
+    {
+      "id": "sete-barras-2-925-ha-atlantic-forest",
+      "name": "Ativo Ambiental Mata Atlântica — 2,925 ha, Sete Barras",
+      "location": "Sete Barras, Vale do Ribeira, São Paulo",
+      "country": "Brazil",
+      "size_ha": 2925,
+      "size_acres": 7228,
+      "price": "R$ 40.000.000,00",
+      "price_usd": "≈ US$7,266,639",
+      "fx_note": "≈ at BRL 5.50/USD on 2026-11-09 (open.er-api.com)",
+      "ecological_case": "Listing describes 1,209 alqueires (2,925 ha) of dense, preserved native Atlantic Forest in the Vale do Ribeira, offered as an environmental-compensation asset.",
+      "broker": "Owner family representative via MF Rural (cód. 940910)",
+      "url": "https://www.mfrural.com.br/detalhe/940910/proposta-de-ativo-ambiental-mata-atlantica",
+      "photo_url": "https://img.mfrural.com.br/api/image?url=https://s3.amazonaws.com/mfrural-produtos-us/501728-940910-83444357-proposta-de-ativo-ambiental-mata-atlantica.webp&width=767&height=521",
+      "photo_note": null,
+      "tenure": "Family property consolidated by court adjudication; listing says SIGEF/INCRA georeferencing certification is still to be completed by the buyer or an investor partner. Brazil limits foreign ownership of rural land (Law 5,709/1971).",
+      "tenure_label": "Direct sale or investor partnership",
+      "status": "for_sale",
+      "checked": "2026-11-09",
+      "price_display": "R$ 40.000.000,00 (≈ US$7,266,639)"
     },
     {
       "id": "finca-propiedad-forestal-y-de-conservaci-n-en-pet-n",
@@ -373,9 +394,9 @@
       "size_ha": 2682,
       "size_acres": 6627,
       "price": "Q18,000,000",
-      "price_usd": "≈ US$2,360,000",
-      "price_display": "Q18,000,000 (≈ US$2,360,000)",
-      "fx_note": "USD approx; rate date 2026-11-04",
+      "price_usd": "≈ US$2,354,586",
+      "price_display": "Q18,000,000 (≈ US$2,354,586)",
+      "fx_note": "≈ at GTQ 7.64/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Large areas of mixed forest in Poptún, in Guatemala’s Petén region.",
       "broker": "Inmobiliaria Santander (Carmen Coloma)",
       "url": "https://www.inmobiliaria-santander.com/property/finca-propiedad-forestal-y-de-conservacion-en-peten",
@@ -383,7 +404,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -393,18 +414,18 @@
       "country": "Brazil",
       "size_ha": 2377,
       "size_acres": 5874,
-      "price": "R$ 475.400 (body) / R$ 522.940 (page title)",
-      "price_usd": "≈ US$86,932",
-      "price_display": "R$ 475.400 (body) / R$ 522.940 (page title) (≈ US$86,932)",
-      "fx_note": "≈ at BRL 5.47/USD on 2026-11-04",
+      "price": "R$ 475.400",
+      "price_usd": "≈ US$86,364",
+      "price_display": "R$ 475.400 (≈ US$86,364)",
+      "fx_note": "≈ at BRL 5.50/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "100% native forest in Amazonas state on the Mato Grosso border, with no roads or buildings, reached by the Guariba River.",
       "broker": "Chãozão (orig. Refúgio Rural FA327)",
       "url": "https://chaozao.com.br/imovel/fazenda-em-novo-aripuana-amazonas-com-area-de-2377-ha-r-522940-cod-5UXWPI/",
       "photo_url": "https://s3files.chaozao.com.br/chaozao-files/chaoazo-20250327-1743103254912661405829.webp",
       "photo_note": null,
       "tenure": null,
-      "status": "for_sale_price_changed",
-      "checked": "2026-11-04",
+      "status": "for_sale",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -425,7 +446,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -436,9 +457,9 @@
       "size_ha": 1470,
       "size_acres": 3633,
       "price": "£6,900,000",
-      "price_usd": "≈ US$9,295,233",
-      "price_display": "£6,900,000 (≈ US$9,295,233)",
-      "fx_note": "≈ at GBP 0.74/USD on 2026-11-04",
+      "price_usd": "≈ US$9,220,087",
+      "price_display": "£6,900,000 (≈ US$9,220,087)",
+      "fx_note": "≈ at GBP 0.75/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "A new nature recovery project inside Cairngorms National Park, with 788 hectares of native woodland planted in 2024–25 and 438 hectares of peatland.",
       "broker": "Savills (via Rightmove)",
       "url": "https://www.rightmove.co.uk/properties/168517760",
@@ -446,7 +467,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -457,9 +478,9 @@
       "size_ha": 1272,
       "size_acres": 3143,
       "price": "NZ$25,000,000 + GST",
-      "price_usd": "≈ US$14,064,800",
-      "price_display": "NZ$25,000,000 + GST (≈ US$14,064,800)",
-      "fx_note": "≈ at NZD 1.78/USD on 2026-11-04",
+      "price_usd": "≈ US$13,892,354",
+      "price_display": "NZ$25,000,000 + GST (≈ US$13,892,354)",
+      "fx_note": "≈ at NZD 1.80/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "South Island high country with 21 km of river frontage and 347 hectares of native forest protected under the Emissions Trading Scheme.",
       "broker": "Bayleys (Ben Turner)",
       "url": "https://www.bayleys.co.nz/listings/rural/canterbury/ashburton/-manuka-point--methven-5523056",
@@ -467,7 +488,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -488,7 +509,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -499,9 +520,9 @@
       "size_ha": 843,
       "size_acres": 2083,
       "price": "R$6,000,000",
-      "price_usd": "≈ US$1,097,162",
-      "price_display": "R$6,000,000 (≈ US$1,097,162)",
-      "fx_note": "≈ at BRL 5.47/USD on 2026-11-04",
+      "price_usd": "≈ US$1,089,996",
+      "price_display": "R$6,000,000 (≈ US$1,089,996)",
+      "fx_note": "≈ at BRL 5.50/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Seller states over 500 ha is primary Atlantic Forest, with waterfalls and cacao.",
       "broker": "Abrasom Imobiliária",
       "url": "https://www.abrasom.com.br/properties-1/fazenda-itapema-",
@@ -509,7 +530,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -529,8 +550,8 @@
       "photo_url": "https://www.ecuadorbeachfrontproperty.com/listings/images/osproperty/properties/414/medium/414_forests_and_coastline2.jpg",
       "photo_note": null,
       "tenure": null,
-      "status": "for_sale_price_unverified",
-      "checked": "2026-11-04",
+      "status": "for_sale",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -551,7 +572,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -562,9 +583,9 @@
       "size_ha": 808,
       "size_acres": 1997,
       "price": "R$9,990,565 (R$12,360/ha)",
-      "price_usd": "≈ US$1,826,879",
-      "price_display": "R$9,990,565 (R$12,360/ha) (≈ US$1,826,879)",
-      "fx_note": "≈ at BRL 5.47/USD on 2026-11-04",
+      "price_usd": "≈ US$1,814,946",
+      "price_display": "R$9,990,565 (R$12,360/ha) (≈ US$1,814,946)",
+      "fx_note": "≈ at BRL 5.50/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Native Atlantic Forest bordering Intervales State Park; listed as RPPN-eligible.",
       "broker": "Reland (owner listing also on fazendasnovaledoribeira.com.br)",
       "url": "https://reland.com.br/pt-br/imovel/fazenda-a-venda-de-808-ha-em-iporanga-sp-brasil-BR-SP-8715",
@@ -572,7 +593,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -593,7 +614,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -604,9 +625,9 @@
       "size_ha": 757,
       "size_acres": 1871,
       "price": "NZ$2,950,000 + GST",
-      "price_usd": "≈ US$1,659,646",
-      "price_display": "NZ$2,950,000 + GST (≈ US$1,659,646)",
-      "fx_note": "≈ at NZD 1.78/USD on 2026-11-04",
+      "price_usd": "≈ US$1,639,298",
+      "price_display": "NZ$2,950,000 + GST (≈ US$1,639,298)",
+      "fx_note": "≈ at NZD 1.80/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Freehold with QEII conservation covenant; tussock, wetlands and a large tarn.",
       "broker": "New Zealand Sotheby's International Realty – Queenstown",
       "url": "https://www.trademe.co.nz/a/property/rural/otago/waitaki/lake-ohau/listing/6036279365",
@@ -614,7 +635,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -624,10 +645,10 @@
       "country": "Peru",
       "size_ha": 700,
       "size_acres": 1730,
-      "price": "€644",
-      "price_usd": "≈ US$724",
-      "price_display": "€644 (≈ US$724)",
-      "fx_note": "≈ at EUR 0.89/USD on 2026-11-04",
+      "price": "€644,000",
+      "price_usd": "≈ US$718,014",
+      "price_display": "€644,000 (≈ US$718,014)",
+      "fx_note": "≈ at EUR 0.90/USD on 2026-11-09 (open.er-api.com)",
       "ecological_case": "Rainforest in a biodiverse, ecologically stable area of the Peruvian Amazon, with Brazil nut and umari trees.",
       "broker": "All-Real-Estate.com",
       "url": "https://www.all-real-estate.com/property-details/700-hectares-of-peruvian-rainforest-title-deed-available-74181",
@@ -635,7 +656,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -645,9 +666,9 @@
       "country": "Belize",
       "size_ha": 670,
       "size_acres": 1655,
-      "price": "US$1,300 per acre (≈US$2.15M total)",
-      "price_usd": "≈ US$2,151,500 total",
-      "price_display": "US$1,300 per acre (≈US$2.15M total) (≈ US$2,151,500 total)",
+      "price": "US$1,300 per acre",
+      "price_usd": "≈ US$2,151,500 total (1,655 acres)",
+      "price_display": "US$1,300 per acre (≈ US$2,151,500 total for 1,655 acres)",
       "fx_note": null,
       "ecological_case": "Hilly jungle and open savanna between two wildlife sanctuaries, a link in the Maya Forest Corridor and home to jaguar, puma, ocelot, jaguarundi and margay.",
       "broker": "InTheTropics Network LLC",
@@ -656,8 +677,29 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
+    },
+    {
+      "id": "puerto-cisnes-652-ha-virgin-forest",
+      "name": "652 ha of virgin forest, Puerto Cisnes",
+      "location": "Cisnes commune, Aysén, near Puerto Raúl Marín Balmaceda",
+      "country": "Chile",
+      "size_ha": 652,
+      "size_acres": 1611,
+      "price": "CLF 15,000 (UF)",
+      "price_usd": "≈ US$633,749",
+      "fx_note": "Listing gives an original price of CLF 15,000 (Unidad de Fomento) and also shows 'Price on request'. ≈ at UF 41,295.46 CLP (SII) and CLP 977/USD on 2026-11-09 (open.er-api.com)",
+      "ecological_case": "Listing describes completely virgin, impenetrable forest bordered by the Tic-Toc River, Lake Escondido and the Pillán Arm of the sea; habitat for endangered species including pudú, Chiloé fox, kodkod, southern river otter (huillín), monito del monte and puma.",
+      "broker": "Chile Sotheby's International Realty (Javier Contreras)",
+      "url": "https://sothebysrealty.ca/en/property/global/region-chile/cisnes-real-estate/3163054/puerto-cisnes-164633",
+      "photo_url": "https://img.gtsstatic.net/reno/imagereader.aspx?option=N&permitphotoenlargement=false&w=1800&imageurl=//openapi.images.anywhere.re/8507EB8B-BD82-4227-9E90-42B8530641F7",
+      "photo_note": null,
+      "tenure": null,
+      "tenure_label": null,
+      "status": "for_sale",
+      "checked": "2026-11-09",
+      "price_display": "CLF 15,000 (UF) (≈ US$633,749)"
     },
     {
       "id": "reserve-of-531-ha-primary-forest-for-preservation",
@@ -681,6 +723,27 @@
       "tenure_label": null
     },
     {
+      "id": "yarawa-serua-1-240-acres-fiji",
+      "name": "Yarawa (part of), Serua — 1,240 acres freehold",
+      "location": "Serua, Viti Levu, about 15 km from Pacific Harbour",
+      "country": "Fiji",
+      "size_ha": 501.81,
+      "size_acres": 1240,
+      "price": "Price by Negotiation",
+      "price_usd": null,
+      "fx_note": null,
+      "ecological_case": "Listing describes pristine native forest mixed with timber planted in the 1970s and significant coastline frontage facing reef breaks; the Queens Road crosses the coastal fringe.",
+      "broker": "Bayleys (Rick Kermode)",
+      "url": "https://fiji.bayleys.co.nz/listings/lifestyle/south-pacific-islands/fiji/folio-5620-yarawa-(part-of)-suva-5000409",
+      "photo_url": "https://bayleys-cdn.bayleys.co.nz/listing-images/5000409/5000409_1.jpg?v=1788300427207",
+      "photo_note": null,
+      "tenure": "Freehold (listing). Freehold is about 8% of land in Fiji.",
+      "tenure_label": null,
+      "status": "for_sale",
+      "checked": "2026-11-09",
+      "price_display": "Price by Negotiation"
+    },
+    {
       "id": "rara-avis-biological-research-station",
       "name": "Rara Avis Biological Research Station",
       "location": "Las Horquetas, Sarapiquí, Heredia, Costa Rica",
@@ -698,7 +761,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "exceptional": true,
       "exceptional_note": "Under 500 ha but a well-known primary-forest research station on a national-park corridor.",
       "tenure_label": null
@@ -721,7 +784,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -742,7 +805,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -763,7 +826,7 @@
       "photo_note": null,
       "tenure": null,
       "status": "for_sale",
-      "checked": "2026-11-04",
+      "checked": "2026-11-09",
       "tenure_label": null
     },
     {
@@ -784,7 +847,7 @@
       "photo_note": null,
       "tenure": "Not stated on listing.",
       "status": "for_sale",
-      "checked": "2026-11-05",
+      "checked": "2026-11-09",
       "tenure_label": "Leasehold (foreign buyers)"
     },
     {
@@ -805,7 +868,7 @@
       "photo_note": null,
       "tenure": "Not stated on listing.",
       "status": "for_sale",
-      "checked": "2026-11-05",
+      "checked": "2026-11-09",
       "tenure_label": "Leasehold (foreign buyers)"
     },
     {
@@ -826,7 +889,7 @@
       "photo_note": null,
       "tenure": "Not stated on listing. Sri Lanka law: foreigners cannot buy freehold land; leases up to 99 years.",
       "status": "for_sale",
-      "checked": "2026-11-05",
+      "checked": "2026-11-09",
       "tenure_label": "Leasehold (foreign buyers)"
     },
     {
@@ -847,7 +910,7 @@
       "photo_note": null,
       "tenure": "Not stated on listing. Sri Lanka law: foreigners cannot buy freehold land; leases up to 99 years.",
       "status": "for_sale",
-      "checked": "2026-11-05",
+      "checked": "2026-11-09",
       "tenure_label": "Leasehold (foreign buyers)"
     },
     {
@@ -868,7 +931,7 @@
       "photo_note": null,
       "tenure": "Not stated on listing. Sri Lanka law: foreigners cannot buy freehold land; leases up to 99 years.",
       "status": "for_sale",
-      "checked": "2026-11-05",
+      "checked": "2026-11-09",
       "tenure_label": "Leasehold (foreign buyers)"
     }
   ]

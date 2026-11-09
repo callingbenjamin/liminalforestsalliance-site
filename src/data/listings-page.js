@@ -65,7 +65,7 @@ const REGION_BY_COUNTRY = {
   Peru: 'Americas', Ecuador: 'Americas', Belize: 'Americas', Guatemala: 'Americas',
   'Costa Rica': 'Americas', Panama: 'Americas', 'United States': 'Americas', Canada: 'Americas',
   Zimbabwe: 'Africa', 'South Africa': 'Africa', Namibia: 'Africa', Kenya: 'Africa',
-  Australia: 'Oceania', 'New Zealand': 'Oceania',
+  Australia: 'Oceania', 'New Zealand': 'Oceania', Fiji: 'Oceania',
   'United Kingdom': 'Europe',
   'Sri Lanka': 'Asia', India: 'Asia', Indonesia: 'Asia', Malaysia: 'Asia',
   Philippines: 'Asia', Thailand: 'Asia', Cambodia: 'Asia', Vietnam: 'Asia',
