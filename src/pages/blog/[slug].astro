@@ -1,7 +1,8 @@
 ---
 import Blog from '../../layouts/Blog.astro';
 import BeforeAfter from '../../components/BeforeAfter.astro';
-import { posts, postUrl, isSalePost, photoSrcset } from '../../data/blog.js';
+import Photos from '../../components/Photos.astro';
+import { posts, postUrl, postPath, isSalePost, getPost } from '../../data/blog.js';
 import { SITE_URL } from '../../data/content.js';
 
 export function getStaticPaths() {
@@ -11,8 +12,8 @@ export function getStaticPaths() {
 const { post } = Astro.props;
 const fmt = (n) => n.toLocaleString('en-US');
 
-// Land-sale dispatches carry a "Property at a glance" box; feature posts made
-// of profiles (people and the places they restored) do not.
+// Land-sale dispatches carry a "Property at a glance" box built from their
+// sale fields; other stories may give their own short `glance` list.
 const facts = isSalePost(post)
   ? [
       ['Location', post.location],
@@ -24,8 +25,13 @@ const facts = isSalePost(post)
       ['Current use', post.currentUse],
       ['Outcome', post.outcome],
     ]
-  : null;
-const profiles = post.profiles ?? [];
+  : post.glance ?? null;
+// Series: a hub post lists `series` (child slugs); each child names its hub
+// in `partOf` and links to its siblings at the end.
+const series = (post.series ?? []).map(getPost).filter(Boolean);
+const parent = post.partOf ? getPost(post.partOf) : null;
+const siblings = parent ? (parent.series ?? []).filter((x) => x !== post.slug).map(getPost).filter(Boolean) : [];
+const cover = post.cover ?? post.photos?.[0];
 const chipAlt = post.outcome === 'Cautionary tale';
 
 const jsonLd = {
@@ -51,7 +57,7 @@ const jsonLd = {
     logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
   },
   isPartOf: { '@type': 'Blog', '@id': `${SITE_URL}/blog#blog`, name: 'Dispatches' },
-  image: post.profiles?.[0]?.photos?.[0] ? `${SITE_URL}${post.profiles[0].photos[0].src}-1200.webp` : `${SITE_URL}/og.png`,
+  image: cover ? `${SITE_URL}${cover.src}-1200.webp` : `${SITE_URL}/og.png`,
 };
 ---
 
@@ -78,12 +84,17 @@ const jsonLd = {
         </div>
         <h1>{post.title}</h1>
         <p class="post-loc">{post.location}</p>
+        {parent && (
+          <p class="part-of">Part of the series <a href={postPath(parent.slug)}>{parent.title}</a></p>
+        )}
         <p class="lead">{post.lead}</p>
       </header>
 
+      {post.photos && <Photos photos={post.photos} eager />}
+
       {facts && (
-        <aside class="facts" aria-label="Property at a glance">
-          <h2>Property at a glance</h2>
+        <aside class="facts" aria-label={isSalePost(post) ? 'Property at a glance' : 'At a glance'}>
+          <h2>{isSalePost(post) ? 'Property at a glance' : 'At a glance'}</h2>
           <dl>
             {facts.map(([k, v]) => (
               <div>
@@ -101,87 +112,44 @@ const jsonLd = {
         </div>
       )}
 
-      {profiles.length > 0 && (
-        <nav class="jump" aria-label="People in this dispatch">
-          <h2>In this dispatch</h2>
-          <ol>
-            {profiles.map((pr) => (
-              <li><a href={`#${pr.id}`}>{pr.name}</a><span>{pr.country}</span></li>
+      {series.length > 0 && (
+        <section class="series" aria-labelledby="series-h">
+          <h2 id="series-h">{post.seriesHeading ?? 'The stories'}</h2>
+          <ol class="series-list">
+            {series.map((p) => (
+              <li>
+                <a href={postPath(p.slug)}>
+                  {p.cover && (
+                    <img
+                      src={`${p.cover.src}-800.webp`}
+                      width={p.cover.width}
+                      height={p.cover.height}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      style={p.cover.focus ? `object-position: ${p.cover.focus}` : undefined}
+                    />
+                  )}
+                  <span class="series-text">
+                    <strong>{p.title}</strong>
+                    <span class="series-loc">{p.location}</span>
+                    <span class="series-sum">{p.summary}</span>
+                  </span>
+                </a>
+              </li>
             ))}
           </ol>
-        </nav>
+        </section>
       )}
 
-      {profiles.map((pr, i) => (
-        <section class="profile" id={pr.id} aria-labelledby={`${pr.id}-name`}>
-          <p class="pf-num">{String(i + 1).padStart(2, '0')}</p>
-          <h2 id={`${pr.id}-name`}>{pr.name}</h2>
-          <p class="pf-place">{pr.place}</p>
-
-          {pr.photos && (
-            <div class:list={['pf-photos', pr.photos.length > 1 && 'pf-photos--pair']}>
-              {pr.photos.map((ph) => (
-                <figure class:list={['pf-photo', ph.height > ph.width && pr.photos.length === 1 && 'pf-photo--tall']}>
-                  <img
-                    src={`${ph.src}-1200.webp`}
-                    srcset={photoSrcset(ph)}
-                    sizes={pr.photos.length > 1 ? '(max-width: 640px) 100vw, 380px' : '(max-width: 800px) 100vw, 760px'}
-                    width={ph.width}
-                    height={ph.height}
-                    alt={ph.alt}
-                    loading={i < 1 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    style={ph.focus ? `object-position: ${ph.focus}` : undefined}
-                  />
-                  <figcaption>
-                    {ph.caption}{' '}
-                    <span class="credit">
-                      {ph.creditLabel ?? 'Photo'}: <a href={ph.source} target="_blank" rel="noopener noreferrer">{ph.author}</a>,{' '}
-                      {ph.licenseUrl ? <a href={ph.licenseUrl} target="_blank" rel="noopener noreferrer">{ph.license}</a> : ph.license}{ph.via ? `, via ${ph.via}` : ''}{ph.cropped ? '; cropped' : ''}.
-                    </span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          )}
-
-          {pr.glance && (
-            <dl class="pf-glance">
-              {pr.glance.map(([k, v]) => (
-                <div>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
-
-          <div class="prose">
-            {pr.paras.map((para) => <p>{para}</p>)}
-          </div>
-
-          {pr.beforeAfter && <BeforeAfter {...pr.beforeAfter} />}
-
-          {pr.note && <p class="pf-note">{pr.note}</p>}
-
-          {pr.sources && (
-            <p class="pf-sources">
-              <span>Sources:</span>
-              {pr.sources.map((s, j) => (
-                <>
-                  <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a>{j < pr.sources.length - 1 ? ' · ' : ''}
-                </>
-              ))}
-            </p>
-          )}
-        </section>
-      ))}
-
-      <div class:list={['prose', profiles.length > 0 && 'prose--closing']}>
+      <div class:list={['prose', series.length > 0 && 'prose--closing']}>
         {post.sections.map((s) => (
           <section>
             <h2>{s.heading}</h2>
             {s.paras.map((para) => <p>{para}</p>)}
+            {s.photos && <Photos photos={s.photos} />}
+            {s.beforeAfter && <BeforeAfter {...s.beforeAfter} />}
+            {s.note && <p class="note">{s.note}</p>}
           </section>
         ))}
       </div>
@@ -199,6 +167,16 @@ const jsonLd = {
         The facts in this post are drawn from the cited sources and were accurate as of November 2026.
         A plain-text version is available at <a href={`/blog/${post.slug}.md`}>/blog/{post.slug}.md</a>.
       </p>
+
+      {parent && siblings.length > 0 && (
+        <nav class="more" aria-labelledby="more-h">
+          <h2 id="more-h">More in this series</h2>
+          <ul>
+            {siblings.map((p) => <li><a href={postPath(p.slug)}>{p.title}</a></li>)}
+          </ul>
+          <p><a href={postPath(parent.slug)}>All the stories, and what keeps a planted forest standing</a></p>
+        </nav>
+      )}
 
       <p class="back"><a href="/blog">Back to all dispatches</a></p>
     </div>
@@ -231,40 +209,30 @@ const jsonLd = {
 
   .prose--intro { margin-top: 2rem; }
 
-  /* ---------- feature posts: jump list + profiles ---------- */
-  .jump { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem 1.6rem; margin: 2.4rem 0 1rem; }
-  .jump h2 { font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun); margin-bottom: 0.9rem; }
-  .jump ol { margin: 0; padding-left: 1.4rem; columns: 2 16rem; column-gap: 2rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.78rem; }
-  .jump li { break-inside: avoid; padding-block: 0.28rem; }
-  .jump a { font-family: var(--f-body); font-size: 0.95rem; color: var(--text-1); text-decoration: none; }
-  .jump a:hover { color: var(--sun-soft); text-decoration: underline; }
-  .jump li span { margin-left: 0.5rem; color: var(--text-3); }
+  .part-of { margin: -0.6rem 0 1.5rem; font-size: 0.9rem; color: var(--text-3); }
+  .part-of a { color: var(--sun-soft); }
 
-  .profile { margin-top: clamp(3.2rem, 8vh, 4.6rem); padding-top: clamp(2rem, 5vh, 2.8rem); border-top: 1px solid var(--line); scroll-margin-top: calc(var(--header-h) + 1rem); }
-  .pf-num { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.14em; color: var(--sun); margin: 0 0 0.5rem; }
-  .profile h2 { font-family: var(--f-display); font-weight: 340; font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.08; letter-spacing: -0.015em; margin: 0 0 0.5rem; }
-  .pf-place { margin: 0 0 1.4rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.82rem; line-height: 1.5; }
+  /* ---------- series hub: list of stories ---------- */
+  .series { margin-top: 2.8rem; }
+  .series > h2 { font-family: var(--f-display); font-weight: 350; font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 1.2rem; letter-spacing: -0.015em; }
+  .series-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+  .series-list a { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.1rem; align-items: start; text-decoration: none; color: inherit; background: var(--night-2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem; transition: border-color 0.25s; }
+  .series-list a:hover { border-color: var(--line-2); }
+  .series-list a:hover strong { color: var(--sun-soft); }
+  .series-list img { width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 8px; display: block; }
+  .series-text { display: grid; gap: 0.3rem; padding-top: 0.15rem; }
+  .series-text strong { font-family: var(--f-display); font-weight: 400; font-size: 1.22rem; line-height: 1.2; color: var(--text-1); }
+  .series-loc { font-family: var(--f-mono); font-size: 0.72rem; color: var(--text-3); }
+  .series-sum { font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
+  @media (max-width: 560px) { .series-list a { grid-template-columns: 6.5rem 1fr; gap: 0.8rem; } .series-sum { display: none; } }
 
-  .pf-photos { margin: 0 0 1.4rem; }
-  .pf-photos--pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
-  @media (max-width: 640px) { .pf-photos--pair { grid-template-columns: 1fr; } }
-  .pf-photo { margin: 0; }
-  .pf-photo img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); background: var(--night-3); }
-  .pf-photos--pair .pf-photo img { aspect-ratio: 4 / 5; height: auto; }
-  .pf-photo--tall { max-width: 440px; }
-  .pf-photo figcaption { margin-top: 0.7rem; font-size: 0.82rem; line-height: 1.55; color: var(--text-3); }
-  .pf-photo figcaption a { color: var(--sun-soft); }
+  .note { font-size: 0.85rem !important; line-height: 1.55 !important; color: var(--text-3) !important; font-style: italic; }
 
-  .pf-glance { margin: 0 0 1.4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(8.4rem, 1fr)); gap: 0.6rem; }
-  .pf-glance > div { background: var(--night-2); border: 1px solid var(--line); border-radius: 10px; padding: 0.7rem 0.9rem; }
-  .pf-glance dt { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin: 0 0 0.25rem; }
-  .pf-glance dd { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--text-1); }
-
-  .pf-note { margin: 1.1rem 0 0; font-size: 0.85rem; line-height: 1.55; color: var(--text-3); font-style: italic; }
-  .pf-sources { margin: 1.2rem 0 0; font-size: 0.8rem; line-height: 1.6; color: var(--text-3); }
-  .pf-sources span { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.4rem; }
-  .pf-sources a { color: var(--sun-soft); word-break: break-word; }
-  .pf-sources a:hover { color: var(--sun); }
+  .more { margin-top: 2.6rem; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+  .more h2 { font-family: var(--f-display); font-weight: 350; font-size: 1.4rem; margin-bottom: 0.8rem; }
+  .more ul { margin: 0 0 1rem; padding-left: 1.2rem; display: grid; gap: 0.45rem; color: var(--text-3); }
+  .more a { color: var(--sun-soft); }
+  .more a:hover { color: var(--sun); }
 
   .prose--closing { margin-top: clamp(3.2rem, 8vh, 4.6rem); padding-top: 0.6rem; border-top: 1px solid var(--line); }
 

@@ -33,6 +33,10 @@ const API = 'https://commons.wikimedia.org/w/api.php';
 // max:    optional largest output width (default 1200).
 const PHOTOS = [
   // The people who planted forests (2026-11-09)
+  { dir: 'planters', key: 'payeng-forest', file: 'Chef_Atul_Lahkar_in_conversation_with_Jadav_Payeng_at_Molai_forest,_Jorhat.jpg' },
+  { dir: 'planters', key: 'instituto-terra-hill', file: 'Instituto_Terra_1,_Aymorés-MG.jpg' },
+  { dir: 'planters', key: 'thimmakka-padma', file: 'Padma_Shri_Saalumarada_Thimakka.jpg' },
+  { dir: 'planters', key: 'ramaiah-award', file: 'The_President,_Shri_Pranab_Mukherjee_presenting_the_Padma_Shri_Award_to_Shri_Daripalli_Ramaiah,_at_a_Civil_Investiture_Ceremony,_at_Rashtrapati_Bhavan,_in_New_Delhi_on_March_30,_2017.jpg' },
   { dir: 'planters', key: 'payeng-sandbar', file: 'JadavPayeng.jpg', aspect: 0.8, focusY: 0.5, max: 960 },
   { dir: 'planters', key: 'payeng', file: 'Forest_Man_of_India_-_Jadav_Payeng_DSC_5008.jpg', aspect: 0.8, focusY: 0.25, max: 960 },
   { dir: 'planters', key: 'vicente-trail', file: 'Área_de_Proteção_Ambiental_São_Francisco_Xavier_-_Marcia_Cristina_Machado_(53).jpg' },
