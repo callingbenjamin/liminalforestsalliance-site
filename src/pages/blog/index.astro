@@ -19,7 +19,7 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
     <div class="wrap">
       <ul class="posts">
         {ordered.map((p) => (
-          <li class:list={['post-card', p.cover && 'post-card--cover']}>
+          <li class:list={['post-card', p.cover && 'post-card--cover', p.cover && p.featured && 'post-card--featured']}>
             {p.cover && (
               <figure class="post-cover">
                 <a href={`/blog/${p.slug}`} tabindex="-1" aria-hidden="true">
@@ -28,8 +28,9 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
                     width={p.cover.width}
                     height={p.cover.height}
                     alt=""
-                    loading="eager"
+                    loading={p.featured ? 'eager' : 'lazy'}
                     decoding="async"
+                    style={p.cover.focus ? `object-position: ${p.cover.focus}` : undefined}
                   />
                 </a>
                 <figcaption><a href={p.cover.creditUrl} target="_blank" rel="noopener noreferrer">{p.cover.credit}</a></figcaption>
@@ -70,8 +71,8 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
   .post-card:hover { transform: translateY(-4px); border-color: var(--line-2); }
   .post-body { display: flex; flex-direction: column; flex: 1; }
 
-  /* A post with a cover image becomes a wide "featured" card: the image beside
-     the text on wide screens, above it on narrow ones. */
+  /* A post with a cover shows it above the text. A featured post (a series
+     hub) becomes a wide card with the image beside the text on wide screens. */
   .post-card--cover { padding: 0; overflow: hidden; }
   .post-card--cover .post-body { padding: 1.7rem; }
   .post-cover { margin: 0; position: relative; }
@@ -80,9 +81,9 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
   .post-cover figcaption a { color: var(--text-2); text-decoration: none; }
   .post-cover figcaption a:hover { color: var(--sun-soft); text-decoration: underline; }
   @media (min-width: 760px) {
-    .post-card--cover { grid-column: span 2; flex-direction: row; }
-    .post-card--cover .post-cover { flex: 0 0 44%; }
-    .post-card--cover .post-cover img { aspect-ratio: auto; min-height: 100%; }
+    .post-card--featured { grid-column: span 2; flex-direction: row; }
+    .post-card--featured .post-cover { flex: 0 0 44%; }
+    .post-card--featured .post-cover img { aspect-ratio: auto; min-height: 100%; }
   }
 
   .post-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }

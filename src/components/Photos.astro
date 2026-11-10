@@ -1,0 +1,50 @@
+---
+// One or two credited photos for a blog post. Two photos sit side by side
+// at 4:5 (stacked on narrow screens); a single tall photo is capped in width.
+// Each photo: { src (path without -800/-1200.webp), width, height, alt,
+//   caption, author, license, licenseUrl?, source, via?, cropped?,
+//   creditLabel? ('Photo' by default; 'Image' for satellite views), focus? }
+import { photoSrcset } from '../data/blog.js';
+
+const { photos = [], eager = false } = Astro.props;
+const pair = photos.length > 1;
+---
+
+{photos.length > 0 && (
+  <div class:list={['ph', pair && 'ph--pair']}>
+    {photos.map((ph) => (
+      <figure class:list={['ph-fig', !pair && ph.height > ph.width && 'ph-fig--tall']}>
+        <img
+          src={`${ph.src}-1200.webp`}
+          srcset={photoSrcset(ph)}
+          sizes={pair ? '(max-width: 640px) 100vw, 380px' : '(max-width: 800px) 100vw, 760px'}
+          width={ph.width}
+          height={ph.height}
+          alt={ph.alt}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+          style={ph.focus ? `object-position: ${ph.focus}` : undefined}
+        />
+        <figcaption>
+          {ph.caption}{' '}
+          <span>
+            {ph.creditLabel ?? 'Photo'}: <a href={ph.source} target="_blank" rel="noopener noreferrer">{ph.author}</a>,{' '}
+            {ph.licenseUrl ? <a href={ph.licenseUrl} target="_blank" rel="noopener noreferrer">{ph.license}</a> : ph.license}{ph.via ? `, via ${ph.via}` : ''}{ph.cropped ? '; cropped' : ''}.
+          </span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+)}
+
+<style>
+  .ph { margin: 2rem 0; }
+  .ph--pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+  @media (max-width: 640px) { .ph--pair { grid-template-columns: 1fr; } }
+  .ph-fig { margin: 0; }
+  .ph-fig img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); background: var(--night-3); }
+  .ph--pair .ph-fig img { aspect-ratio: 4 / 5; }
+  .ph-fig--tall { max-width: 440px; }
+  figcaption { margin-top: 0.7rem; font-size: 0.82rem; line-height: 1.55; color: var(--text-3); }
+  figcaption a { color: var(--sun-soft); }
+</style>

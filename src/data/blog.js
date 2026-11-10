@@ -17,6 +17,7 @@
 // it is described as reported or "not publicly disclosed". Facts are accurate
 // as of November 2026 per those sources. See docs/blog-process.md.
 import { SITE_URL } from './content.js';
+import { plantersPosts } from './blog-planters.js';
 
 export const blogMeta = {
   title: 'Dispatches — Liminal Forests Alliance',
@@ -454,608 +455,10 @@ export const posts = [
     ],
   },
 
-  // 8 -------------------------------------------------------------------
-  // A feature post: profiles instead of a single property. No sale facts, so
-  // no "Property at a glance" box. Photos are free-licensed (mostly Wikimedia
-  // Commons) and credited beside each image; files are made by
-  // scripts/gen-blog-photos.mjs. Satellite pairs are public-domain Landsat,
-  // made by scripts/gen-blog-satellite.mjs (scene IDs listed there).
-  // Figures were checked against the sources on 2026-11-09; several widely
-  // shared claims about these people were corrected (see each profile).
-  {
-    slug: 'people-who-planted-forests',
-    title: 'They planted forests by hand. Who keeps them now?',
-    date: '2026-11-09',
-    location: 'India, Brazil, Burkina Faso, China, Kenya and France',
-    region: 'Around the world',
-    outcome: 'Restoration',
-    // Shown on the /blog index card. Same photo as the first profile.
-    cover: {
-      src: '/media/blog/planters/payeng',
-      width: 960,
-      height: 1200,
-      alt: 'Jadav Payeng in a knitted cap and red shawl, with forest behind him.',
-      credit: 'Jadav Payeng in the Molai Forest, 2026. Photo: JyotiPN, CC BY-SA 4.0, via Wikimedia Commons; cropped.',
-      creditUrl: 'https://commons.wikimedia.org/wiki/File:Forest_Man_of_India_-_Jadav_Payeng_DSC_5008.jpg',
-    },
-    summary:
-      'Ten real people and one fictional shepherd who turned bare ground into forest, with photographs and satellite before-and-after views. Several have died since 2023, and their forests show how much depends on the way land is held.',
-    lead:
-      'Most dispatches here are about land that changed hands. This one is about land that changed state: a bare river sandbar, worn-out cattle pasture and crusted Sahel soil turned back into forest by people with seeds, buckets and decades of patience. There are ten real people in it and one fictional shepherd. Several of the real ones have died since 2023, which makes a quieter question hard to avoid. Once the planter is gone, what keeps the forest standing?',
-    intro: [
-      'A note on the pictures. Every photograph is freely licensed and credited beside it, mostly from Wikimedia Commons. Where a forest is large enough to see from orbit and its location is known, there is a before-and-after view of the same ground made from public Landsat satellite imagery; drag the divider, or use the arrow keys, to compare the years. Some famous before-and-after photographs, such as Instituto Terra’s, are copyrighted, so they are not reproduced here. Where no honest comparison exists, we say so.',
-      'Several figures that circulate widely about these people turned out to be wrong or overstated, from a forest’s size to the planter’s name. The versions below follow the sources cited under each profile, and where accounts disagree, we say that too.',
-    ],
-    profiles: [
-      {
-        id: 'jadav-payeng',
-        name: 'Jadav Payeng',
-        country: 'India',
-        place: 'Molai Forest, on a Brahmaputra sandbar near Kokilamukh, Jorhat, Assam, India',
-        glance: [
-          ['Began', '1979'],
-          ['Area', 'About 550 ha (1,360 acres)'],
-          ['Protection', 'None in law'],
-          ['Today', 'Still tended by Payeng'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/payeng-sandbar',
-            width: 736,
-            height: 920,
-            alt: 'Jadav Payeng crouching on a driftwood trunk on open, bare river sand.',
-            caption: 'Payeng on open Brahmaputra sand in 2015, on a trunk carried down by the river.',
-            author: 'Itshuman',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:JadavPayeng.jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-          {
-            src: '/media/blog/planters/payeng',
-            width: 960,
-            height: 1200,
-            alt: 'Close portrait of Jadav Payeng in a knitted cap and red shawl, with forest behind him.',
-            caption: 'Payeng in the Molai Forest, January 2026.',
-            author: 'JyotiPN',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Forest_Man_of_India_-_Jadav_Payeng_DSC_5008.jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-        ],
-        paras: [
-          'In 1979 Jadav Payeng planted about twenty bamboo seedlings on a bare sandbar in the Brahmaputra, a few kilometres from his village of Kokilamukh. A state social-forestry scheme began planting 200 hectares of the same ground in 1980 and dropped it about three years later. Payeng kept going on his own, and has kept going ever since.',
-          'The forest that grew there is named Molai, after his nickname. It now covers roughly 550 hectares, about 1,360 acres, with more than 300 hectares of bamboo alone. By his own account and press reports, a herd of around a hundred elephants spends part of each year there, and rhinos, Bengal tigers, deer and vultures have been seen. He received the Padma Shri, one of India’s highest civilian honours, in 2015.',
-          'What the forest does not have is legal protection. In 2018 Mongabay reported that because it is not an officially protected forest, no guards are assigned to it. Payeng has himself been wary of a formal status that might shut out local people, and has spoken instead of a community reserve. In December 2025 a fire burned about 1.25 hectares of a newer plantation that he and his daughter started nearby in 2021 and 2022, destroying more than 5,000 saplings. Local people alleged arson linked to sand mining. That has not been proven, and the district suspended sand mining while it investigated.',
-        ],
-        note: 'No before-and-after view here: between the 1980s and today the river has reshaped the whole island, so a satellite comparison mostly shows the river moving, not the forest growing.',
-        sources: [
-          { title: 'Mongabay India — Mulai Kathoni, a young man’s dream, is now a thriving people’s forest (2018)', url: 'https://india.mongabay.com/2018/05/mulai-kathoni-a-young-mans-dream-is-now-a-thriving-peoples-forest/' },
-          { title: 'Jadav Payeng — Wikipedia', url: 'https://en.wikipedia.org/wiki/Jadav_Payeng' },
-          { title: 'Molai forest — Wikipedia', url: 'https://en.wikipedia.org/wiki/Molai_forest' },
-          { title: 'Pratidin Time — Who burnt the forest built by Jadav Payeng?', url: 'https://www.pratidintime.com/latest-assam-news-breaking-news-assam/who-burnt-the-forest-built-by-jadav-payeng-in-majuli-10954882' },
-          { title: 'Land Conflict Watch — Arson, sand mining and the fire at Molai Kathoni 2.0', url: 'https://www.landconflictwatch.org/conflicts/arson-sand-mining-and-the-conservation-the-fire-at-environmentalist-jadav-payeng-s-molai-kathoni-2-0-in-assam' },
-        ],
-      },
-      {
-        id: 'antonio-vicente',
-        name: 'Antonio Vicente',
-        country: 'Brazil',
-        place: 'Near São Francisco Xavier, São José dos Campos, São Paulo state, Brazil',
-        glance: [
-          ['Began', '1973'],
-          ['Area', '31 ha (77 acres)'],
-          ['Trees', 'About 50,000, his estimate'],
-          ['Protection', 'None found'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/vicente-trail',
-            width: 1200,
-            height: 900,
-            alt: 'A clear, rocky stream running under dense green Atlantic Forest.',
-            caption: 'A stream on the Pouso do Rochedo ecological trail near São Francisco Xavier, 2021. News reports place Vicente’s forest at Pouso do Rochedo. No freely licensed photograph of Vicente himself exists.',
-            author: 'Márcia Cristina Machado',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:%C3%81rea_de_Prote%C3%A7%C3%A3o_Ambiental_S%C3%A3o_Francisco_Xavier_-_Marcia_Cristina_Machado_(53).jpg',
-            via: 'Wikimedia Commons',
-          },
-        ],
-        paras: [
-          'In 1973 Antonio Vicente, a trader and the son of farmers, bought about 31 hectares of hill country in the Serra da Mantiqueira, near the village of São Francisco Xavier, roughly 200 kilometres from the city of São Paulo. The land had been cleared for cattle. He began replanting it with native Atlantic Forest species, including the araucaria pine, while most of his neighbours, by his account, laughed at him.',
-          'More than four decades on, he estimates that he has planted about 50,000 trees, and the water came back with them. When he bought the land, he has said, it had a single spring; he now counts around twenty water sources, and eight waterfalls run on the property. Toucans, pacas, armadillos and, he says, an ocelot have returned.',
-          'We found no record of formal protection for the land. The district contains a state environmental protection area, a loose planning zone that still allows private use, but we could not confirm that the property lies inside it, or that it has been registered as a private reserve. The most recent coverage we found dates from 2018, when he was 84. As far as public records show, the forest’s future rests on the choices of Vicente and his family.',
-        ],
-        note: 'No before-and-after view here: the property has no mapped boundary, and at 31 hectares it is too small to pick out reliably on 30-metre satellite images without one.',
-        sources: [
-          { title: 'The Guardian — The man who planted a tree and grew a whole family of forests (2017)', url: 'https://www.theguardian.com/global-development-professionals-network/2017/mar/21/the-man-who-planted-a-tree-and-grew-a-whole-family-of-forests' },
-          { title: 'BBC Mundo — Antonio Vicente and his forest (2017)', url: 'https://www.bbc.com/mundo/noticias-39922045' },
-          { title: 'Rádio Nacional (EBC) — Antonio Vicente, o homem que plantou a própria floresta (2018)', url: 'https://radionacional.ebc.com.br/brasil-rural/2018/03/antonio-vicente-o-homem-que-plantou-a-propria-floresta' },
-          { title: 'São Francisco Xavier Environmental Protection Area — Wikipedia', url: 'https://en.wikipedia.org/wiki/S%C3%A3o_Francisco_Xavier_Environmental_Protection_Area' },
-        ],
-      },
-      {
-        id: 'yacouba-sawadogo',
-        name: 'Yacouba Sawadogo',
-        country: 'Burkina Faso',
-        place: 'Bangr-Raaga forest, Gourga, beside Ouahigouya, Yatenga, Burkina Faso',
-        glance: [
-          ['Began', 'Around 1980'],
-          ['Area', 'About 25 to 40 ha (sources differ)'],
-          ['Died', 'December 2023'],
-          ['Protection', 'Fenced in 2021; no title confirmed'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/sawadogo',
-            width: 676,
-            height: 978,
-            alt: 'Yacouba Sawadogo in a blue and white striped smock and an embroidered cap, standing among trees.',
-            caption: 'Yacouba Sawadogo in January 2019.',
-            author: 'EKokou',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Yacouba_Sawadogo.jpg',
-            via: 'Wikimedia Commons',
-          },
-        ],
-        paras: [
-          'Yacouba Sawadogo began around 1980, during the severe Sahel droughts, on barren land near Gourga. His tool was zaï, a traditional practice of digging small planting pits. He made the pits somewhat larger and filled them with manure and compost. The manure drew termites, whose tunnels helped the soil hold what little rain fell, and seeds in the pits took root.',
-          'Over four decades the pits became a forest of more than sixty species of trees and bushes, which he called Bangr-Raaga, the forest of wisdom. Its size is reported anywhere from about 25 to almost 40 hectares. He received the Right Livelihood Award in 2018 and was named a UN Champion of the Earth in 2020. He died in Ouahigouya in December 2023, aged 77.',
-          'His forest shows how exposed unprotected land is at the edge of a growing town. Ouahigouya spread around it. In 2016 Reuters reported that a housing project had annexed parts of his land and carved them into plots, and in 2019 the newspaper Sidwaya reported houses going up inside the forest and trees being cut at night. Sawadogo held no land title. In 2021 the environment ministry built a fence around 28 hectares. We could not confirm that a title or heritage classification has followed. After his death, his family pledged to keep managing the forest together.',
-        ],
-        beforeAfter: {
-          width: 900,
-          height: 900,
-          before: {
-            src: '/media/blog/planters/sat-sawadogo-1986.webp',
-            label: '1986',
-            alt: 'Satellite view in November 1986: pale, bare land, with the outlined site barely different from its surroundings.',
-          },
-          after: {
-            src: '/media/blog/planters/sat-sawadogo-2024.webp',
-            label: '2024',
-            alt: 'Satellite view in November 2024: a dense dark block of woodland fills the outlined site, surrounded by new housing.',
-          },
-          caption:
-            'The same 4 by 4 kilometres in November 1986 and November 2024. The dashed line marks Bangr-Raaga. In 1986, a few years into his work, it barely stands out from the bare ground; by 2024 it is a dense block of woodland, ringed by the new housing of Ouahigouya. The dark rectangle to the south-west is a separate site.',
-          credit:
-            'Landsat 5 and Landsat 9 imagery (30 m), courtesy of the U.S. Geological Survey, via Microsoft Planetary Computer. Outline from OpenStreetMap, © OpenStreetMap contributors.',
-        },
-        sources: [
-          { title: 'Right Livelihood — Yacouba Sawadogo', url: 'https://rightlivelihood.org/the-change-makers/find-a-laureate/yacouba-sawadogo/' },
-          { title: 'Reuters (archived) — “They will destroy my father’s grave”, says farmer who turned back the desert (2016)', url: 'http://web.archive.org/web/20230605143142/https://www.reuters.com/article/us-burkina-landrights-hunger/they-will-destroy-my-fathers-grave-says-farmer-who-turned-back-the-desert-idUSKCN11W1Y6' },
-          { title: 'Sidwaya — Forêt de Gourga dans le Yatenga (2019)', url: 'https://www.sidwaya.info/blog/2019/07/03/foret-de-gourga-dans-le-yatenga-lecocide-dun-patrimoine-mondial/' },
-          { title: 'Sentinelle — La forêt du prix Nobel alternatif 2018 enfin protégée (2021)', url: 'https://sentinellebf.com/la-foret-du-prix-nobel-alternatif-2018-enfin-protegee/' },
-          { title: 'Libreinfo — Yacouba Sawadogo (2023)', url: 'https://libreinfo.net/yacouba-sawadogo-doua/' },
-        ],
-      },
-      {
-        id: 'sebastiao-lelia-salgado',
-        name: 'Sebastião and Lélia Salgado',
-        country: 'Brazil',
-        place: 'Instituto Terra, Fazenda Bulcão, Aimorés, Minas Gerais, Brazil',
-        glance: [
-          ['Began', '1998; planting from December 1999'],
-          ['Area', 'About 710 ha (1,750 acres)'],
-          ['Trees', 'More than 3 million, whole programme'],
-          ['Protection', 'Private reserve (RPPN) since 1998'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/salgado',
-            width: 960,
-            height: 1200,
-            alt: 'Portrait of Sebastião Salgado in a navy shirt.',
-            caption: 'Sebastião Salgado in Rio de Janeiro, 2016.',
-            author: 'Fernando Frazão / Agência Brasil',
-            license: 'CC BY 3.0 BR',
-            licenseUrl: 'https://creativecommons.org/licenses/by/3.0/br/deed.en',
-            source: 'https://commons.wikimedia.org/wiki/File:Sebasti%C3%A3o_Salgado_(cropped).jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-          {
-            src: '/media/blog/planters/instituto-terra',
-            width: 960,
-            height: 1200,
-            alt: 'A lily pond in front of tall trees and gardens at the Instituto Terra headquarters.',
-            caption: 'The pond at the reserve’s headquarters, 2023.',
-            author: 'Terapeutajunguiana',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Instituto_Terra.jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-        ],
-        paras: [
-          'By the 1990s the Fazenda Bulcão, the Salgado family’s cattle ranch in the Rio Doce valley, had been worn down to bare, eroded hills. In April 1998 the photographer Sebastião Salgado and his wife, Lélia Wanick Salgado, founded Instituto Terra to bring back the Atlantic Forest that had once covered it. Planting began in December 1999.',
-          'The farm covers about 710 hectares, roughly 1,750 acres. The institute says it has now planted more than three million native trees across its programme, and by 2019 the restoration included 297 native tree species. Its monitoring has recorded 172 bird, 33 mammal, 15 reptile and 15 amphibian species. Sebastião Salgado died in Paris in May 2025, aged 81. Lélia remains involved, and their son Juliano chairs the institute.',
-          'Unlike most forests in this dispatch, this one was given lasting legal protection at the start. In 1998 the farm was recognised as a Private Natural Heritage Reserve, or RPPN, a Brazilian designation that commits land to conservation in perpetuity. According to the institute, it was the first such title granted to a degraded area, on condition that the forest be restored. The reserve itself covers about 609 hectares of the farm.',
-        ],
-        beforeAfter: {
-          width: 900,
-          height: 900,
-          before: {
-            src: '/media/blog/planters/sat-instituto-terra-1997.webp',
-            label: '1997',
-            alt: 'Satellite view in May 1997: patchy pale green and brown pasture on steep hills, with the town of Aimorés at top right.',
-          },
-          after: {
-            src: '/media/blog/planters/sat-instituto-terra-2024.webp',
-            label: '2024',
-            alt: 'Satellite view in May 2024: a continuous dark green forest canopy fills the outlined strip south-west of Aimorés.',
-          },
-          caption:
-            'The same 8 by 8 kilometres in May 1997, two years before planting began, and May 2024. Aimorés is at top right. The dashed line is the reserve as outlined by OpenStreetMap volunteers; it is approximate and larger than the official 609-hectare reserve. The valley is a little greener overall in 2024, but the continuous dark canopy is concentrated inside the line.',
-          credit:
-            'Landsat 5 and Landsat 9 imagery (30 m), courtesy of the U.S. Geological Survey, via Microsoft Planetary Computer. Outline from OpenStreetMap, © OpenStreetMap contributors.',
-        },
-        sources: [
-          { title: 'Instituto Terra — Our history', url: 'https://institutoterra.org/ourhistory/?lang=en' },
-          { title: 'Instituto Terra — Annual report 2013 (PDF)', url: 'https://institutoterra.org/site/wp-content/uploads/2025/07/Relatorio-Anual-2013.pdf' },
-          { title: 'FAO — Instituto Terra case study', url: 'https://www.fao.org/sustainable-forest-management/toolbox/cases/case-detail/en/c/1476869' },
-          { title: 'Instituto Terra — Wikipedia (Portuguese)', url: 'https://pt.wikipedia.org/wiki/Instituto_Terra' },
-          { title: 'Global Voices — From barren land to thriving forest (2025)', url: 'https://globalvoices.org/2025/06/05/from-barren-land-to-thriving-forest-the-story-of-photographer-sebastiao-salgados-instituto-terra-in-brazil/' },
-          { title: 'Sebastião Salgado — Wikipedia', url: 'https://en.wikipedia.org/wiki/Sebasti%C3%A3o_Salgado' },
-        ],
-      },
-      {
-        id: 'saalumarada-thimmakka',
-        name: 'Saalumarada Thimmakka',
-        country: 'India',
-        place: 'The Hulikal to Kudur road, Magadi taluk, Karnataka, India',
-        glance: [
-          ['Planted', '385 banyans, by most counts'],
-          ['Stretch', 'About 4 to 4.5 km of roadside'],
-          ['Died', 'November 2025'],
-          ['Protection', 'State-managed; no heritage order found'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/thimmakka',
-            width: 852,
-            height: 1065,
-            alt: 'Saalumarada Thimmakka smiling broadly, in a teal sari, outdoors.',
-            caption: 'Thimmakka in 2011.',
-            author: 'Arun4speed',
-            license: 'CC0 1.0',
-            licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/deed.en',
-            source: 'https://commons.wikimedia.org/wiki/File:Saalumarada_Thimmakka,_2011_(cropped).jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-          {
-            src: '/media/blog/planters/thimmakka-banyans',
-            width: 960,
-            height: 1200,
-            alt: 'Large banyan trees beside a road, with a yellow Kannada-language sign in the foreground.',
-            caption: 'Her banyans on the Kudur to Hulikal road in 2016, beside a Karnataka forestry sign bearing her name.',
-            author: 'ಚೇತನ್ ಅಣ್ಣಾಜಿ ಗೌಡ',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Saalumarada-thimmakka-plaque.jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-        ],
-        paras: [
-          'What Saalumarada Thimmakka and her husband, Chikkaiah, had was a road, the stretch between the villages of Hulikal and Kudur in Karnataka, and the habit of planting banyan saplings along it. Ten went in the first year, fifteen in the second and twenty in the third, and the couple carried pails of water about four kilometres to keep them alive.',
-          'Most accounts now count 385 banyans along a stretch of four to four and a half kilometres. The trees made her one of India’s best-known environmentalists. She received the National Citizen’s Award in 1995, was named to the BBC’s 100 Women in 2016 and received the Padma Shri in 2019. Chikkaiah died in 1991. She died in Bengaluru on 14 November 2025, at a claimed age of 114, and was buried with state honours.',
-          'The trees stand on government road land, and the Karnataka government has taken over their care. That has not made them untouchable. In 2019 a road-widening plan would have felled them until she met the chief minister, who told officials to find another way. We could not confirm that a permanent alternative was ever settled, and we found no formal heritage protection for the avenue. Her foster son asked for exactly that in 2019.',
-        ],
-        sources: [
-          { title: 'Saalumarada Thimmakka — Wikipedia', url: 'https://en.wikipedia.org/wiki/Saalumarada_Thimmakka' },
-          { title: 'Mongabay India — Saalumarada Thimmakka, mother of trees, has died aged 114 (2025)', url: 'https://india.mongabay.com/short-article/2025/11/saalumarada-thimmakka-mother-of-trees-has-died-aged-114' },
-          { title: 'The Week (PTI) — Thimmakka’s funeral (2025)', url: 'https://www.theweek.in/wire-updates/national/2025/11/15/mes19-ka-thimmakka-funeral.html' },
-          { title: 'The News Minute — Thimmakka convinces Karnataka CM not to chop trees for road widening (2019)', url: 'https://www.thenewsminute.com/article/107-yr-old-activist-thimakka-convinces-karnataka-cm-not-chop-trees-road-widening-102939' },
-          { title: 'SheThePeople — Karnataka CM agrees not to axe Thimmakka’s trees (2019)', url: 'https://www.shethepeople.tv/news/107-year-old-thimakka-karnataka-cm-not-axe-trees' },
-          { title: 'Down To Earth — A mother’s love (2002)', url: 'https://www.downtoearth.org.in/coverage/a-mothers-love-14815' },
-        ],
-      },
-      {
-        id: 'pamela-anil-malhotra',
-        name: 'Pamela and Anil Malhotra',
-        country: 'India',
-        place: 'SAI Sanctuary, Theralu, near Birunani, Kodagu, Karnataka, India',
-        glance: [
-          ['Began', 'Search 1991; first land 1992 to 1993'],
-          ['Area', '55 acres at first; about 300 acres now'],
-          ['Held by', 'SAI Sanctuary Trust, since 2002'],
-          ['Protection', 'Private land; no state status'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/pamela-malhotra',
-            width: 1200,
-            height: 797,
-            alt: 'Pamela Malhotra receiving a framed certificate from President Pranab Mukherjee, with uniformed guards behind.',
-            caption: 'Pamela Malhotra receiving the Nari Shakti Puraskar from President Pranab Mukherjee in 2017. No freely licensed photograph of Anil Malhotra or of the sanctuary exists.',
-            author: 'Government of India',
-            license: 'GODL-India',
-            licenseUrl: 'https://data.gov.in/sites/default/files/Gazette_Notification_OGDL.pdf',
-            source: 'https://commons.wikimedia.org/wiki/File:Ms._Pamela_Gale_Malhotra,_Karnataka.jpg',
-            via: 'Wikimedia Commons',
-          },
-        ],
-        paras: [
-          'In 1991 Anil and Pamela Malhotra began looking for land. Their first purchase, completed in the early 1990s, was 55 acres in south Kodagu, bought from a farmer facing foreclosure. Over the following years they added parcel after parcel beside the Brahmagiri Wildlife Sanctuary, mostly abandoned or stripped coffee and cardamom land. They allowed no felling, kept the native trees that remained and planted more native species around them.',
-          'The holding has grown to about 300 acres of regrowing forest, crossed by a year-round stream that runs from the Brahmagiri hills toward the Barapole river. Elephants, leopards, tigers, dhole and river otters use it, along with more than a hundred bird species. Anil died in November 2021, and his last rites were held at the sanctuary. Pamela died in April 2024, according to Wikipedia; we could not find a second source.',
-          'The Malhotras saw early that good intentions are not a legal structure. In 2002 they set up the SAI Sanctuary Trust to hold the land, partly, Anil said, because of land-ceiling laws that cap how much one person may own. The land has no government protection status. With both founders gone, we could not confirm who manages it now. The sanctuary’s old web address now shows unrelated spam, so the link below points to an archived copy of its pages.',
-        ],
-        note: 'No before-and-after view here: the sanctuary sits in continuous Western Ghats forest, and without a mapped boundary its regrowth cannot be told apart from the forest around it at 30-metre resolution.',
-        sources: [
-          { title: 'SAI Sanctuary — Wikipedia', url: 'https://en.wikipedia.org/wiki/SAI_Sanctuary' },
-          { title: 'SAI Sanctuary — About (archived, March 2025)', url: 'https://web.archive.org/web/20250303/https://www.saisanctuary.com/about.htm' },
-          { title: 'The Week — India’s private wildlife sanctuary (2016)', url: 'https://www.theweek.in/theweek/specials/private-wildlife-sanctuary.html' },
-          { title: 'The Week — Anil Malhotra, owner of India’s first private wildlife sanctuary, no more (2021)', url: 'https://www.theweek.in/news/india/2021/11/24/anil-malhotra-owner-of-indias-first-private-wildlife-sanctuary-no-more.html' },
-          { title: 'Pamela Malhotra — Wikipedia', url: 'https://en.wikipedia.org/wiki/Pamela_Malhotra' },
-          { title: 'Resilience — From wasteland to rainforest (2016)', url: 'https://www.resilience.org/stories/2016-06-29/from-wasteland-to-rainforest/' },
-        ],
-      },
-      {
-        id: 'jia-haixia-jia-wenqi',
-        name: 'Jia Haixia and Jia Wenqi',
-        country: 'China',
-        place: 'Yeli village, Sunzhuang, Jingxing county, Hebei, China',
-        glance: [
-          ['Began', 'Contracted 2001; planted from 2002'],
-          ['Area', 'About 3.3 ha of riverbank'],
-          ['Trees', 'More than 10,000'],
-          ['Held by', 'Village land, contracted to them'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/ye-river',
-            width: 1200,
-            height: 800,
-            alt: 'A wide, stony riverbed with shallow channels, lined with yellow-leaved trees, below bare hills.',
-            caption: 'The Ye River at Weizhou in Jingxing county, a few kilometres from the township that includes Yeli village, in November 2024. This is not the Jias’ plot. No freely licensed photograph of them or their trees exists.',
-            author: 'N509FZ',
-            license: 'CC BY-SA 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Ye_River_at_Weizhou,_Jingxing,_Shijiazhuang_(20241104085141).jpg',
-            via: 'Wikimedia Commons',
-          },
-        ],
-        paras: [
-          'Jia Haixia has been blind since an accident in 2000. His childhood friend Jia Wenqi lost both arms as a boy. The two are not closely related. In 2001 they contracted about 50 mu, roughly 3.3 hectares, of barren riverbank on the Ye River from their village committee, and the following spring they started planting.',
-          'They had no money for saplings, so they grew poplars and willows from cuttings. In the first year only two of roughly 800 cuttings survived. They kept at it, and by 2016 Chinese reporting counted more than 10,000 trees on the plot.',
-          'Their motive, in the most detailed account, was a living: the trees were timber they hoped one day to sell. A claim often repeated online, that the trees protect the village from floods, has little support. The village’s contract states it will not compensate them if floods wash the trees away. The land is still village collective land, contracted to the pair, and the trees and their income are theirs. Fame has changed the calculation: by 2016 they told reporters they no longer dared to cut and sell, because neighbours and officials would object. We found no reporting on them after 2016.',
-        ],
-        sources: [
-          { title: 'The Paper (澎湃新闻) — report on Jia Haixia and Jia Wenqi (2016)', url: 'https://m.thepaper.cn/newsDetail_forward_1476661' },
-          { title: 'People’s Daily weekly (人民周刊) — report on the two friends (2016)', url: 'https://paper.people.com.cn/rmzk/html/2016-07/07/content_1693473.htm' },
-          { title: 'The Globe and Mail (AP) — Armless man and blind friend plant thousands of trees in China (2015)', url: 'https://www.theglobeandmail.com/news/world/armless-man-and-blind-friend-plant-thousands-of-trees-in-china/article24210682/' },
-          { title: 'China Daily — report on the Yeli village planters (2015)', url: 'https://www.chinadaily.com.cn/a/201510/16/WS5a2b4432a310eefe3e99f3f8.html' },
-        ],
-      },
-      {
-        id: 'moirangthem-loiya',
-        name: 'Moirangthem Loiya',
-        country: 'India',
-        place: 'Punshilok, Langol hill range, northern edge of Imphal, Manipur, India',
-        glance: [
-          ['Began', '2002'],
-          ['Area', 'About 300 acres (121 ha)'],
-          ['Land', 'Langol Reserved Forest, state-owned'],
-          ['Today', 'Tended by his society, WAHPS'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/langol-hills',
-            width: 1200,
-            height: 900,
-            alt: 'Satellite view of a dark green forested ridge surrounded by brown dry-season farmland, with the edge of a city and green wetland at the bottom right.',
-            caption:
-              'The Langol hill range on the northern edge of Imphal, the dark forested ridge at centre, in December 2025, with the Lamphelpat area and the city below it. Punshilok lies on these hills, but its boundary has not been mapped, so it is not marked. No freely licensed photograph of Loiya or of the forest exists.',
-            creditLabel: 'Image',
-            author: 'Copernicus Sentinel-2',
-            license: 'contains modified Copernicus Sentinel data 2025',
-            source: 'https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a',
-            via: 'Microsoft Planetary Computer',
-          },
-        ],
-        paras: [
-          'Lists of famous tree planters often give this forest to a “Moirangthem Pacha” and put it at 20 acres. The man who grew it is Moirangthem Loiya, and it covers about 300 acres. In 2002 he began planting on a stretch of the Langol hills above Imphal that had been cleared by burning for shifting cultivation. He built a hut on the hill and lived there alone for about six years while the saplings grew.',
-          'He named the forest Punshilok, “spring of life” in Meitei. Counts differ, but it now holds somewhere between 100 and 250 plant species, among them 20 to 30 kinds of bamboo, along with barking deer, porcupines, snakes and many birds. In 2003 he co-founded the Wildlife and Habitat Protection Society to look after it. Its members cut a firebreak every November.',
-          'Loiya does not own the land. Punshilok lies inside the Langol Reserved Forest, which belongs to the state, and rather than treat his work as encroachment, the forest department made him part of a joint management committee. That is recognition, but not a guarantee. The wider reserve has long suffered from encroachment, illegal mining and felling. The forest’s own spring, the society’s only water source, has stopped flowing for a few weeks in recent dry seasons, and a project to revive it is under way.',
-        ],
-        note: 'No before-and-after view here: Punshilok has no mapped boundary, so the forest cannot be told apart from the rest of the hill range on satellite images.',
-        sources: [
-          { title: 'Mongabay India — Protecting a forest on a hill in Imphal (2021)', url: 'https://india.mongabay.com/2021/10/protecting-a-forest-on-a-hill-in-imphal/' },
-          { title: 'EastMojo — Manipur man converts barren land into 300-acre forest (2022)', url: 'https://eastmojo.com/manipur/2022/11/13/manipur-man-converts-barren-land-into-300-acre-forest/' },
-          { title: 'The Better India — Punshilok and the Wildlife and Habitat Protection Society (2017)', url: 'https://thebetterindia.com/89522/manipur-punshilok-moirangthem-loiya-ngamba-wildlife-habitat-protection-society' },
-          { title: 'The Sangai Express — Punshilok, a 300-acre forest (2024)', url: 'https://www.thesangaiexpress.com/Encyc/2024/8/4/Mangal-Salam-Most-must-have-heard-about-the-breathtaking-300-acre-forest-known-as-Punshilok-nestled-in-th.html' },
-          { title: 'EastMojo — Manipur man toiled for 17 years to bring a dying forest back to life (2019)', url: 'https://eastmojo.com/news/2019/09/06/manipur-man-toiled-for-17-years-to-bring-dying-forest-back-to-life/' },
-          { title: 'India Today NE — Route march to curb encroachment in Langol reserve forest (2025)', url: 'https://www.indiatodayne.in/manipur/story/manipur-route-march-conducted-by-forest-officials-to-curb-encroachment-in-langol-reserve-forest-1210132-2025-05-07' },
-        ],
-      },
-      {
-        id: 'daripalli-ramaiah',
-        name: 'Daripalli Ramaiah',
-        country: 'India',
-        place: 'Reddipalli, Khammam district, Telangana, India',
-        glance: [
-          ['Active', 'More than five decades'],
-          ['Trees', 'An estimated 10 million, never counted'],
-          ['Died', 'April 2025'],
-          ['Protection', 'None found for his plantings'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/ramaiah',
-            width: 724,
-            height: 1014,
-            alt: 'Daripalli Ramaiah in a white shirt, with a tilak on his forehead, at a formal ceremony.',
-            caption: 'Ramaiah at Rashtrapati Bhavan, New Delhi, on the day he received the Padma Shri, 30 March 2017.',
-            author: 'President’s Secretariat, Government of India',
-            license: 'GODL-India',
-            licenseUrl: 'https://data.gov.in/sites/default/files/Gazette_Notification_OGDL.pdf',
-            source: 'https://commons.wikimedia.org/wiki/File:Shri_Daripalli_Ramaiah,_at_Rashtrapati_Bhavan,_in_2017_(cropped).jpg',
-            via: 'Wikimedia Commons',
-          },
-        ],
-        paras: [
-          'Daripalli Ramaiah, known as Vanajeevi Ramaiah, spent more than fifty years planting along the roads and open land around his village of Reddipalli in Khammam district. He carried seeds in his pockets and scattered them from his bicycle, steering with one hand, and switched to a motorbike as he aged. He favoured native species such as neem, teak, bael, peepal and kadamba, and his wife, Janamma, worked alongside him.',
-          'He is usually credited with about ten million trees, a crore in Indian counting. Treat that as an estimate. Nobody counted, and he once told an interviewer that he did not remember how many he had planted. He received the Padma Shri in 2017, and lessons about his life appear in school textbooks in Telangana and Maharashtra. He died at home in April 2025, aged 87.',
-          'His plantings were never one forest that could be fenced or registered. They were roadsides, canal banks and open ground, much of it public land. After his death, a former member of India’s upper house of parliament said some of his saplings had been lost to road expansion and called for replanting, and his granddaughter marked his passing by giving away 3,000 saplings. We found no formal programme or protection for what he planted.',
-        ],
-        sources: [
-          { title: 'Mongabay India — Telangana green crusader Daripalli Ramaiah dies at 87 (2025)', url: 'https://india.mongabay.com/2025/04/telangana-green-crusader-daripalli-ramaiah-dies-at-87-obituary/' },
-          { title: 'The Tribune — Telangana’s tree man dies at 87 (2025)', url: 'https://www.tribuneindia.com/news/india/telanganas-tree-man-dies-at-87' },
-          { title: 'The News Minute — Padma Shri for the Telangana man who planted over one crore saplings (2017)', url: 'https://www.thenewsminute.com/article/green-warrior-padma-shri-telangana-man-who-planted-over-one-crore-saplings-56295' },
-          { title: 'Telangana Today — A tribute to Vanajeevi Ramaiah (2025)', url: 'https://telanganatoday.com/a-tribute-to-vanajeevi-ramaiah-santosh-kumar-advocates-national-recognition' },
-          { title: 'The Hans India — In the footsteps of Vanajeevi Ramaiah (2025)', url: 'https://thehansindia.com/telangana/in-the-footsteps-of-vanajeevi-ramaiah-965644' },
-        ],
-      },
-      {
-        id: 'wangari-maathai',
-        name: 'Wangari Maathai',
-        country: 'Kenya',
-        place: 'The Green Belt Movement, Kenya',
-        glance: [
-          ['Founded', '1977'],
-          ['Trees', 'More than 51 million, by GBM’s count'],
-          ['Nobel', 'Peace Prize, 2004'],
-          ['Died', 'September 2011'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/maathai',
-            width: 960,
-            height: 1200,
-            alt: 'Wangari Maathai speaking, in a patterned dress and matching head wrap.',
-            caption: 'Maathai in Salvador, Brazil, in 2006.',
-            author: 'Antônio Cruz / Agência Brasil',
-            license: 'CC BY 3.0 BR',
-            licenseUrl: 'https://creativecommons.org/licenses/by/3.0/br/deed.en',
-            source: 'https://commons.wikimedia.org/wiki/File:Wangari_Maathai_no_Brasil.jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-          {
-            src: '/media/blog/planters/karura',
-            width: 960,
-            height: 1200,
-            alt: 'A red-earth trail running through a tunnel of tall native trees.',
-            caption: 'A trail through native trees in Karura Forest, Nairobi, 2025.',
-            author: 'Brihaspati',
-            license: 'CC BY 4.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by/4.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Forest_trail_in_the_Karura_Forest,_Nairobi.jpg',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-        ],
-        paras: [
-          'Wangari Maathai founded the Green Belt Movement in 1977 to respond to what rural Kenyan women were reporting: their streams were drying up, their food supply was less secure, and they had to walk further and further for firewood. Her answer was to get them planting trees. The first planting, seven trees in a Nairobi park, took place on World Environment Day that year.',
-          'The movement worked mainly in Kenya, where it trained tens of thousands of women, and from 1986 a pan-African network carried the model to other countries. It now counts more than 51 million trees grown. In 2004 Maathai became the first African woman to receive the Nobel Peace Prize, “for her contribution to sustainable development, democracy and peace”. She died in Nairobi in September 2011.',
-          'Maathai knew that planting was only half the work. In January 1999 she was attacked while leading protesters planting trees in Karura Forest, on Nairobi’s northern edge, where public land was being handed to private developers. Later that year the government banned the allocation of public land. Karura is still a protected forest reserve of about 1,041 hectares, but it is contested again. In 2026 Friends of Karura and the Green Belt Movement went to court over construction inside the forest and won an order halting it pending further directions. Even a legally protected forest needs someone to defend it.',
-        ],
-        sources: [
-          { title: 'The Green Belt Movement', url: 'https://www.greenbeltmovement.org/' },
-          { title: 'The Green Belt Movement — Our history', url: 'https://www.greenbeltmovement.org/history/' },
-          { title: 'The Nobel Prize — laureate data for Wangari Maathai', url: 'https://api.nobelprize.org/2.1/laureates?name=Maathai' },
-          { title: 'PBS NewsHour — Remembering Wangari Maathai (2011)', url: 'https://www.pbs.org/newshour/nation/remembering-wangari-maathai-first-african-woman-to-win-nobel-peace-prize' },
-          { title: 'African Arguments — Karura Forest and the politics of community-based conservation (2025)', url: 'https://africanarguments.org/2025/09/karura-forest-and-the-politics-of-community-based-conservation-in-kenya/' },
-          { title: 'Friends of Karura — Court order to halt construction inside Karura Forest (2026)', url: 'https://friendsofkarura.org/friends-of-karura-welcome-the-court-order-to-halt-construction-inside-karura-forest/' },
-        ],
-      },
-      {
-        id: 'elzeard-bouffier',
-        name: 'Elzéard Bouffier, a fiction',
-        country: 'France, in fiction',
-        place: 'Haute-Provence, France, in Jean Giono’s story The Man Who Planted Trees',
-        glance: [
-          ['Written', '1953, by Jean Giono'],
-          ['Published', '1954, in Vogue'],
-          ['Real?', 'No; Giono said so in 1957'],
-          ['Film', 'Frédéric Back, 1987; Oscar 1988'],
-        ],
-        photos: [
-          {
-            src: '/media/blog/planters/vergons',
-            width: 960,
-            height: 1200,
-            alt: 'Meadows and pine-covered slopes below a long limestone ridge under a clear blue sky.',
-            caption: 'Wooded slopes below the Chamatte ridge at Vergons, a village named in the story, 2013.',
-            author: 'Sébastien Thébault',
-            license: 'CC BY-SA 3.0',
-            licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
-            source: 'https://commons.wikimedia.org/wiki/File:Vergons,_cr%C3%AAte_de_Chamatte_et_pr%C3%A9s.JPG',
-            via: 'Wikimedia Commons',
-            cropped: true,
-          },
-          {
-            src: '/media/blog/planters/faucon-1899',
-            width: 960,
-            height: 1200,
-            alt: 'An old sepia photograph of a man in uniform standing among tall black pines.',
-            caption: 'A forester among black pines planted in 1867 at Faucon, Alpes-de-Haute-Provence, photographed in 1899 for the state’s mountain reforestation service. Real reforestation, not Bouffier’s.',
-            author: 'Auguste Pécheral',
-            license: 'Public domain',
-            source: 'https://commons.wikimedia.org/wiki/File:Torrent_du_Bourget_(reboisement_en_pins_noirs_dans_le_canton_des_marquises)_-_P%C3%A9cheral_-_btv1b10701400f.jpg',
-            via: 'Bibliothèque nationale de France and Wikimedia Commons',
-            cropped: true,
-          },
-        ],
-        paras: [
-          'Elzéard Bouffier never lived. He is the shepherd in Jean Giono’s short story The Man Who Planted Trees, written in 1953 after Reader’s Digest asked Giono to describe the most extraordinary character he had met. The magazine turned it down, doubting that Bouffier existed, and the story first appeared in English in Vogue in 1954. In it, a narrator crossing the barren uplands of Haute-Provence meets a solitary shepherd who plants acorns, a hundred at a time, and later beech and birch. Over decades and two world wars, the valley turns green, its streams run again and people return.',
-          'In 1957 Giono wrote to the head forestry official in Digne that Bouffier was an invented character, meant to make people love planting trees, and he gave away the rights to the story for nothing. Frédéric Back’s 1987 animated film of it won the Academy Award for animated short film.',
-          'The hills themselves have a real reforestation history, older than the story. From the second half of the nineteenth century the French state replanted large areas of these eroded southern Alps, much of it with Austrian black pine and larch, to hold the slopes and calm flash floods. And the story has inspired real planting. France’s national forestry office named a climate project after Giono, collecting acorns and beechnuts in Provence and elsewhere from 2011 and planting beeches further north, near Verdun, where they may suit the climate to come.',
-        ],
-        sources: [
-          { title: 'L’Homme qui plantait des arbres — Wikipedia (French)', url: 'https://fr.wikipedia.org/wiki/L%27Homme_qui_plantait_des_arbres' },
-          { title: 'The Man Who Planted Trees — Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Man_Who_Planted_Trees' },
-          { title: 'Karl Kehrle bibliography — The Man Who Planted Trees and the reforestation of Haute-Provence', url: 'https://bibliography.karlkehrle.org/?p=200' },
-          { title: 'Academy of Motion Picture Arts and Sciences — the 60th Academy Awards (1988)', url: 'https://www.oscars.org/oscars/ceremonies/1988' },
-          { title: 'TerraDaily (AFP) — Beeches thrive in France’s Verdun in flight from climate change (2024)', url: 'https://terradaily.com/beeches-thrive-in-frances-verdun-in-flight-from-climate-change-999/' },
-        ],
-      },
-    ],
-    sections: [
-      {
-        heading: 'What keeps a planted forest standing',
-        paras: [
-          'Read together, these stories sort themselves less by how many trees went in than by how the land is held. The Salgados’ forest has the firmest footing. It was committed to a perpetual private reserve in 1998, before most of it was planted, and its legal status did not change when Sebastião Salgado died. Karura Forest is public and legally protected, yet in 2026 it still needed Maathai’s movement in court.',
-          'Most of the others rest on something thinner. Molai has no legal protection at all. Sawadogo’s forest was carved into housing plots before the state fenced what remained, and no title has been confirmed. Thimmakka’s banyans survived a road-widening plan because she appealed to the chief minister in person. Loiya’s forest grows on state land by official goodwill. The SAI Sanctuary sits in a trust, which was a sound decision, but with both founders gone we could not find out who runs it. Vicente’s forest, as far as public records show, depends on his family.',
-          'None of this takes anything away from what these people did. Planting a forest by hand is one of the most generous things a person can do. But a forest outlives its planter only if something other than that person’s devotion is holding it.',
-        ],
-      },
-      {
-        heading: 'Why it matters for the trust model',
-        paras: [
-          'The Liminal Forests Alliance works from a simple idea: secure large, ecologically important wild land, then place each property in an independent trust so that protection outlasts any one owner. The forest makers show both halves of that idea from an unusual angle. They prove that damaged land can come back, often faster than anyone expects, when someone commits to it for decades. They also show how often that commitment is the only thing standing between a young forest and a housing plan, a sand-mining crew or a wider road.',
-          'The clearest success here, Instituto Terra, came from founders who moved the land into a structure built to outlast them while they were alive and able to. The SAI Sanctuary trust is a smaller version of the same instinct. That step, fixing how the land is held, is the one the alliance builds in from the start. A planter’s lifetime is long enough to grow a forest. It is not long enough to keep one, unless the way the land is held carries the work forward.',
-        ],
-      },
-    ],
-    sourcesHeading: 'Image and data sources',
-    sources: [
-      {
-        title: 'Microsoft Planetary Computer — Landsat Collection 2 Level-2 (satellite imagery used for the before-and-after views)',
-        url: 'https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2',
-      },
-      {
-        title: 'U.S. Geological Survey — Are there any restrictions on the use or redistribution of Landsat data?',
-        url: 'https://www.usgs.gov/faqs/are-there-any-restrictions-use-or-redistribution-landsat-data',
-      },
-      {
-        title: 'OpenStreetMap — Copyright and licence (outlines on the satellite views)',
-        url: 'https://www.openstreetmap.org/copyright',
-      },
-      {
-        title: 'Wikimedia Commons — Reusing content outside Wikimedia (photographs)',
-        url: 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia',
-      },
-    ],
-  },
+  // 8+ ------------------------------------------------------------------
+  // "They planted forests by hand" series: a hub post plus one story per
+  // forest maker. Kept in its own module; see src/data/blog-planters.js.
+  ...plantersPosts,
 ];
 
 // Page entries for the sitemap (HTML pages, each advertising a .md alternate).
@@ -1113,39 +516,13 @@ export function photoCredit(photo) {
 
 // ---- Markdown rendering (shared by the .md alternates) --------------------
 
-function profileMarkdown(pr, n) {
-  const out = [];
-  out.push(`## ${String(n).padStart(2, '0')}. ${pr.name}`);
-  out.push('');
-  out.push(`_${pr.place}_`);
-  out.push('');
-  if (pr.glance) {
-    for (const [k, v] of pr.glance) out.push(`- ${k}: ${v}`);
-    out.push('');
-  }
-  for (const para of pr.paras) {
-    out.push(para);
-    out.push('');
-  }
-  for (const ph of pr.photos ?? []) {
-    out.push(`Image: ${ph.alt} ${photoCredit(ph)}`);
-    out.push('');
-  }
-  if (pr.beforeAfter) {
-    const ba = pr.beforeAfter;
-    out.push(`Before and after: ${ba.before.label} compared with ${ba.after.label}. ${ba.caption ?? ''} ${ba.credit ?? ''}`.trim());
-    out.push('');
-  }
-  if (pr.note) {
-    out.push(`_${pr.note}_`);
-    out.push('');
-  }
-  if (pr.sources) {
-    out.push('Sources:');
-    for (const s of pr.sources) out.push(`- [${s.title}](${s.url})`);
-    out.push('');
-  }
-  return out;
+function imageLines(photos = []) {
+  return photos.flatMap((ph) => [`Image: ${ph.alt} ${ph.caption ?? ''} ${photoCredit(ph)}`.replace(/\s+/g, ' '), '']);
+}
+
+function beforeAfterLines(ba) {
+  if (!ba) return [];
+  return [`Before and after: ${ba.before.label} compared with ${ba.after.label}. ${ba.caption ?? ''} ${ba.credit ?? ''}`.trim(), ''];
 }
 
 function factLines(p) {
@@ -1169,19 +546,36 @@ export function renderPostMarkdown(p) {
   out.push('');
   out.push(`Canonical page: ${postUrl(p.slug)}`);
   out.push('');
+  const parent = p.partOf ? getPost(p.partOf) : null;
+  if (parent) {
+    out.push(`Part of the series "${parent.title}": ${postUrl(parent.slug)}`);
+    out.push('');
+  }
   out.push(p.lead);
   out.push('');
+  out.push(...imageLines(p.photos));
   if (isSalePost(p)) {
     out.push('## Property at a glance');
     out.push('');
     out.push(...factLines(p));
+    out.push('');
+  } else if (p.glance) {
+    out.push('## At a glance');
+    out.push('');
+    for (const [k, v] of p.glance) out.push(`- ${k}: ${v}`);
     out.push('');
   }
   for (const para of p.intro ?? []) {
     out.push(para);
     out.push('');
   }
-  (p.profiles ?? []).forEach((pr, i) => out.push(...profileMarkdown(pr, i + 1)));
+  const series = (p.series ?? []).map(getPost).filter(Boolean);
+  if (series.length) {
+    out.push(`## ${p.seriesHeading ?? 'The stories'}`);
+    out.push('');
+    for (const c of series) out.push(`- [${c.title}](${postUrl(c.slug)}) (${c.location}): ${c.summary}`);
+    out.push('');
+  }
   for (const s of p.sections) {
     out.push(`## ${s.heading}`);
     out.push('');
@@ -1189,6 +583,9 @@ export function renderPostMarkdown(p) {
       out.push(para);
       out.push('');
     }
+    out.push(...imageLines(s.photos));
+    out.push(...beforeAfterLines(s.beforeAfter));
+    if (s.note) out.push(`_${s.note}_`, '');
   }
   out.push(`## ${p.sourcesHeading ?? 'Sources'}`);
   out.push('');

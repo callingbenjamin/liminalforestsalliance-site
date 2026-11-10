@@ -60,29 +60,36 @@ listing all follow from it.
 
    Fix any failures before shipping.
 
-## Feature posts (profiles of people and places)
+## Stories about people and places, and series
 
-Some dispatches are not about one sale, for example "They planted forests by
-hand. Who keeps them now?" (`people-who-planted-forests`). These use the same
-`posts` array with a different shape:
+**One subject, one post.** When there are several people or places to cover,
+give each its own post (its own page, card and URL) and, if useful, a short
+hub post that links them. Do not combine them into one long roundup. Example:
+the "They planted forests by hand" series in `src/data/blog-planters.js`
+(hub `people-who-planted-forests` plus eleven stories), spread into `posts`.
+
+Stories that are not about a sale use the same `posts` array with a
+different shape:
 
 - Leave out `size_ha`, `size_acres`, `price`, `saleDate`, `seller`, `buyer`
   and `currentUse`. Without `size_ha` the page skips the "Property at a
   glance" box and the list shows only the location.
-- `outcome` may be `'Restoration'` (styled like a conservation win).
-- `intro` (optional): paragraphs shown after the lead.
-- `profiles`: an array of `{ id, name, country, place, glance, photos, paras,
-  beforeAfter, note, sources }`. `id` is the anchor (`/blog/<slug>#<id>`),
-  `glance` is a short list of `[label, value]` pairs, `photos` holds one or
-  two images (two are shown side by side at 4:5), `beforeAfter` is an optional
-  slider (see `src/components/BeforeAfter.astro`), `note` is a short italic
-  line (use it to say plainly when no photo or comparison exists), and
-  `sources` lists that profile's sources.
-- `sections` still follow the profiles and must include "Why it matters for
-  the trust model". `sourcesHeading` can rename the bottom source list.
-- `cover` (optional): `{ src, width, height, alt, credit, creditUrl }`. A post
-  with a cover is shown on `/blog` as a wide featured card with the image.
-- Every profile should have at least one image. When no free photograph
+- `outcome` may be `'Restoration'` or `'Fiction'` as well as the two
+  values above (anything but "Cautionary tale" gets the green chip).
+- `glance` (optional): `[label, value]` pairs shown as an "At a glance" box.
+- `photos` (optional): one or two photos shown under the lead (two sit side
+  by side at 4:5). Sections may also carry `photos`, a `beforeAfter` slider
+  (see `src/components/BeforeAfter.astro`) and a short italic `note` (use it
+  to say plainly when no photo or comparison exists).
+- `cover` (optional): `{ src, width, height, alt, focus, credit, creditUrl }`,
+  the image on the post's card on `/blog`. Add `featured: true` to make the
+  card wide (used for a series hub).
+- Series: the hub lists child slugs in `series` (rendered as a list of story
+  cards); each child sets `partOf: '<hub slug>'`, which adds a "Part of the
+  series" line and a "More in this series" list.
+- Every post still needs the "Why it matters for the trust model" section and
+  two or more sources. `sourcesHeading` can rename the bottom source list.
+- Every story should have at least one image. When no free photograph
   exists, use an honest stand-in (the same river, the hill range seen from
   orbit) and say in the caption what it is and is not. For a satellite still,
   set `creditLabel: 'Image'` so the credit does not say "Photo".
