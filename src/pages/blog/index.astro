@@ -19,7 +19,23 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
     <div class="wrap">
       <ul class="posts">
         {ordered.map((p) => (
-          <li class="post-card">
+          <li class:list={['post-card', p.cover && 'post-card--cover']}>
+            {p.cover && (
+              <figure class="post-cover">
+                <a href={`/blog/${p.slug}`} tabindex="-1" aria-hidden="true">
+                  <img
+                    src={`${p.cover.src}-800.webp`}
+                    width={p.cover.width}
+                    height={p.cover.height}
+                    alt=""
+                    loading="eager"
+                    decoding="async"
+                  />
+                </a>
+                <figcaption><a href={p.cover.creditUrl} target="_blank" rel="noopener noreferrer">{p.cover.credit}</a></figcaption>
+              </figure>
+            )}
+            <div class="post-body">
             <div class="post-top">
               <span class={`chip ${p.outcome === 'Cautionary tale' ? 'chip--alt' : ''}`}>{p.outcome}</span>
               <time datetime={p.date}>{p.date}</time>
@@ -31,6 +47,7 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
               Read the dispatch
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
+            </div>
           </li>
         ))}
       </ul>
@@ -51,6 +68,23 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
   .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.3rem; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
   .post-card { background: var(--night-2); border: 1px solid var(--line); border-radius: 16px; padding: 1.7rem; display: flex; flex-direction: column; transition: border-color 0.3s, transform 0.3s var(--ease-out); }
   .post-card:hover { transform: translateY(-4px); border-color: var(--line-2); }
+  .post-body { display: flex; flex-direction: column; flex: 1; }
+
+  /* A post with a cover image becomes a wide "featured" card: the image beside
+     the text on wide screens, above it on narrow ones. */
+  .post-card--cover { padding: 0; overflow: hidden; }
+  .post-card--cover .post-body { padding: 1.7rem; }
+  .post-cover { margin: 0; position: relative; }
+  .post-cover img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 48%; }
+  .post-cover figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 0.9rem 0.6rem; font-size: 0.68rem; line-height: 1.4; background: linear-gradient(to top, rgba(11, 13, 12, 0.85), rgba(11, 13, 12, 0)); }
+  .post-cover figcaption a { color: var(--text-2); text-decoration: none; }
+  .post-cover figcaption a:hover { color: var(--sun-soft); text-decoration: underline; }
+  @media (min-width: 760px) {
+    .post-card--cover { grid-column: span 2; flex-direction: row; }
+    .post-card--cover .post-cover { flex: 0 0 44%; }
+    .post-card--cover .post-cover img { aspect-ratio: auto; min-height: 100%; }
+  }
+
   .post-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
   .post-top time { font-family: var(--f-mono); font-size: 0.76rem; color: var(--text-3); }
   .chip { font-family: var(--f-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--moss); border: 1px solid var(--line-2); padding: 0.28rem 0.6rem; border-radius: 999px; white-space: nowrap; }

@@ -57,6 +57,24 @@ const PAIRS = [
   },
 ];
 
+// Single satellite stills (no comparison), used like a photo where no
+// freely licensed photograph exists. Copernicus Sentinel-2 L2A true colour
+// ("visual" asset, 10 m); credit "Contains modified Copernicus Sentinel data
+// <year>". Saved as <name>-800.webp and <name>-1200.webp like the photos.
+const STILLS = [
+  {
+    // The Langol hill range on the northern edge of Imphal, Manipur, with the
+    // Lamphelpat wetland below it. Punshilok lies on these hills, but its
+    // boundary is not mapped, so nothing is outlined.
+    dir: 'planters',
+    name: 'langol-hills',
+    center: [93.885, 24.852],
+    widthKm: 11,
+    aspect: 4 / 3,
+    item: 'S2C_MSIL2A_20251213T042201_R090_T46REN_20251213T073610', // 13 Dec 2025
+  },
+];
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function bboxFor([lon, lat], half) {
@@ -125,6 +143,25 @@ async function outlineSvg(way, bbox) {
     [((lon - bbox[0]) / (bbox[2] - bbox[0])) * SIZE, ((bbox[3] - lat) / (bbox[3] - bbox[1])) * SIZE].map((v) => v.toFixed(1)).join(',');
   const d = polys.map((P) => P.map((ring) => `M${ring.map(pt).join('L')}Z`).join(' ')).join(' ');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${SIZE}" height="${SIZE}"><path d="${d}" fill="none" stroke="#ffd84a" stroke-width="2.5" stroke-dasharray="9 5" stroke-linejoin="round"/></svg>`;
+}
+
+for (const s of STILLS) {
+  if (ONLY && s.name !== ONLY) continue;
+  const [lon, lat] = s.center;
+  const hw = s.widthKm / 2 / (111.32 * Math.cos((lat * Math.PI) / 180));
+  const hh = s.widthKm / s.aspect / 2 / 110.574;
+  const bbox = [lon - hw, lat - hh, lon + hw, lat + hh].map((v) => +v.toFixed(5));
+  const w = 1200;
+  const h = Math.round(w / s.aspect);
+  const url = `https://planetarycomputer.microsoft.com/api/data/v1/item/bbox/${bbox.join(',')}/${w}x${h}.png?collection=sentinel-2-l2a&item=${s.item}&assets=visual&asset_bidx=visual%7C1%2C2%2C3&nodata=0`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`could not fetch ${s.item} (${res.status})`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  const outDir = resolve(root, 'public/media/blog', s.dir);
+  await mkdir(outDir, { recursive: true });
+  await sharp(buf).webp({ quality: 80 }).toFile(resolve(outDir, `${s.name}-1200.webp`));
+  await sharp(buf).resize({ width: 800 }).webp({ quality: 76 }).toFile(resolve(outDir, `${s.name}-800.webp`));
+  console.log(`saved ${s.name}  ${w}x${h}  (${s.item}, bbox ${bbox.join(',')})`);
 }
 
 for (const p of PAIRS) {
