@@ -1,0 +1,153 @@
+---
+// A before/after comparison: two aligned images of the same place, with a
+// draggable divider. The "after" image sits on top and is clipped to the right
+// of the divider, so dragging left reveals more of "after".
+//
+// Works with mouse, touch (horizontal drags move the divider, vertical drags
+// still scroll the page) and keyboard (a real range input, visually hidden but
+// focusable, drives the same position). Without JavaScript it rests at 50%.
+//
+// Props: { before, after, width, height, caption, credit }
+//   before/after: { src, label, alt }   src is a path to a .webp file
+const { before, after, width, height, caption, credit } = Astro.props;
+---
+
+<figure class="ba" data-ba>
+  <div class="ba-frame" style={`aspect-ratio: ${width} / ${height}; --pos: 50%;`} data-ba-frame>
+    <img class="ba-img" src={before.src} alt={before.alt} width={width} height={height} loading="lazy" decoding="async" draggable="false" />
+    <img class="ba-img ba-after" src={after.src} alt={after.alt} width={width} height={height} loading="lazy" decoding="async" draggable="false" />
+    <span class="ba-tag ba-tag--before" aria-hidden="true">{before.label}</span>
+    <span class="ba-tag ba-tag--after" aria-hidden="true">{after.label}</span>
+    <span class="ba-handle" aria-hidden="true">
+      <span class="ba-knob">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l-5 6 5 6M15 6l5 6-5 6" /></svg>
+      </span>
+    </span>
+    <input
+      class="ba-range"
+      type="range"
+      min="0"
+      max="100"
+      step="1"
+      value="50"
+      aria-label={`Compare ${before.label} (left) with ${after.label} (right)`}
+      data-ba-range
+    />
+  </div>
+  {(caption || credit) && (
+    <figcaption>
+      {caption && <span>{caption} </span>}
+      {credit && <span class="ba-credit">{credit}</span>}
+    </figcaption>
+  )}
+</figure>
+
+<script>
+  for (const frame of document.querySelectorAll<HTMLElement>('[data-ba-frame]')) {
+    const range = frame.querySelector<HTMLInputElement>('[data-ba-range]');
+    if (!range) continue;
+    const set = (pct: number) => {
+      const v = Math.max(0, Math.min(100, pct));
+      frame.style.setProperty('--pos', `${v}%`);
+      range.value = String(Math.round(v));
+    };
+    const fromPointer = (e: PointerEvent) => {
+      const r = frame.getBoundingClientRect();
+      set(((e.clientX - r.left) / r.width) * 100);
+    };
+    range.addEventListener('input', () => set(Number(range.value)));
+    frame.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      frame.setPointerCapture(e.pointerId);
+      frame.classList.add('is-dragging');
+      fromPointer(e);
+    });
+    frame.addEventListener('pointermove', (e) => {
+      if (frame.hasPointerCapture(e.pointerId)) fromPointer(e);
+    });
+    const end = (e: PointerEvent) => {
+      if (frame.hasPointerCapture(e.pointerId)) frame.releasePointerCapture(e.pointerId);
+      frame.classList.remove('is-dragging');
+    };
+    frame.addEventListener('pointerup', end);
+    frame.addEventListener('pointercancel', end);
+  }
+</script>
+
+<style>
+  .ba { margin: 1.6rem 0 0; }
+  .ba-frame {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--night-3);
+    cursor: ew-resize;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ba-after { clip-path: inset(0 0 0 var(--pos)); }
+
+  .ba-tag {
+    position: absolute;
+    top: 0.7rem;
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-1);
+    background: rgba(11, 13, 12, 0.72);
+    border: 1px solid var(--line-2);
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  .ba-tag--before { left: 0.7rem; }
+  .ba-tag--after { right: 0.7rem; }
+
+  .ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--bone);
+    box-shadow: 0 0 0 1px rgba(11, 13, 12, 0.35);
+    pointer-events: none;
+  }
+  .ba-knob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--night);
+    background: var(--bone);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Keyboard / screen-reader control: invisible, but focusable and announced. */
+  .ba-range {
+    position: absolute;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ba-frame:has(.ba-range:focus-visible) { outline: 2px solid var(--sun); outline-offset: 3px; }
+  .ba-frame:has(.ba-range:focus-visible) .ba-knob { outline: 2px solid var(--sun); outline-offset: 2px; }
+
+  .ba figcaption { margin-top: 0.7rem; font-size: 0.82rem; line-height: 1.55; color: var(--text-3); }
+  .ba-credit { color: var(--text-3); }
+  .ba figcaption :global(a) { color: var(--sun-soft); }
+</style>

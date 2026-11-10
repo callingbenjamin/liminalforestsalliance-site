@@ -1,6 +1,7 @@
 ---
 import Blog from '../../layouts/Blog.astro';
-import { posts, postUrl } from '../../data/blog.js';
+import BeforeAfter from '../../components/BeforeAfter.astro';
+import { posts, postUrl, isSalePost, photoSrcset } from '../../data/blog.js';
 import { SITE_URL } from '../../data/content.js';
 
 export function getStaticPaths() {
@@ -10,16 +11,22 @@ export function getStaticPaths() {
 const { post } = Astro.props;
 const fmt = (n) => n.toLocaleString('en-US');
 
-const facts = [
-  ['Location', post.location],
-  ['Size', `${fmt(post.size_ha)} ha · ${fmt(post.size_acres)} ac`],
-  ['Sale price', post.price],
-  ['Sale date', post.saleDate],
-  ['Seller', post.seller],
-  ['Buyer', post.buyer],
-  ['Current use', post.currentUse],
-  ['Outcome', post.outcome],
-];
+// Land-sale dispatches carry a "Property at a glance" box; feature posts made
+// of profiles (people and the places they restored) do not.
+const facts = isSalePost(post)
+  ? [
+      ['Location', post.location],
+      ['Size', `${fmt(post.size_ha)} ha · ${fmt(post.size_acres)} ac`],
+      ['Sale price', post.price],
+      ['Sale date', post.saleDate],
+      ['Seller', post.seller],
+      ['Buyer', post.buyer],
+      ['Current use', post.currentUse],
+      ['Outcome', post.outcome],
+    ]
+  : null;
+const profiles = post.profiles ?? [];
+const chipAlt = post.outcome === 'Cautionary tale';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -44,7 +51,7 @@ const jsonLd = {
     logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
   },
   isPartOf: { '@type': 'Blog', '@id': `${SITE_URL}/blog#blog`, name: 'Dispatches' },
-  image: `${SITE_URL}/og.png`,
+  image: post.profiles?.[0]?.photos?.[0] ? `${SITE_URL}${post.profiles[0].photos[0].src}-1200.webp` : `${SITE_URL}/og.png`,
 };
 ---
 
@@ -66,7 +73,7 @@ const jsonLd = {
 
       <header class="post-header">
         <div class="post-tags">
-          <span class={`chip ${post.outcome === 'Cautionary tale' ? 'chip--alt' : ''}`}>{post.outcome}</span>
+          <span class={`chip ${chipAlt ? 'chip--alt' : ''}`}>{post.outcome}</span>
           <time datetime={post.date}>Published {post.date}</time>
         </div>
         <h1>{post.title}</h1>
@@ -74,19 +81,103 @@ const jsonLd = {
         <p class="lead">{post.lead}</p>
       </header>
 
-      <aside class="facts" aria-label="Property at a glance">
-        <h2>Property at a glance</h2>
-        <dl>
-          {facts.map(([k, v]) => (
-            <div>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </aside>
+      {facts && (
+        <aside class="facts" aria-label="Property at a glance">
+          <h2>Property at a glance</h2>
+          <dl>
+            {facts.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+      )}
 
-      <div class="prose">
+      {post.intro && (
+        <div class="prose prose--intro">
+          {post.intro.map((para) => <p>{para}</p>)}
+        </div>
+      )}
+
+      {profiles.length > 0 && (
+        <nav class="jump" aria-label="People in this dispatch">
+          <h2>In this dispatch</h2>
+          <ol>
+            {profiles.map((pr) => (
+              <li><a href={`#${pr.id}`}>{pr.name}</a><span>{pr.country}</span></li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
+      {profiles.map((pr, i) => (
+        <section class="profile" id={pr.id} aria-labelledby={`${pr.id}-name`}>
+          <p class="pf-num">{String(i + 1).padStart(2, '0')}</p>
+          <h2 id={`${pr.id}-name`}>{pr.name}</h2>
+          <p class="pf-place">{pr.place}</p>
+
+          {pr.photos && (
+            <div class:list={['pf-photos', pr.photos.length > 1 && 'pf-photos--pair']}>
+              {pr.photos.map((ph) => (
+                <figure class:list={['pf-photo', ph.height > ph.width && pr.photos.length === 1 && 'pf-photo--tall']}>
+                  <img
+                    src={`${ph.src}-1200.webp`}
+                    srcset={photoSrcset(ph)}
+                    sizes={pr.photos.length > 1 ? '(max-width: 640px) 100vw, 380px' : '(max-width: 800px) 100vw, 760px'}
+                    width={ph.width}
+                    height={ph.height}
+                    alt={ph.alt}
+                    loading={i < 1 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    style={ph.focus ? `object-position: ${ph.focus}` : undefined}
+                  />
+                  <figcaption>
+                    {ph.caption}{' '}
+                    <span class="credit">
+                      Photo: <a href={ph.source} target="_blank" rel="noopener noreferrer">{ph.author}</a>,{' '}
+                      {ph.licenseUrl ? <a href={ph.licenseUrl} target="_blank" rel="noopener noreferrer">{ph.license}</a> : ph.license}{ph.via ? `, via ${ph.via}` : ''}{ph.cropped ? '; cropped' : ''}.
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+
+          {pr.glance && (
+            <dl class="pf-glance">
+              {pr.glance.map(([k, v]) => (
+                <div>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          <div class="prose">
+            {pr.paras.map((para) => <p>{para}</p>)}
+          </div>
+
+          {pr.beforeAfter && <BeforeAfter {...pr.beforeAfter} />}
+
+          {pr.note && <p class="pf-note">{pr.note}</p>}
+
+          {pr.sources && (
+            <p class="pf-sources">
+              <span>Sources:</span>
+              {pr.sources.map((s, j) => (
+                <>
+                  <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a>{j < pr.sources.length - 1 ? ' · ' : ''}
+                </>
+              ))}
+            </p>
+          )}
+        </section>
+      ))}
+
+      <div class:list={['prose', profiles.length > 0 && 'prose--closing']}>
         {post.sections.map((s) => (
           <section>
             <h2>{s.heading}</h2>
@@ -96,7 +187,7 @@ const jsonLd = {
       </div>
 
       <section class="sources">
-        <h2>Sources</h2>
+        <h2>{post.sourcesHeading ?? 'Sources'}</h2>
         <ol>
           {post.sources.map((s) => (
             <li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a></li>
@@ -137,6 +228,45 @@ const jsonLd = {
   .facts dt { color: var(--text-3); font-family: var(--f-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; margin: 0; }
   .facts dd { margin: 0; font-size: 0.94rem; color: var(--text-1); }
   @media (max-width: 560px) { .facts dl > div { grid-template-columns: 1fr; gap: 0.2rem; } }
+
+  .prose--intro { margin-top: 2rem; }
+
+  /* ---------- feature posts: jump list + profiles ---------- */
+  .jump { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem 1.6rem; margin: 2.4rem 0 1rem; }
+  .jump h2 { font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sun); margin-bottom: 0.9rem; }
+  .jump ol { margin: 0; padding-left: 1.4rem; columns: 2 16rem; column-gap: 2rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.78rem; }
+  .jump li { break-inside: avoid; padding-block: 0.28rem; }
+  .jump a { font-family: var(--f-body); font-size: 0.95rem; color: var(--text-1); text-decoration: none; }
+  .jump a:hover { color: var(--sun-soft); text-decoration: underline; }
+  .jump li span { margin-left: 0.5rem; color: var(--text-3); }
+
+  .profile { margin-top: clamp(3.2rem, 8vh, 4.6rem); padding-top: clamp(2rem, 5vh, 2.8rem); border-top: 1px solid var(--line); scroll-margin-top: calc(var(--header-h) + 1rem); }
+  .pf-num { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.14em; color: var(--sun); margin: 0 0 0.5rem; }
+  .profile h2 { font-family: var(--f-display); font-weight: 340; font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.08; letter-spacing: -0.015em; margin: 0 0 0.5rem; }
+  .pf-place { margin: 0 0 1.4rem; color: var(--text-3); font-family: var(--f-mono); font-size: 0.82rem; line-height: 1.5; }
+
+  .pf-photos { margin: 0 0 1.4rem; }
+  .pf-photos--pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+  @media (max-width: 640px) { .pf-photos--pair { grid-template-columns: 1fr; } }
+  .pf-photo { margin: 0; }
+  .pf-photo img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); background: var(--night-3); }
+  .pf-photos--pair .pf-photo img { aspect-ratio: 4 / 5; height: auto; }
+  .pf-photo--tall { max-width: 440px; }
+  .pf-photo figcaption { margin-top: 0.7rem; font-size: 0.82rem; line-height: 1.55; color: var(--text-3); }
+  .pf-photo figcaption a { color: var(--sun-soft); }
+
+  .pf-glance { margin: 0 0 1.4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(8.4rem, 1fr)); gap: 0.6rem; }
+  .pf-glance > div { background: var(--night-2); border: 1px solid var(--line); border-radius: 10px; padding: 0.7rem 0.9rem; }
+  .pf-glance dt { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin: 0 0 0.25rem; }
+  .pf-glance dd { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--text-1); }
+
+  .pf-note { margin: 1.1rem 0 0; font-size: 0.85rem; line-height: 1.55; color: var(--text-3); font-style: italic; }
+  .pf-sources { margin: 1.2rem 0 0; font-size: 0.8rem; line-height: 1.6; color: var(--text-3); }
+  .pf-sources span { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.4rem; }
+  .pf-sources a { color: var(--sun-soft); word-break: break-word; }
+  .pf-sources a:hover { color: var(--sun); }
+
+  .prose--closing { margin-top: clamp(3.2rem, 8vh, 4.6rem); padding-top: 0.6rem; border-top: 1px solid var(--line); }
 
   .prose section { margin-top: 2.4rem; }
   .prose h2 { font-family: var(--f-display); font-weight: 350; font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.9rem; letter-spacing: -0.015em; }

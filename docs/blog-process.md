@@ -60,6 +60,44 @@ listing all follow from it.
 
    Fix any failures before shipping.
 
+## Feature posts (profiles of people and places)
+
+Some dispatches are not about one sale, for example "They planted forests by
+hand. Who keeps them now?" (`people-who-planted-forests`). These use the same
+`posts` array with a different shape:
+
+- Leave out `size_ha`, `size_acres`, `price`, `saleDate`, `seller`, `buyer`
+  and `currentUse`. Without `size_ha` the page skips the "Property at a
+  glance" box and the list shows only the location.
+- `outcome` may be `'Restoration'` (styled like a conservation win).
+- `intro` (optional): paragraphs shown after the lead.
+- `profiles`: an array of `{ id, name, country, place, glance, photos, paras,
+  beforeAfter, note, sources }`. `id` is the anchor (`/blog/<slug>#<id>`),
+  `glance` is a short list of `[label, value]` pairs, `photos` holds one or
+  two images (two are shown side by side at 4:5), `beforeAfter` is an optional
+  slider (see `src/components/BeforeAfter.astro`), `note` is a short italic
+  line (use it to say plainly when no photo or comparison exists), and
+  `sources` lists that profile's sources.
+- `sections` still follow the profiles and must include "Why it matters for
+  the trust model". `sourcesHeading` can rename the bottom source list.
+
+### Images
+
+- Use only freely licensed images (CC0, public domain, CC BY, CC BY-SA,
+  GODL-India) and credit each one beside it: `author`, `license`,
+  `licenseUrl`, `source` (the Commons file page), `via`, and `cropped: true`
+  if it was cropped. Check the author and licence on the Commons file page
+  itself, not a search snippet. Never reuse a copyrighted before/after photo;
+  say in the text that it exists and who holds it instead.
+- Photos: add an entry to `scripts/gen-blog-photos.mjs`, run
+  `node scripts/gen-blog-photos.mjs --only <key>`, and copy the printed size
+  into the post. Files land in `public/media/blog/<dir>/`.
+- Satellite before/after: add a pair to `scripts/gen-blog-satellite.mjs`
+  (public-domain Landsat via Planetary Computer, same box, season and colour
+  stretch for both years). Only publish a pair when the site's location is
+  known from a real source and the change is clearly visible; otherwise say
+  why there is none.
+
 ## Sourcing rules (non-negotiable)
 
 - Every fact (price, acreage, hectares, buyer, seller, date, current use) must

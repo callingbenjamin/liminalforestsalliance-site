@@ -1,8 +1,7 @@
 ---
 import Blog from '../../layouts/Blog.astro';
-import { posts, blogMeta } from '../../data/blog.js';
+import { posts, blogMeta, listLine } from '../../data/blog.js';
 
-const fmt = (n) => n.toLocaleString('en-US');
 // Newest first; all posts share a date here, so keep source order as a tiebreak.
 const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 ---
@@ -26,7 +25,7 @@ const ordered = [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date
               <time datetime={p.date}>{p.date}</time>
             </div>
             <h2><a href={`/blog/${p.slug}`}>{p.title}</a></h2>
-            <p class="post-loc">{p.location} · {fmt(p.size_ha)} ha / {fmt(p.size_acres)} ac</p>
+            <p class="post-loc">{listLine(p)}</p>
             <p class="post-summary">{p.summary}</p>
             <a class="post-link" href={`/blog/${p.slug}`}>
               Read the dispatch
