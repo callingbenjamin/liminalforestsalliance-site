@@ -80,6 +80,12 @@ hand. Who keeps them now?" (`people-who-planted-forests`). These use the same
   `sources` lists that profile's sources.
 - `sections` still follow the profiles and must include "Why it matters for
   the trust model". `sourcesHeading` can rename the bottom source list.
+- `cover` (optional): `{ src, width, height, alt, credit, creditUrl }`. A post
+  with a cover is shown on `/blog` as a wide featured card with the image.
+- Every profile should have at least one image. When no free photograph
+  exists, use an honest stand-in (the same river, the hill range seen from
+  orbit) and say in the caption what it is and is not. For a satellite still,
+  set `creditLabel: 'Image'` so the credit does not say "Photo".
 
 ### Images
 
@@ -96,7 +102,8 @@ hand. Who keeps them now?" (`people-who-planted-forests`). These use the same
   (public-domain Landsat via Planetary Computer, same box, season and colour
   stretch for both years). Only publish a pair when the site's location is
   known from a real source and the change is clearly visible; otherwise say
-  why there is none.
+  why there is none. Single Sentinel-2 stills go in `STILLS` in the same
+  script (credit "contains modified Copernicus Sentinel data <year>").
 
 ## Sourcing rules (non-negotiable)
 

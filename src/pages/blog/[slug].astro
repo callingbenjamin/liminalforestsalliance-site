@@ -136,7 +136,7 @@ const jsonLd = {
                   <figcaption>
                     {ph.caption}{' '}
                     <span class="credit">
-                      Photo: <a href={ph.source} target="_blank" rel="noopener noreferrer">{ph.author}</a>,{' '}
+                      {ph.creditLabel ?? 'Photo'}: <a href={ph.source} target="_blank" rel="noopener noreferrer">{ph.author}</a>,{' '}
                       {ph.licenseUrl ? <a href={ph.licenseUrl} target="_blank" rel="noopener noreferrer">{ph.license}</a> : ph.license}{ph.via ? `, via ${ph.via}` : ''}{ph.cropped ? '; cropped' : ''}.
                     </span>
                   </figcaption>

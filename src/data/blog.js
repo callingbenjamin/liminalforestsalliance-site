@@ -469,6 +469,15 @@ export const posts = [
     location: 'India, Brazil, Burkina Faso, China, Kenya and France',
     region: 'Around the world',
     outcome: 'Restoration',
+    // Shown on the /blog index card. Same photo as the first profile.
+    cover: {
+      src: '/media/blog/planters/payeng',
+      width: 960,
+      height: 1200,
+      alt: 'Jadav Payeng in a knitted cap and red shawl, with forest behind him.',
+      credit: 'Jadav Payeng in the Molai Forest, 2026. Photo: JyotiPN, CC BY-SA 4.0, via Wikimedia Commons; cropped.',
+      creditUrl: 'https://commons.wikimedia.org/wiki/File:Forest_Man_of_India_-_Jadav_Payeng_DSC_5008.jpg',
+    },
     summary:
       'Ten real people and one fictional shepherd who turned bare ground into forest, with photographs and satellite before-and-after views. Several have died since 2023, and their forests show how much depends on the way land is held.',
     lead:
@@ -837,12 +846,27 @@ export const posts = [
           ['Land', 'Langol Reserved Forest, state-owned'],
           ['Today', 'Tended by his society, WAHPS'],
         ],
+        photos: [
+          {
+            src: '/media/blog/planters/langol-hills',
+            width: 1200,
+            height: 900,
+            alt: 'Satellite view of a dark green forested ridge surrounded by brown dry-season farmland, with the edge of a city and green wetland at the bottom right.',
+            caption:
+              'The Langol hill range on the northern edge of Imphal, the dark forested ridge at centre, in December 2025, with the Lamphelpat area and the city below it. Punshilok lies on these hills, but its boundary has not been mapped, so it is not marked. No freely licensed photograph of Loiya or of the forest exists.',
+            creditLabel: 'Image',
+            author: 'Copernicus Sentinel-2',
+            license: 'contains modified Copernicus Sentinel data 2025',
+            source: 'https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a',
+            via: 'Microsoft Planetary Computer',
+          },
+        ],
         paras: [
           'Lists of famous tree planters often give this forest to a “Moirangthem Pacha” and put it at 20 acres. The man who grew it is Moirangthem Loiya, and it covers about 300 acres. In 2002 he began planting on a stretch of the Langol hills above Imphal that had been cleared by burning for shifting cultivation. He built a hut on the hill and lived there alone for about six years while the saplings grew.',
           'He named the forest Punshilok, “spring of life” in Meitei. Counts differ, but it now holds somewhere between 100 and 250 plant species, among them 20 to 30 kinds of bamboo, along with barking deer, porcupines, snakes and many birds. In 2003 he co-founded the Wildlife and Habitat Protection Society to look after it. Its members cut a firebreak every November.',
           'Loiya does not own the land. Punshilok lies inside the Langol Reserved Forest, which belongs to the state, and rather than treat his work as encroachment, the forest department made him part of a joint management committee. That is recognition, but not a guarantee. The wider reserve has long suffered from encroachment, illegal mining and felling. The forest’s own spring, the society’s only water source, has stopped flowing for a few weeks in recent dry seasons, and a project to revive it is under way.',
         ],
-        note: 'No freely licensed photograph of Loiya or of Punshilok exists, and the forest has no mapped location precise enough for a satellite comparison, so none appears here.',
+        note: 'No before-and-after view here: Punshilok has no mapped boundary, so the forest cannot be told apart from the rest of the hill range on satellite images.',
         sources: [
           { title: 'Mongabay India — Protecting a forest on a hill in Imphal (2021)', url: 'https://india.mongabay.com/2021/10/protecting-a-forest-on-a-hill-in-imphal/' },
           { title: 'EastMojo — Manipur man converts barren land into 300-acre forest (2022)', url: 'https://eastmojo.com/manipur/2022/11/13/manipur-man-converts-barren-land-into-300-acre-forest/' },
@@ -1084,7 +1108,7 @@ export function photoSrcset(photo) {
 export function photoCredit(photo) {
   const via = photo.via ? `, via ${photo.via}` : '';
   const cropped = photo.cropped ? '; cropped' : '';
-  return `Photo: ${photo.author} (${photo.license}${via}${cropped}). Source: ${photo.source}`;
+  return `${photo.creditLabel ?? 'Photo'}: ${photo.author} (${photo.license}${via}${cropped}). Source: ${photo.source}`;
 }
 
 // ---- Markdown rendering (shared by the .md alternates) --------------------
