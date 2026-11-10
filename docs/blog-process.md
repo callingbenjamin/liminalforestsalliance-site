@@ -41,6 +41,10 @@ listing all follow from it.
      story to the alliance's model (secure large wild land, then place each
      property in an independent trust so protection lasts).
    - `sources` — an array of `{ title, url }`, **at least two** real URLs.
+   - `photos` and `cover` — every post gets at least one free-licensed,
+     credited photo, shown at the top of the post and on its `/blog` card.
+     If no photo of the exact place exists, use one of the same landscape and
+     say so in the caption. See "Images" below.
 
 2. **Add the post to `public/llms.txt`** under the Blog section: one line with
    an HTML link and a Markdown link (`/blog/<slug>` and `/blog/<slug>.md`).

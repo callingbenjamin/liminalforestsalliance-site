@@ -42,6 +42,10 @@ export const posts = [
     location: 'Chacabuco Valley, Aysén Region, Chile',
     region: 'South America',
     outcome: 'Conservation win',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/chacabuco-guanaco", width: 1200, height: 800, alt: "A guanaco with a pale brown coat browsing low shrubs among dry grass.", caption: "A guanaco browsing in Patagonia National Park, which now covers the former Chacabuco ranch, March 2019.", author: "Natalia Reyes Escobar", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Guanaco_(Lama_guanicoe)_en_el_Parque_Nacional_Patagonia.jpg", via: "Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/chacabuco-guanaco", width: 1200, height: 800, alt: "A guanaco with a pale brown coat browsing low shrubs among dry grass.", focus: "45% 45%", credit: "Photo: Natalia Reyes Escobar, CC BY-SA 4.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:Guanaco_(Lama_guanicoe)_en_el_Parque_Nacional_Patagonia.jpg"},
     size_ha: 70600,
     size_acres: 174457,
     price: 'US$10 million (2004 purchase); donated to Chile in 2018',
@@ -107,6 +111,10 @@ export const posts = [
     location: 'Los Ríos Region, Chile',
     region: 'South America',
     outcome: 'Conservation win',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/valdivian-coast", width: 1200, height: 845, alt: "Dense green forest running down to a rocky Pacific shore under a grey sky.", caption: "Coastal forest meeting the Pacific in the Valdivian Coastal Reserve, Los Ríos, April 2015.", author: "Natalia Reyes Escobar", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Reserva_Costera_Valdiviana_03.jpg", via: "Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/valdivian-coast", width: 1200, height: 845, alt: "Dense green forest running down to a rocky Pacific shore under a grey sky.", focus: "50% 50%", credit: "Photo: Natalia Reyes Escobar, CC BY-SA 4.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:Reserva_Costera_Valdiviana_03.jpg"},
     size_ha: 60000,
     size_acres: 148000,
     price: 'Not officially disclosed; reported by WWF at about US$7.5 million',
@@ -171,6 +179,10 @@ export const posts = [
     location: 'Virginia, Kentucky and Tennessee, United States',
     region: 'North America',
     outcome: 'Conservation win',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/breaks-canyon", width: 1200, height: 900, alt: "A winding river gorge between steep, forested ridges in late winter.", caption: "Breaks Canyon, on the Virginia and Kentucky border, in February 2018: the same central Appalachian forest country. It is a public park, not project land; we found no freely licensed photograph of the project land itself.", author: "Bpluke01", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Breaks_Canyon;_February_2018.jpg", via: "Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/breaks-canyon", width: 1200, height: 900, alt: "A winding river gorge between steep, forested ridges in late winter.", focus: "50% 45%", credit: "Photo: Bpluke01, CC BY-SA 4.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:Breaks_Canyon;_February_2018.jpg"},
     size_ha: 102386,
     size_acres: 253000,
     price: 'US$130 million',
@@ -231,6 +243,10 @@ export const posts = [
     location: 'North West Province, South Africa',
     region: 'Africa',
     outcome: 'Conservation win',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/white-rhino-calf", width: 1200, height: 800, alt: "A grey white rhino and her small calf touching noses in tall green grass.", caption: "A white rhino and her calf in Kruger National Park, South Africa, 2024. These are not animals from the Platinum Rhino herd; we found no freely licensed photograph of the property.", author: "Charles J. Sharp", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:White_rhinoceros_(Ceratotherium_simum)_with_calf_Kruger.jpg", via: "Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/white-rhino-calf", width: 1200, height: 800, alt: "A grey white rhino and her small calf touching noses in tall green grass.", focus: "45% 50%", credit: "Photo: Charles J. Sharp, CC BY-SA 4.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:White_rhinoceros_(Ceratotherium_simum)_with_calf_Kruger.jpg"},
     size_ha: 7800,
     size_acres: 19274,
     price: 'Not publicly disclosed',
@@ -287,6 +303,10 @@ export const posts = [
     location: 'Arid South Australia, Australia',
     region: 'Australia and the Pacific',
     outcome: 'Conservation win',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/lake-gairdner", width: 1200, height: 800, alt: "Red soil and grey-green bluebush shrubs in front of a pink salt pan, with a lone tree.", caption: "Red earth, bluebush and a salt pan in Lake Gairdner National Park, about 130 kilometres south of Bon Bon, in 2009. This is not Bon Bon, but it is the same kind of arid salt-lake country; we found no freely licensed photograph of the reserve.", author: "Murray Foubister", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", source: "https://commons.wikimedia.org/wiki/File:Scene_in_Lake_Gairdner_National_Park,_South_Australia.jpg", via: "Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/lake-gairdner", width: 1200, height: 800, alt: "Red soil and grey-green bluebush shrubs in front of a pink salt pan, with a lone tree.", focus: "50% 55%", credit: "Photo: Murray Foubister, CC BY-SA 2.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:Scene_in_Lake_Gairdner_National_Park,_South_Australia.jpg"},
     size_ha: 216454,
     size_acres: 534870,
     price: 'A$4 million, including A$2,093,374 from the Australian Government’s National Reserve System program',
@@ -343,6 +363,10 @@ export const posts = [
     location: 'Kinrara, near Aviemore, Cairngorms, Scottish Highlands',
     region: 'Europe',
     outcome: 'Cautionary tale',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/kinrara-dulnain", width: 1024, height: 768, alt: "Open moorland in a Highland valley, with a dark block of conifer woodland on the far slope.", caption: "The upper Dulnain valley on the Kinrara Estate, west of Aviemore, in July 2022, while BrewDog owned the estate. We could not confirm which parts of the estate were planted.", author: "Richard Webb", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0", source: "https://commons.wikimedia.org/wiki/File:View_down_the_Dulnain,_Kinrara_Estate_-_geograph.org.uk_-_7240806.jpg", via: "Geograph and Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/kinrara-dulnain", width: 1024, height: 768, alt: "Open moorland in a Highland valley, with a dark block of conifer woodland on the far slope.", focus: "50% 50%", credit: "Photo: Richard Webb, CC BY-SA 2.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:View_down_the_Dulnain,_Kinrara_Estate_-_geograph.org.uk_-_7240806.jpg"},
     size_ha: 3765,
     size_acres: 9300,
     price: 'About £8.8 million (widely reported; some reports say £7.5 million or £8.5 million)',
@@ -407,6 +431,10 @@ export const posts = [
     location: 'Chiquitano dry forest, Santa Cruz Department, Bolivia',
     region: 'South America',
     outcome: 'Cautionary tale',
+    // Free-licensed photo (made by scripts/gen-blog-photos.mjs), shown at the
+    // top of the post and on its /blog card.
+    photos: [{src: "/media/blog/dispatches/chiquitania", width: 1200, height: 900, alt: "A sandstone overhang above a wide plain of green forest under a cloudy sky.", caption: "Looking out over forested plains in the Chiquitania from Santiago de Chiquitos, Bolivia, February 2025. This is not the INPA property; we found no freely licensed photograph of it.", author: "Ruditaly", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Vista_desde_Las_Pozas_de_Santiago_de_Chiquitos_-_Bolivia.jpg", via: "Wikimedia Commons"}],
+    cover: {src: "/media/blog/dispatches/chiquitania", width: 1200, height: 900, alt: "A sandstone overhang above a wide plain of green forest under a cloudy sky.", focus: "60% 50%", credit: "Photo: Ruditaly, CC BY-SA 4.0.", creditUrl: "https://commons.wikimedia.org/wiki/File:Vista_desde_Las_Pozas_de_Santiago_de_Chiquitos_-_Bolivia.jpg"},
     size_ha: 30019,
     size_acres: 74179,
     price: 'Reported at about US$20 million, with a US$2 million deposit (preliminary; not confirmed by the parties)',

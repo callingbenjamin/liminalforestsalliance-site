@@ -32,6 +32,14 @@ const API = 'https://commons.wikimedia.org/w/api.php';
 //         of the height to keep (0 top, 0.5 centre).
 // max:    optional largest output width (default 1200).
 const PHOTOS = [
+  // Cover photos for the first seven dispatches (added 2026-11-09)
+  { dir: 'dispatches', key: 'chacabuco-guanaco', file: 'Guanaco_(Lama_guanicoe)_en_el_Parque_Nacional_Patagonia.jpg' },
+  { dir: 'dispatches', key: 'valdivian-coast', file: 'Reserva_Costera_Valdiviana_03.jpg' },
+  { dir: 'dispatches', key: 'breaks-canyon', file: 'Breaks_Canyon;_February_2018.jpg' },
+  { dir: 'dispatches', key: 'white-rhino-calf', file: 'White_rhinoceros_(Ceratotherium_simum)_with_calf_Kruger.jpg' },
+  { dir: 'dispatches', key: 'lake-gairdner', file: 'Scene_in_Lake_Gairdner_National_Park,_South_Australia.jpg' },
+  { dir: 'dispatches', key: 'kinrara-dulnain', file: 'View_down_the_Dulnain,_Kinrara_Estate_-_geograph.org.uk_-_7240806.jpg' },
+  { dir: 'dispatches', key: 'chiquitania', file: 'Vista_desde_Las_Pozas_de_Santiago_de_Chiquitos_-_Bolivia.jpg' },
   // The people who planted forests (2026-11-09)
   { dir: 'planters', key: 'payeng-forest', file: 'Chef_Atul_Lahkar_in_conversation_with_Jadav_Payeng_at_Molai_forest,_Jorhat.jpg' },
   { dir: 'planters', key: 'instituto-terra-hill', file: 'Instituto_Terra_1,_Aymorés-MG.jpg' },
