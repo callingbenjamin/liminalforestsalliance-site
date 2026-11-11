@@ -483,7 +483,111 @@ export const posts = [
     ],
   },
 
-  // 8+ ------------------------------------------------------------------
+  // 8 -------------------------------------------------------------------
+  {
+    slug: 'belize-maya-forest-trust',
+    title: 'Belize\'s Maya Forest: bought from a timber fund, held in trust',
+    date: '2026-11-11',
+    location: 'Orange Walk District, northwestern Belize',
+    region: 'Central America',
+    outcome: 'Conservation win',
+    size_ha: 96000,
+    size_acres: 236000,
+    price: 'Reported by The Nature Conservancy as a US$76.5 million deal; we could not confirm how much of that was the land price alone',
+    saleDate: 'Funds secured and ownership transferred in December 2020; announced April 22, 2021',
+    seller: 'The Forestland Group, a US-based timberland investment manager, whose two timber funds were liquidating the Yalbac and Laguna Seca parcels',
+    buyer: 'The Nature Conservancy and a coalition of more than a dozen partners, with a catalytic gift from the Wyss Foundation; title placed with the new Belize Maya Forest Trust',
+    currentUse: 'A protected tropical forest managed by the Belize Maya Forest Trust under a Conservation Action Plan, with ranger patrols, fire management and community programmes. Logging has stopped, and a REDD+ carbon project validated in 2025 is meant to repay part of the purchase and fund an endowment.',
+    summary: 'In December 2020 a coalition led by The Nature Conservancy bought 236,000 acres of Belizean rainforest that two timber funds were selling off, and placed it in a trust whose terms cannot be changed. It is now a protected forest paid for, in part, by carbon credits.',
+    lead: 'In the northwest corner of Belize, where the Selva Maya runs across the border from Guatemala and Mexico, about 96,000 hectares of rainforest was on the market, and the likely buyers were farmers. In December 2020 it was bought instead by a conservation coalition and handed to a Belizean trust built to hold it for good. The forest is still there, and the question now is whether the money that is meant to keep it there arrives.',
+    sections: [
+      {
+        heading: 'Who sold it, and why it was at risk',
+        paras: [
+          'The land has a layered ownership history. According to The Nature Conservancy, it was once part of the holdings of the Bowen family, among the largest landowners in Belize. After the family patriarch died in 2010, his son Michael Bowen sold off most of the family\'s landholdings, and the timberland went to The Forestland Group, a US-based timberland investment manager. He kept the Gallon Jug estate and its Chan Chich Lodge in the heart of the forest. The Forestland Group logged the land under Forest Stewardship Council guidelines, then put it up for sale again eight years after buying it.',
+          'A project summary prepared for The Nature Conservancy describes the Yalbac and Laguna Seca parcels as being liquidated from two timber funds and offered to agricultural buyers. Forests in Belize were being lost at a rate of nearly 1% a year, and Bowen told The Nature Conservancy he feared the likely buyers would be neighbouring large-scale farmers, leaving Chan Chich as an island of forest in a sea of farmland.',
+        ],
+      },
+      {
+        heading: 'The deal',
+        paras: [
+          'From 2014, Bowen talked with Hank and Wendy Paulson, longtime visitors to Chan Chich, and over the next five years a coalition of more than a dozen groups formed around the purchase, including The Nature Conservancy, the Paulsons\' Bobolink Foundation, Rainforest Trust and the Wyss Foundation. By December 2020 they had the money. A carbon monitoring report records that ownership passed from The Forestland Group to the Belize Maya Forest Trust that same month, and the purchase of 236,000 acres (about 96,000 hectares) was announced on April 22, 2021.',
+          'The Nature Conservancy has described it as a US$76.5 million deal. We could not confirm how that figure divides between the land itself and other costs such as the endowment, so we report it as the deal value rather than the sale price. Sources also count the area differently: the carbon project covers 87,059 hectares, because part of Laguna Seca already sits inside an older carbon project and was left out.',
+        ],
+      },
+      {
+        heading: 'What it is used for now',
+        paras: [
+          'The land is now a protected forest. It adjoins the Rio Bravo Conservation and Management Area, which The Nature Conservancy helped establish in 1989, and together the two cover close to a tenth of Belize. The forest holds jaguars, pumas and tapirs, and The Nature Conservancy says it contains three major watersheds that supply about a third of the country\'s drinking water.',
+          'The Belize Maya Forest Trust, led by biologist Elma Kay, runs it under a Conservation Action Plan. Terra Global Capital, which provides the project\'s technical carbon work, lists ranger patrols against illegal logging and poaching, fire management training, restoration training and microgrants and scholarships across nine neighbouring communities. Logging inside the forest has stopped, which Kay acknowledged cost some villagers their jobs.',
+          'The money side is still unfolding. Under the agreement with the Government of Belize, selling carbon credits from the forest is meant to cover half the purchase cost and fund a US$15 million management endowment. Breaking Belize News reported in July 2025 that the project had been validated under Verra\'s carbon and biodiversity standards, with the potential to generate up to 29.8 million credits and an initial BZ$1.48 million for the government. We could not confirm how many credits, if any, have been issued or sold since.',
+        ],
+      },
+      {
+        heading: 'Why it matters for the trust model',
+        paras: [
+          'This is close to the model the Liminal Forests Alliance argues for. The land was not simply bought by a large conservation group and added to its portfolio. It was transferred to a dedicated Belizean trust, and the project summary states that the terms of that trust are unchangeable and protect the land for an indefinite period. A future board, a new owner or a better offer cannot quietly undo that.',
+          'The history shows why that matters. Under the Bowens and then The Forestland Group, the forest was looked after reasonably well, yet each owner could still sell, and the last sale nearly sent it to the plough. Good stewardship kept it standing; only a change in how it is held made that permanent.',
+          'It also shows what a trust cannot settle on its own. Protection is fixed, but the endowment that pays for rangers and fire crews still depends on carbon credits being issued and sold. Securing the land is the first step, and funding its care for decades is the second.',
+        ],
+      },
+    ],
+    sources: [
+      {
+        title: 'The Nature Conservancy: Saving the Maya Rainforest (Winter 2021)',
+        url: 'https://www.nature.org/en-us/magazine/magazine-articles/saving-the-maya-rainforest/',
+      },
+      {
+        title: 'The Nature Conservancy: Protecting the Jewel of Central America (April 22, 2021)',
+        url: 'https://www.nature.org/en-us/what-we-do/our-insights/perspectives/protecting-belize-maya-forest-biodiversity-climate/',
+      },
+      {
+        title: 'Rainforest Trust: Partnering to Preserve Belize Maya Forest (April 23, 2021)',
+        url: 'https://www.rainforesttrust.org/our-impact/rainforest-news/partnering-to-preserve-belize-maya-forest/',
+      },
+      {
+        title: 'Terra Global Capital: Belize Maya Forest REDD+ Program',
+        url: 'https://www.terraglobalcapital.com/belize-redd-apd-i-program/',
+      },
+      {
+        title: 'Belize Maya Forest REDD+ Project summary (prepared for The Nature Conservancy)',
+        url: 'https://www.terraglobalcapital.com/wp-content/uploads/2024/09/BMF-Summary_ENG_v1-0.pdf',
+      },
+      {
+        title: 'Laguna Seca Forest Carbon Project monitoring report (ownership transfer, December 2020)',
+        url: 'https://www.terraglobalcapital.com/wp-content/uploads/2024/08/Belize-Laguna-Seca-1326-MR2-CCBv3.0-VCSv3.4-v18-0.pdf',
+      },
+      {
+        title: 'Breaking Belize News: Belize Maya Forest Carbon Project reaches major milestone with international validation (July 22, 2025)',
+        url: 'https://www.breakingbelizenews.com/2025/07/22/belize-maya-forest-carbon-project-reaches-major-milestone-with-international-validation/',
+      },
+    ],
+    photos: [
+      {
+        src: '/media/blog/dispatches/belize-canopy',
+        width: 1200,
+        height: 900,
+        alt: 'Green forest canopy viewed from above in Belize.',
+        caption: 'Forest canopy near Lamanai, Orange Walk District, Belize, January 2011. This is not the purchased Belize Maya Forest property.',
+        author: 'Heath Alseike',
+        license: 'CC BY 2.0',
+        licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+        source: 'https://commons.wikimedia.org/wiki/File:Forest_canopy_in_Belize_(5344010084).jpg',
+        via: 'Wikimedia Commons',
+      },
+    ],
+    cover: {
+      src: '/media/blog/dispatches/belize-canopy',
+      width: 1200,
+      height: 900,
+      alt: 'Green forest canopy viewed from above in Belize.',
+      focus: '50% 50%',
+      credit: 'Photo: Heath Alseike, CC BY 2.0.',
+      creditUrl: 'https://commons.wikimedia.org/wiki/File:Forest_canopy_in_Belize_(5344010084).jpg',
+    },
+  },
+
+  // 9+ ------------------------------------------------------------------
   // "They planted forests by hand" series: a hub post plus one story per
   // forest maker. Kept in its own module; see src/data/blog-planters.js.
   ...plantersPosts,

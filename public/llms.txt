@@ -50,6 +50,7 @@ Each dispatch is a short, sourced story. Facts are drawn from the cited sources 
 - Bon Bon: a sheep station the size of a small country, retired (Australia, conservation win) - [HTML](https://liminalforestsalliance.com/blog/bon-bon-station-reserve) and [Markdown](https://liminalforestsalliance.com/blog/bon-bon-station-reserve.md)
 - The Lost Forest that lived up to its name (Scotland, cautionary tale) - [HTML](https://liminalforestsalliance.com/blog/brewdog-lost-forest-kinrara) and [Markdown](https://liminalforestsalliance.com/blog/brewdog-lost-forest-kinrara.md)
 - An island of forest, and the soy frontier closing in (Bolivia, cautionary tale) - [HTML](https://liminalforestsalliance.com/blog/chiquitano-dry-forest-inpa) and [Markdown](https://liminalforestsalliance.com/blog/chiquitano-dry-forest-inpa.md)
+- Belize's Maya Forest: bought from a timber fund, held in trust (Belize, conservation win) - [HTML](https://liminalforestsalliance.com/blog/belize-maya-forest-trust) and [Markdown](https://liminalforestsalliance.com/blog/belize-maya-forest-trust.md)
 
 ## Site resources
 
